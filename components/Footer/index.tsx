@@ -4,8 +4,10 @@ import ListSocial from '../Social/ListSocial';
 
 const Footer = () => {
   return (
-    <HStack justifyContent="space-between">
-      <Text>© 2024 Lottery StarkArcade. All rights reserved.</Text>
+    <HStack justifyContent="space-between" py={6}>
+      <Text color="primary.gray.500">
+        © 2024 Lottery StarkArcade. All rights reserved.
+      </Text>
       <ListSocial />
     </HStack>
   );

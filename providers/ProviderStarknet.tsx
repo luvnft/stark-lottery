@@ -1,25 +1,22 @@
-import { goerli, mainnet } from '@starknet-react/chains';
+import { goerli, sepolia } from '@starknet-react/chains';
 import {
+  InjectedConnector,
   StarknetConfig,
-  argent,
-  braavos,
   publicProvider,
-  useInjectedConnectors,
 } from '@starknet-react/core';
 import React, { PropsWithChildren } from 'react';
+import { ArgentMobileConnector } from 'starknetkit/argentMobile';
 
 const ProviderStarknet = ({ children }: PropsWithChildren) => {
-  const { connectors } = useInjectedConnectors({
-    // Show these connectors if the user has no connector installed.
-    recommended: [argent(), braavos()],
-    // Hide recommended connectors if the user has any connector installed.
-    includeRecommended: 'onlyIfNoConnectors',
-    // Randomize the order of the connectors.
-    order: 'random',
-  });
+  const connectors = [
+    new InjectedConnector({ options: { id: 'argentX', name: 'Argent' } }),
+    new InjectedConnector({ options: { id: 'braavos', name: 'Braavos' } }),
+    new ArgentMobileConnector(),
+  ];
+
   return (
     <StarknetConfig
-      chains={[mainnet, goerli]}
+      chains={[sepolia, goerli]}
       provider={publicProvider()}
       connectors={connectors}
     >
