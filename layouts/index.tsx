@@ -9,7 +9,9 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
     <>
       <Header />
       <Container maxWidth="container.xl">
-        <Box minH="100vh">{children}</Box>
+        <Box minH="90vh" py={4}>
+          {children}
+        </Box>
         <Footer />
       </Container>
     </>

@@ -56,11 +56,25 @@ export const colors = {
   body: '#0F1005',
   ...backgrounds,
 };
-
+const Button: ComponentStyleConfig = {
+  variants: {
+    gradient_1: {
+      width: 'full',
+      bg: 'gradient.100',
+      borderRadius: 'xl',
+      py:6,
+      color:'white',
+      transition:'all .3s',
+      _hover:{
+        opacity:0.7
+      }
+    }
+  }
+}
 const theme = extendTheme({
   colors,
   components: {
-
+    Button
   },
 });
 
