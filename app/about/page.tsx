@@ -1,3 +1,7 @@
-export default () => {
-  return <>About Page</>;
+import React from 'react';
+
+const AboutPage = () => {
+  return <div>AboutPage</div>;
 };
+
+export default AboutPage;

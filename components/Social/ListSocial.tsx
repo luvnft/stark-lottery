@@ -31,9 +31,9 @@ const ListSocial = () => {
   return (
     <HStack>
       {ListMediaSocial.map(item => (
-        <Link href={item.link}>
+        <Link href={item.link} key={item.id}>
           <IconButton
-            icon={<Icon as={item.icon} h={6} w={6} />}
+            icon={<Icon as={item.icon} h={5} w={5} />}
             aria-label={''}
           />
         </Link>

@@ -1,3 +1,7 @@
-export default () => {
-  return <>Result Page</>;
+import React from 'react';
+
+const ResultPage = () => {
+  return <div>ResultPage</div>;
 };
+
+export default ResultPage;
