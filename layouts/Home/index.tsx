@@ -6,7 +6,13 @@ import Link from 'next/link';
 const HomePage = () => {
   return (
     <Center height="100vh">
-      <Box bg="primary.gray.200" width="600px" padding={6} borderRadius="2xl">
+      <Box
+        bg="primary.gray.200"
+        width={{ lg: '600px', md: '500px', base: '300px' }}
+        padding={6}
+        borderRadius="2xl"
+        py={8}
+      >
         <Flex flexDirection="column" gap={3} alignItems="center">
           <Icon as={NumberIcon} height={24} width="auto" />
           <Text fontSize="3xl" fontWeight="bold">

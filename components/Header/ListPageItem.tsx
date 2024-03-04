@@ -25,7 +25,10 @@ const ListPageItem = () => {
     },
   ];
   return (
-    <HStack gap={{ lg: 8, md: 6, base: 4 }}>
+    <HStack
+      gap={{ lg: 8, md: 6, base: 4 }}
+      display={{ md: 'flex', base: 'none' }}
+    >
       {ListPage.map(item => (
         <Link href={item.link} key={item.link}>
           <Text fontWeight="medium">{item.title}</Text>

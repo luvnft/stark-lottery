@@ -1,5 +1,5 @@
 'use client';
-import { Box, Flex, HStack, Icon, Text } from '@chakra-ui/react';
+import { Flex, HStack, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import NumberIcon from '@/public/assets/arts/number.svg';
 import LotteriesWork from './LotteriesWork';

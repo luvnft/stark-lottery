@@ -25,6 +25,26 @@ const LotteriesPickNumber = () => {
       }
     }
   };
+  function getRandomNumbers() {
+    const minNumber = 1;
+    const maxNumber = 45;
+    const numberOfNumbers = 6;
+
+    const randomNumbers: number[] = [];
+
+    while (randomNumbers.length < numberOfNumbers) {
+      const randomNumber =
+        Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+
+      // Ensure the generated number is not already in the array
+      if (!randomNumbers.includes(randomNumber)) {
+        randomNumbers.push(randomNumber);
+      }
+    }
+
+    return randomNumbers;
+  }
+
   return (
     <Box
       padding={6}
@@ -40,12 +60,20 @@ const LotteriesPickNumber = () => {
         </Text>
         <HStack gap={4}>
           <IconButton
+            onClick={() => {
+              const value = getRandomNumbers();
+              console.log('das', value);
+              setListNumber(value);
+            }}
             icon={<Icon as={RandomIcon} h={8} w={8} />}
             aria-label=""
           />
           <IconButton
             icon={<Icon as={ClearIcon} h={8} w={8} />}
             aria-label=""
+            onClick={() => {
+              setListNumber([]);
+            }}
           />
         </HStack>
       </HStack>
