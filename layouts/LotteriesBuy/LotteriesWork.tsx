@@ -56,7 +56,7 @@ const LotteriesWork = () => {
               justifyContent="space-between"
             >
               <Text>{item.guess}</Text>
-              <Text>{item.price}</Text>
+              <Text>{item.price} STRK</Text>
             </HStack>
           ))}
         </Flex>

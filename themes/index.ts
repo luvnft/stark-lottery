@@ -68,6 +68,11 @@ const Button: ComponentStyleConfig = {
       _hover:{
         opacity:0.7
       }
+    },
+    lotteryNumber:{
+        height:12,
+        width:12,
+        bg:'white'
     }
   }
 }

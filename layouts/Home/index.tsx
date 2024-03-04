@@ -23,7 +23,7 @@ const HomePage = () => {
               width: '100%',
             }}
           >
-            <Button variant="gradient_1">Ticket Price 0.2 STRK</Button>
+            <Button variant="gradient_1">Ticket Price 0.5 STRK</Button>
           </Link>
         </Flex>
       </Box>

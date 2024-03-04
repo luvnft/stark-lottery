@@ -3,6 +3,7 @@ import { Box, Flex, HStack, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import NumberIcon from '@/public/assets/arts/number.svg';
 import LotteriesWork from './LotteriesWork';
+import LotteriesPickNumber from './LotteriesPickNumber';
 const LotteriesBuyPage = () => {
   return (
     <>
@@ -23,6 +24,7 @@ const LotteriesBuyPage = () => {
             </Text>
           </Flex>
         </HStack>
+        <LotteriesPickNumber />
         <LotteriesWork />
       </Flex>
     </>
