@@ -8,9 +8,17 @@ const LotteriesBuyPage = () => {
   return (
     <>
       <Flex flexDirection="column" gap={5}>
-        <HStack width="full" justifyContent="space-between">
+        <HStack
+          width="full"
+          justifyContent={{ md: 'space-between', base: 'flex-end' }}
+          flexWrap={{ md: 'nowrap', base: 'wrap' }}
+        >
           <HStack>
-            <Icon as={NumberIcon} height={12} width="auto" />
+            <Icon
+              as={NumberIcon}
+              height={{ lg: 12, base: 8, md: 6 }}
+              width="auto"
+            />
             <Text fontSize="xl" fontWeight="bold">
               Lottery "6 out of 45"
             </Text>

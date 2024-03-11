@@ -20,10 +20,10 @@ export default function ModalConnectWallet({
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
-      <ModalContent bg="white" borderRadius="lg">
+      <ModalContent bg="white" borderRadius="lg" margin={{ md: 0, base: 4 }}>
         <ModalHeader
-          textAlign={'center'}
-          py={8}
+          textAlign="center"
+          py={{ md: 8, base: 6 }}
           fontWeight="extrabold"
           fontSize="2xl"
         >

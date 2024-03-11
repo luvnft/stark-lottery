@@ -1,6 +1,6 @@
 import React from 'react';
 import WinHandIcon from '@/public/assets/arts/give_ticket.svg';
-import { Box, Flex, HStack, Icon, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, HStack, Icon, Text } from '@chakra-ui/react';
 interface IWinGuessProps {
   guess: string;
   price: string;
@@ -33,11 +33,26 @@ const LotteriesWork = () => {
       <Text mb={8} fontSize="2xl" fontWeight="extrabold">
         What you can win
       </Text>
-      <Flex justifyContent="space-between">
-        <Box>
-          <Icon as={WinHandIcon} height="320px" width="auto" />
+      <Flex
+        justifyContent="space-between"
+        flexWrap={{ md: 'nowrap', base: 'wrap' }}
+      >
+        <Box
+          as={Center}
+          width="full"
+          justifyContent={{ md: 'flex-start', base: 'center' }}
+        >
+          <Icon
+            as={WinHandIcon}
+            height={{ md: '320px', base: '240px' }}
+            width="auto"
+          />
         </Box>
-        <Flex flexDirection="column" gap={5} minW="400px">
+        <Flex
+          flexDirection="column"
+          gap={5}
+          minW={{ md: '400px', base: '300px' }}
+        >
           <HStack
             justifyContent="space-between"
             width="full"

@@ -8,7 +8,7 @@ const HomePage = () => {
     <Center height="100vh">
       <Box
         bg="primary.gray.200"
-        width={{ lg: '600px', md: '500px', base: '300px' }}
+        width={{ lg: '600px', md: '500px', base: 'full' }}
         padding={6}
         borderRadius="2xl"
         py={8}

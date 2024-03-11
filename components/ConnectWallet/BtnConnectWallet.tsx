@@ -15,7 +15,9 @@ const BtnConnectWallet = ({ onClick, icon, label }: any) => (
     px={8}
   >
     <Icon as={icon} h={6} w={6} />
-    <Text fontSize={'lg'}>{label}</Text>
+    <Text fontSize="lg" fontWeight="medium">
+      {label}
+    </Text>
   </Flex>
 );
 

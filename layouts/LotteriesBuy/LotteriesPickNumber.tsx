@@ -85,7 +85,7 @@ const LotteriesPickNumber = () => {
         max={6}
         borderRadius="2xl"
       />
-      <Flex gap={5} flexWrap="wrap">
+      <Flex gap={{ md: 5, base: 4 }} flexWrap="wrap">
         {Array.from({ length: 45 }).map((_, index) => {
           const active = listNumber.includes(index + 1);
           return (
