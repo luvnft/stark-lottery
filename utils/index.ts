@@ -10,3 +10,5 @@ export function ellipseMiddle(
 }
 // regex match number
 export const checkIsNumber = (query: string) => query.match(/^[0-9]+$/);
+
+// Setting Store Data into cookie

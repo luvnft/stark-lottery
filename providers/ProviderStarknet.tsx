@@ -9,9 +9,9 @@ import { ArgentMobileConnector } from 'starknetkit/argentMobile';
 
 const ProviderStarknet = ({ children }: PropsWithChildren) => {
   const connectors = [
-    new InjectedConnector({ options: { id: 'argentX', name: 'Argent' } }),
+    new InjectedConnector({ options: { id: 'argentX', name: 'Argent' } }), // Suggest Injected Conenctor
     new InjectedConnector({ options: { id: 'braavos', name: 'Braavos' } }),
-    new ArgentMobileConnector(),
+    new ArgentMobileConnector(), // Mobile Scan Argent Working - Display Type Modal
   ];
 
   return (
