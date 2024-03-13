@@ -42,10 +42,10 @@ const Header = () => {
       as="header"
       position="sticky"
       top={0}
+      bg="primary.game.100"
       borderBottom="0.064rem solid"
-      borderBottomColor="primary.gray.300"
-      bg="white"
-      zIndex="9"
+      borderBottomColor="primary.game.300"
+      zIndex={9}
     >
       <Container maxWidth="container.xl">
         <HStack justifyContent="space-between" py={6}>
@@ -53,7 +53,13 @@ const Header = () => {
             <Text> Logo Decolgen</Text>
           </Link>
 
-          <ListPageItem />
+          <ListPageItem
+            sx={{
+              display: { md: 'flex', base: 'none' },
+              fontWeight: 'bold',
+              fontSize: 'lg',
+            }}
+          />
           {user ? <ProfileAccount /> : <ConnectWallet />}
         </HStack>
       </Container>

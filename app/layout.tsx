@@ -1,9 +1,9 @@
 import DefaultLayout from '@/layouts';
 import Providers from '@/providers';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Nunito_Sans } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const nutino = Nunito_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Starknet Lottery | Decolgen Labs',
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={nutino.className}>
         <Providers>
           <DefaultLayout>{children}</DefaultLayout>
         </Providers>

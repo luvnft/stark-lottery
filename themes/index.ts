@@ -1,13 +1,17 @@
 import { ComponentStyleConfig, extendTheme } from '@chakra-ui/react';
 export const backgrounds = {
   gradient: {
-    100: 'linear-gradient(62deg, #1A3E92 0%, #661B88 100%)',
-    200: 'linear-gradient(214deg, #B75CFF 0%, #671AE4 100%)',
-    300: 'linear-gradient(62deg, #1A3E92 0%, #661B88 100%)',
+    100: 'linear-gradient(90deg, #0165FB 0%, #1DC9F8 100%)',
   },
 };
+
 export const colors = {
   primary: {
+    game: {
+      100: '#040A2F',
+      200: '#081041',
+      300: '#1b266b',
+    },
     shader: {
       50: '#FFFBE8',
       100: '#FFF7D1',
@@ -56,30 +60,66 @@ export const colors = {
   body: '#0F1005',
   ...backgrounds,
 };
+
+const styles = {
+  // eslint-disable-next-line no-unused-vars
+  global: () => ({
+    body: {
+      bg: 'primary.game.100',
+      color: '#E4E8FF',
+    },
+  }),
+};
+const Text: ComponentStyleConfig = {
+  variants: {
+    title: {
+      fontSize: '32px',
+      fontWeight: 800,
+      color: 'white',
+      textAlign: 'center',
+    },
+  },
+};
 const Button: ComponentStyleConfig = {
   variants: {
     gradient_1: {
       width: 'full',
       bg: 'gradient.100',
       borderRadius: 'xl',
-      py:6,
-      color:'white',
+      py: 6,
+      color: 'white',
+      transition: 'all .3s',
+      _hover: {
+        opacity: 0.7,
+      },
+    },
+    primary: {
+      px: 8,
+      py: 4,
+      borderRadius: '32px',
+      bg: 'primary.game.300',
+      width: 'fit-content',
       transition:'all .3s',
+      minW:'240px',
+      minH:'60px',
+      fontWeight:'700',
       _hover:{
-        opacity:0.7
+        bg:'gradient.100'
       }
     },
-    lotteryNumber:{
-        height:12,
-        width:12,
-        bg:'white'
-    }
-  }
-}
+    lotteryNumber: {
+      height: 12,
+      width: 12,
+      bg: 'white',
+    },
+  },
+};
 const theme = extendTheme({
   colors,
+  styles,
   components: {
-    Button
+    Button,
+    Text,
   },
 });
 

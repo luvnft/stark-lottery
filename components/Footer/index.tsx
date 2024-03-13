@@ -1,15 +1,14 @@
-import { HStack, Text } from '@chakra-ui/react';
+import { Container, HStack, Text } from '@chakra-ui/react';
 import React from 'react';
 import ListSocial from '../Social/ListSocial';
 
 const Footer = () => {
   return (
-    <HStack justifyContent="space-between" py={6} flexWrap="wrap">
-      <Text color="primary.gray.500" fontSize="sm">
-        © 2024 Lottery StarkArcade. All rights reserved.
-      </Text>
-      <ListSocial />
-    </HStack>
+    <Container maxWidth="container.2xl" background="primary.game.300">
+      <HStack justifyContent="center" py={6} width="full" flexWrap="wrap">
+        <Text color="#E4E8FF">© 2024 Stark Lottery. All rights reserved.</Text>
+      </HStack>
+    </Container>
   );
 };
 
