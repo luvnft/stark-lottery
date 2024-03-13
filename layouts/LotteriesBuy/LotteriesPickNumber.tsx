@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Container,
   Flex,
   HStack,
   Icon,
@@ -48,7 +49,7 @@ const LotteriesPickNumber = () => {
   return (
     <Box
       padding={6}
-      background="primary.gray.200"
+      background="#0A1450"
       borderRadius="2xl"
       display="flex"
       flexDirection="column"
@@ -80,8 +81,9 @@ const LotteriesPickNumber = () => {
       <Text>Pick 6 number</Text>
       <Progress
         value={listNumber.length}
-        size="lg"
-        colorScheme="pink"
+        size="sm"
+        variant="pick_progress"
+        bg="#192678"
         max={6}
         borderRadius="2xl"
       />

@@ -114,12 +114,25 @@ const Button: ComponentStyleConfig = {
     },
   },
 };
+
+export const Progress:ComponentStyleConfig={
+  variants:{
+    pick_progress:{
+    
+
+       filledTrack: {
+          bg: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)'
+        }
+    }
+  }
+}
 const theme = extendTheme({
   colors,
   styles,
   components: {
     Button,
     Text,
+    Progress
   },
 });
 

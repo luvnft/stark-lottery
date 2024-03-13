@@ -17,16 +17,16 @@ const ListPageItem = ({ sx }: IProps) => {
       title: 'Home',
     },
     {
+      link: '/lotteries',
+      title: 'Lotteries',
+    },
+    {
       link: '/tickets',
       title: 'My Tickets',
     },
     {
       link: '/results',
       title: 'Results',
-    },
-    {
-      link: '/about',
-      title: 'About',
     },
   ];
   return (

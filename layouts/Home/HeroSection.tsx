@@ -1,9 +1,10 @@
 import { Box, Center, Text, Image, Button, Flex } from '@chakra-ui/react';
 import React from 'react';
+
 const HeroSection = () => {
   return (
     <>
-      <Center>
+      <Center py={14}>
         <Flex flexDirection="column" gap={6}>
           <Text>INTRODUCING LOTTERY</Text>
           <Text fontSize="64px" fontWeight="800">
