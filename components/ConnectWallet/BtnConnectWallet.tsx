@@ -8,14 +8,14 @@ const BtnConnectWallet = ({ onClick, icon, label }: any) => (
     gap={{ md: 4, base: 3 }}
     cursor="pointer"
     _hover={{
-      bg: 'primary.gray.700',
+      bg: 'gradient.100',
       color: 'white',
     }}
     onClick={onClick}
     px={8}
   >
     <Icon as={icon} h={6} w={6} />
-    <Text fontSize="lg" fontWeight="medium">
+    <Text fontSize="lg" fontWeight="bold">
       {label}
     </Text>
   </Flex>

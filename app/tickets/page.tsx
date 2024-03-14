@@ -1,7 +1,8 @@
+import MyTicketPage from '@/layouts/MyTicket';
 import React from 'react';
 
 const TicketsPage = () => {
-  return <div>TicketsPage</div>;
+  return <MyTicketPage />;
 };
 
 export default TicketsPage;

@@ -1,7 +1,7 @@
 import {
   Box,
   Button,
-  Container,
+  Center,
   Flex,
   HStack,
   Icon,
@@ -12,7 +12,7 @@ import {
 import React, { useState } from 'react';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
 import RandomIcon from '@/public/assets/icons/general/random.svg';
-
+import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
   const handleSelectNumber = (value: number) => {
@@ -56,9 +56,7 @@ const LotteriesPickNumber = () => {
       gap={5}
     >
       <HStack justifyContent="space-between">
-        <Text fontWeight="bold" fontSize="lg">
-          Ticket
-        </Text>
+        <Text variant="title">Ticket</Text>
         <HStack gap={4}>
           <IconButton
             onClick={() => {
@@ -78,7 +76,7 @@ const LotteriesPickNumber = () => {
           />
         </HStack>
       </HStack>
-      <Text>Pick 6 number</Text>
+      <Text color="#7A8CFF">Pick 6 number</Text>
       <Progress
         value={listNumber.length}
         size="sm"
@@ -87,28 +85,33 @@ const LotteriesPickNumber = () => {
         max={6}
         borderRadius="2xl"
       />
-      <Flex gap={{ md: 5, base: 4 }} flexWrap="wrap">
+      <Flex gap={{ md: 8, base: 6 }} flexWrap="wrap" my={6}>
         {Array.from({ length: 45 }).map((_, index) => {
           const active = listNumber.includes(index + 1);
           return (
             <Button
               variant="lotteryNumber"
-              bg={active ? 'gradient.100' : undefined}
-              color={active ? 'white' : undefined}
-              _hover={{}}
+              isActive={active}
               key={index + 1}
               onClick={() => {
                 handleSelectNumber(index + 1);
               }}
             >
-              {index + 1}
+              <Text>{index + 1}</Text>
             </Button>
           );
         })}
       </Flex>
-      {listNumber.length == 6 && (
-        <Button variant="gradient_1">Buy Ticket | 0.5 STRK</Button>
-      )}
+      <Center>
+        {listNumber.length == 6 && (
+          <Button
+            variant="buy_ticket"
+            rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
+          >
+            Buy Ticket | 0.5
+          </Button>
+        )}
+      </Center>
     </Box>
   );
 };

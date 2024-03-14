@@ -82,12 +82,12 @@ const Text: ComponentStyleConfig = {
 };
 const Button: ComponentStyleConfig = {
   variants: {
-    gradient_1: {
-      width: 'full',
-      bg: 'gradient.100',
-      borderRadius: 'xl',
+    buy_ticket: {
+      width: 'fit-content',
+      bg: '#151933',
+      borderRadius: '3xl',
+      minW:'242px',
       py: 6,
-      color: 'white',
       transition: 'all .3s',
       _hover: {
         opacity: 0.7,
@@ -99,40 +99,63 @@ const Button: ComponentStyleConfig = {
       borderRadius: '32px',
       bg: 'primary.game.300',
       width: 'fit-content',
-      transition:'all .3s',
-      minW:'240px',
-      minH:'60px',
-      fontWeight:'700',
-      _hover:{
-        bg:'gradient.100'
-      }
+      transition: 'all .3s',
+      minW: '240px',
+      minH: '60px',
+      fontWeight: '700',
+      _hover: {
+        bg: 'gradient.100',
+      },
     },
-    lotteryNumber: {
+    lotteryNumber: ({ isActive }) => ({
       height: 12,
       width: 12,
-      bg: 'white',
-    },
+      fontWeight: 700,
+      position: 'relative',
+      transform: 'rotate(-45deg)',
+      background: '#192678',
+       _before:{
+        content: '""',
+        display:isActive?'block':'none',
+        position: 'absolute',
+        inset: 0,
+        borderRadius:'8px',
+        padding: '4px',
+        background: 'gradient.100',
+        ' -webkit-mask':
+          ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+        '  -webkit-mask-composite': 'xor',
+        ' mask-composite': 'exclude',
+      },
+      p: {
+        fontSize:'xl',
+        backgroundClip: isActive ? 'text' : undefined,
+        background: isActive ? 'gradient.100' : undefined,
+        ' -webkit-background-clip': isActive ? 'text' : undefined,
+        '-webkit-text-fill-color': isActive ? 'transparent' : undefined,
+        transform:'rotate(45deg)',     
+      },
+      _hover: {},
+    }),
   },
 };
 
-export const Progress:ComponentStyleConfig={
-  variants:{
-    pick_progress:{
-    
-
-       filledTrack: {
-          bg: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)'
-        }
-    }
-  }
-}
+export const Progress: ComponentStyleConfig = {
+  variants: {
+    pick_progress: {
+      filledTrack: {
+        bg: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
+      },
+    },
+  },
+};
 const theme = extendTheme({
   colors,
   styles,
   components: {
     Button,
     Text,
-    Progress
+    Progress,
   },
 });
 

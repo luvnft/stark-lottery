@@ -37,7 +37,50 @@ const Lotteries = () => {
           padding={10}
           borderRadius="2xl"
         >
-          <Text fontSize="3xl" fontWeight="bold">
+          <Center position="relative">
+            <Button
+              variant="lotteryNumber"
+              isActive={false}
+              bg="gradient.100"
+              zIndex={1}
+              borderRadius="3xl"
+              boxShadow=" 0px 4px 4px 0px #00000040"
+              height="80px"
+              width="80px"
+            >
+              <Text
+                fontSize="48px!important"
+                fontWeight="bold"
+                color="white!important"
+              >
+                6
+              </Text>
+            </Button>
+            <Button
+              variant="lotteryNumber"
+              isActive={true}
+              borderRadius="3xl"
+              height="80px"
+              width="80px"
+              _before={{
+                content: '""',
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '3xl',
+                padding: '2px',
+                background: 'gradient.100',
+                ' -webkit-mask':
+                  ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                '  -webkit-mask-composite': 'xor',
+                ' mask-composite': 'exclude',
+              }}
+            >
+              <Text fontSize="48px!important" fontWeight="bold">
+                45
+              </Text>
+            </Button>
+          </Center>
+          <Text fontSize="3xl" fontWeight="bold" mt={8}>
             Lottery "6 out of 45 "
           </Text>
 
@@ -45,7 +88,9 @@ const Lotteries = () => {
             <Flex flexDirection="column">
               <Text fontSize="lg">Jackpot</Text>
               <HStack>
-                <Text>500 </Text>
+                <Text fontSize="lg" fontWeight="bold">
+                  500
+                </Text>
                 <Icon as={StarknetIcon} height={6} width={6} />
               </HStack>
             </Flex>
@@ -59,7 +104,9 @@ const Lotteries = () => {
           </HStack>
 
           <Link href={`/lotteries/lot1`}>
-            <Button variant="primary">Ticket price 0.4 STRK</Button>
+            <Button variant="primary" width="full">
+              Ticket price 0.4 STRK
+            </Button>
           </Link>
         </Flex>
       </Center>

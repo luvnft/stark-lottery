@@ -66,7 +66,6 @@ const LotteriesWork = () => {
             <HStack
               width="full"
               fontWeight="bold"
-              color="primary.gray.500"
               key={`ticket-guess-${index}`}
               justifyContent="space-between"
             >
