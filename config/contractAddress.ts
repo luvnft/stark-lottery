@@ -1,0 +1,6 @@
+export const CONTRACT_ADDRESS={
+    lottery:'0x020bc880704b4000e6bbbcaa282cb06e3ddd56c009273299f34a66adefa3ef17',
+    eth:'0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    ticket:'0x07efe74a6628d298aba8ed4301226ccd1568a6c7468b8510f2bd17c98de3a848',
+    governance:'0x0480e65c64bc2a34d7243035728f946ce8ba3bf9b23fcd66835c80822d05ba80',
+}

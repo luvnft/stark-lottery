@@ -1,5 +1,5 @@
 import React from 'react';
-import WinHandIcon from '@/public/assets/arts/give_ticket.svg';
+import WinHandIcon from '@/public/assets/arts/ticket_win.svg';
 import { Box, Center, Flex, HStack, Icon, Text } from '@chakra-ui/react';
 interface IWinGuessProps {
   guess: string;
