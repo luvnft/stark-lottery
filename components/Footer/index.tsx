@@ -4,7 +4,7 @@ import ListSocial from '../Social/ListSocial';
 
 const Footer = () => {
   return (
-    <Container maxWidth="container.2xl" background="primary.game.300">
+    <Container maxWidth="container.2xl" background="#081041">
       <HStack justifyContent="center" py={6} width="full" flexWrap="wrap">
         <Text color="#E4E8FF">© 2024 Stark Lottery. All rights reserved.</Text>
       </HStack>

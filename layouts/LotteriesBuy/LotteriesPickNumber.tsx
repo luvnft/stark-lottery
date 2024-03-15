@@ -8,6 +8,7 @@ import {
   IconButton,
   Progress,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useMemo, useState } from 'react';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
@@ -27,6 +28,7 @@ const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
 
   const { address } = useAccount();
+  const toast = useToast();
   const handleSelectNumber = (value: number) => {
     if (listNumber.includes(value)) {
       const newArr = listNumber.filter(x => x != value);
@@ -91,7 +93,6 @@ const LotteriesPickNumber = () => {
 
   const callsApprove = useMemo(() => {
     if (!address || !contractEth || !minPriceTicketData) return [];
-
     return contractEth?.populateTransaction['approve']!(
       CONTRACT_ADDRESS.governance,
       minPriceTicketData
@@ -99,9 +100,12 @@ const LotteriesPickNumber = () => {
   }, [address, contractEth?.populateTransaction]);
 
   const callBuyTicket = useMemo(() => {
-    if (!address || !contractLotteries) return [];
-    return contractLotteries?.populateTransaction['buyTicket']!(listNumber);
-  }, [address, contractLotteries?.populateTransaction]);
+    if (!address || !contractLotteries || listNumber.length < 6) return [];
+
+    const newSortData = listNumber.sort((a, b) => a - b);
+
+    return contractLotteries?.populateTransaction['buyTicket']!(newSortData);
+  }, [address, contractLotteries?.populateTransaction, listNumber]);
   const {
     writeAsync: writeApprove,
     data: dataApprove,
@@ -116,19 +120,27 @@ const LotteriesPickNumber = () => {
   } = useContractWrite({ calls: callBuyTicket });
 
   const handleBuyTicket = async () => {
-    if (isLoadingAllowce || isLoadingMinPrice) return;
-    if (Number(allowceData) < Number(minPriceTicketData)) {
-      await writeApprove();
-    }
-    console.log('Work');
-    await setListNumber(() => listNumber.sort((a, b) => a - b));
-    try {
-      await writeBuyTicket();
-    } catch (error) {
-      console.log('Error', error);
-    }
+    const handleBuy = new Promise((resolve, reject) => {
+      try {
+        if (isLoadingAllowce || isLoadingMinPrice) {
+          reject('Please Waiting loadding Contract');
+        }
 
-    console.log('Data Buy Ticket', dataBuyTicket);
+        if (Number(allowceData) < Number(minPriceTicketData)) {
+          writeApprove();
+        }
+        writeBuyTicket();
+        resolve(dataBuyTicket);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    toast.promise(handleBuy, {
+      success: { title: 'You Buy Ticket Success!', description: 'Looks great' },
+      error: { title: 'Buy rejected', description: 'Something wrong' },
+      loading: { title: 'Pending', description: 'Please wait...' },
+    });
+    setListNumber([]);
   };
   return (
     <Box
@@ -143,9 +155,9 @@ const LotteriesPickNumber = () => {
         <Text variant="title">Ticket</Text>
         <HStack gap={4}>
           <IconButton
-            onClick={() => {
+            onClick={async () => {
               const value = getRandomNumbers();
-              setListNumber(value);
+              await setListNumber(() => value);
             }}
             icon={<Icon as={RandomIcon} h={8} w={8} />}
             aria-label=""
@@ -186,22 +198,28 @@ const LotteriesPickNumber = () => {
         })}
       </Flex>
       <Center>
-        {listNumber.length == 6 && (
-          <Button
-            variant="buy_ticket"
-            isLoading={
-              isPendingBuyTicket ||
-              isLoadingAllowce ||
-              isLoadingMinPrice ||
-              isPendingApprove
-            }
-            onClick={async () => {
-              await handleBuyTicket();
-            }}
-            rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
-          >
-            Buy Ticket | 0.5
-          </Button>
+        {address ? (
+          <>
+            {listNumber.length == 6 && address && (
+              <Button
+                variant="buy_ticket"
+                isLoading={
+                  isPendingBuyTicket ||
+                  isLoadingAllowce ||
+                  isLoadingMinPrice ||
+                  isPendingApprove
+                }
+                onClick={async () => {
+                  await handleBuyTicket();
+                }}
+                rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
+              >
+                Buy Ticket | 0.5
+              </Button>
+            )}
+          </>
+        ) : (
+          <Box fontWeight="bold">Plese Connect To Buy Ticket</Box>
         )}
       </Center>
     </Box>

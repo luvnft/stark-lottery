@@ -1,7 +1,6 @@
+import PageNotFound from '@/layouts/PageNotFound';
 import React from 'react';
 
-const PageNotFound = () => {
-  return <div>PageNotFound</div>;
+export default () => {
+  return <PageNotFound />;
 };
-
-export default PageNotFound;
