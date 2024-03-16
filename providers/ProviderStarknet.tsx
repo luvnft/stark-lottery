@@ -1,10 +1,14 @@
-import { goerli, sepolia } from '@starknet-react/chains';
+import { Chain, sepolia } from '@starknet-react/chains';
 import {
+  ChainProviderFactory,
   InjectedConnector,
   StarknetConfig,
+  jsonRpcProvider,
   publicProvider,
 } from '@starknet-react/core';
 import React, { PropsWithChildren } from 'react';
+import { Provider, RpcProvider } from 'starknet';
+
 import { ArgentMobileConnector } from 'starknetkit/argentMobile';
 
 const ProviderStarknet = ({ children }: PropsWithChildren) => {
@@ -13,11 +17,17 @@ const ProviderStarknet = ({ children }: PropsWithChildren) => {
     new InjectedConnector({ options: { id: 'braavos', name: 'Braavos' } }),
     new ArgentMobileConnector(), // Mobile Scan Argent Working - Display Type Modal
   ];
+  function rpc(chain: Chain) {
+    return {
+      nodeUrl: `https://starknet-sepolia.public.blastapi.io`,
+    };
+  }
 
+  const provider = jsonRpcProvider({ rpc });
   return (
     <StarknetConfig
-      chains={[sepolia, goerli]}
-      provider={publicProvider()}
+      chains={[sepolia]}
+      provider={provider}
       connectors={connectors}
     >
       {children}

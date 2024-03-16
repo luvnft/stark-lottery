@@ -10,23 +10,47 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import LineIcon from '@/public/assets/icons/general/line.svg';
 import { useAccount, useContractRead } from '@starknet-react/core';
 import ABILottery from '@/abi/lotteries645.json';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
+import {
+  convertBigIntsToNumbers,
+  convertTimestampToFormattedDate,
+} from '@/utils';
+interface LotteryProps {
+  amountOfTickets: number;
+  drawTime: number;
+  drawnNumbers: number[];
+  id: number;
+  jackpot: number;
+  jackpotWinners: number;
+  minimumPrice: number;
+  state: 0 | 1 | 2; // o close , 1 open , 2 drawing
+  totalValue: number;
+}
 const Lotteries = () => {
-  const { address } = useAccount();
-  // const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
-  //   useContractRead({
-  //     functionName: 'getCurrentLottery',
-  //     abi: ABILottery,
-  //     address: CONTRACT_ADDRESS.lottery,
-  //     watch: false,
-  //   });
+  const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
+  const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
+    useContractRead({
+      functionName: 'getCurrentLottery',
+      abi: ABILottery,
+      address: CONTRACT_ADDRESS.lottery,
+      watch: true,
+    });
+  useEffect(() => {
+    if (!isCurrentLotteryLoading && currentLotteryData) {
+      const temp: any = currentLotteryData;
 
+      if (temp) {
+        convertBigIntsToNumbers(temp);
+        setCurrentLottery(() => temp);
+      }
+    }
+  }, [isCurrentLotteryLoading]);
   return (
     <Container maxWidth="container.xl">
       <Center
@@ -109,16 +133,30 @@ const Lotteries = () => {
               <Icon as={LineIcon} height="50px" />
             </Box>
             <Flex flexDirection="column" alignItems="center">
-              <Text>Draw #01</Text>
-              <Text fontWeight={700}>Mar 10, 2024 8:00 AM</Text>
+              <Text>Draw #{currentLottery?.id}</Text>
+              <Text fontWeight={700}>
+                <>
+                  {currentLottery &&
+                    convertTimestampToFormattedDate(
+                      currentLottery.drawTime as any
+                    )}
+                </>
+              </Text>
             </Flex>
           </HStack>
-
-          <Link href={`/lotteries/lot1`}>
-            <Button variant="primary" width="full">
-              Ticket price 0.4 STRK
-            </Button>
-          </Link>
+          {currentLottery?.state == 1 && (
+            <Link href={`/lotteries/buy`}>
+              <Button variant="primary" width="full">
+                Ticket price 0.4 STRK
+              </Button>
+            </Link>
+          )}
+          {currentLottery?.state == 0 && (
+            <Text textAlign="center">Lottery Closed</Text>
+          )}
+          {currentLottery?.state == 2 && (
+            <Text textAlign="center">Lottery Drawing</Text>
+          )}
         </Flex>
       </Center>
     </Container>

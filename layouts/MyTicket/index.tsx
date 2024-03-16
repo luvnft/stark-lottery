@@ -1,7 +1,14 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import { Box, Button, Container, Flex, HStack, Text } from '@chakra-ui/react';
+import {
+  Button,
+  Container,
+  Flex,
+  HStack,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 
 import React, { useEffect, useState } from 'react';
 
@@ -9,6 +16,7 @@ import PleaseConnectWallet from './PleaseConnectWallet';
 import ABITicket from '@/abi/ticket.json';
 import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
+import { convertBigIntsToNumbers } from '@/utils';
 
 interface TicketUserProps {
   lotteryAddress: string;
@@ -62,49 +70,59 @@ const MyTicketPage = () => {
   useEffect(() => {
     if (!isLoadingMyTicket && dataMyTicket) {
       const temp: any = dataMyTicket;
-
+      console.log('Why', temp);
       if (temp) {
         convertBigIntsToNumbers(temp);
         setListMyTickets(() => temp);
       }
     }
-  }, [isLoadingMyTicket]);
-  function convertBigIntsToNumbers(obj: any) {
-    for (const key in obj) {
-      if (
-        typeof obj[key] === 'bigint' &&
-        key !== 'user' &&
-        key !== 'lotteryAddress'
-      ) {
-        obj[key] = Number(obj[key]);
-      } else if (Array.isArray(obj[key])) {
-        obj[key] = obj[key].map((item: any) =>
-          typeof item === 'bigint' ? Number(item) : item
-        );
-      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-        convertBigIntsToNumbers(obj[key]);
-      }
-    }
-  }
+  }, [isLoadingMyTicket, dataMyTicket]);
 
   return (
     <>
       <Container maxWidth="container.xl">
         {user ? (
           <>
-            <Text variant="title">Your Ticket</Text>
-            <Flex flexDirection="column" gap={10}>
-              {listMyTickets?.length &&
-                listMyTickets.map(data => (
-                  <HStack gap={{ md: 8, base: 6 }}>
-                    {data.pickedNumbers.map(dataPicked => (
-                      <Button variant="lotteryNumber" isActive={true}>
-                        <Text>{dataPicked}</Text>
-                      </Button>
+            <Text variant="title" py={10}>
+              Your Ticket
+            </Text>
+            {isLoadingMyTicket ? (
+              <>
+                <Spinner size="lg" />
+              </>
+            ) : (
+              <Flex flexDirection="column" gap={10}>
+                {listMyTickets?.length !== 0 && listMyTickets ? (
+                  <>
+                    {listMyTickets.map(data => (
+                      <HStack
+                        gap={{ md: 8, base: 6 }}
+                        padding={6}
+                        bg="#0A1450"
+                        borderRadius="3xl"
+                        justifyContent="space-between"
+                      >
+                        <Text variant="title" fontSize="lg">
+                          Lottery: #{data.lotteryId}
+                        </Text>
+                        <Text variant="title" fontSize="lg">
+                          TicketID: #{data.ticketId}
+                        </Text>
+                        <HStack gap={8}>
+                          {data.pickedNumbers.map(dataPicked => (
+                            <Button variant="lotteryNumber" isActive={true}>
+                              <Text>{dataPicked}</Text>
+                            </Button>
+                          ))}
+                        </HStack>
+                      </HStack>
                     ))}
-                  </HStack>
-                ))}
-            </Flex>
+                  </>
+                ) : (
+                  <> You Have't Ticket</>
+                )}
+              </Flex>
+            )}
           </>
         ) : (
           <PleaseConnectWallet />
