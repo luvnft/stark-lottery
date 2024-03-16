@@ -17,6 +17,7 @@ import ABITicket from '@/abi/ticket.json';
 import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { convertBigIntsToNumbers } from '@/utils';
+import ClaimResult from './ClaimResult';
 
 interface TicketUserProps {
   lotteryAddress: string;
@@ -70,7 +71,7 @@ const MyTicketPage = () => {
   useEffect(() => {
     if (!isLoadingMyTicket && dataMyTicket) {
       const temp: any = dataMyTicket;
-      console.log('Why', temp);
+
       if (temp) {
         convertBigIntsToNumbers(temp);
         setListMyTickets(() => temp);
@@ -115,6 +116,11 @@ const MyTicketPage = () => {
                             </Button>
                           ))}
                         </HStack>
+                        <ClaimResult
+                          ticketId={data.ticketId}
+                          lotteryId={data.lotteryId}
+                          pickedNumber={data.pickedNumbers}
+                        />
                       </HStack>
                     ))}
                   </>

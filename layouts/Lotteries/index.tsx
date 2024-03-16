@@ -14,14 +14,14 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import LineIcon from '@/public/assets/icons/general/line.svg';
-import { useAccount, useContractRead } from '@starknet-react/core';
+import { useContractRead } from '@starknet-react/core';
 import ABILottery from '@/abi/lotteries645.json';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import {
   convertBigIntsToNumbers,
   convertTimestampToFormattedDate,
 } from '@/utils';
-interface LotteryProps {
+export interface LotteryProps {
   amountOfTickets: number;
   drawTime: number;
   drawnNumbers: number[];
