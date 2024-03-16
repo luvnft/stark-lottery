@@ -1,4 +1,4 @@
-import { sepolia } from '@starknet-react/chains';
+import { goerli, sepolia } from '@starknet-react/chains';
 import {
   InjectedConnector,
   StarknetConfig,
@@ -16,7 +16,7 @@ const ProviderStarknet = ({ children }: PropsWithChildren) => {
 
   return (
     <StarknetConfig
-      chains={[sepolia]}
+      chains={[sepolia, goerli]}
       provider={publicProvider()}
       connectors={connectors}
     >

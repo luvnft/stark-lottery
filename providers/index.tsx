@@ -7,9 +7,9 @@ import ProviderStarknet from './ProviderStarknet';
 export default ({ children }: PropsWithChildren) => {
   return (
     <>
-      <ProviderStarknet>
-        <ProviderChakra>{children}</ProviderChakra>
-      </ProviderStarknet>
+      <ProviderChakra>
+        <ProviderStarknet>{children}</ProviderStarknet>
+      </ProviderChakra>
       <ProviderScript />
     </>
   );

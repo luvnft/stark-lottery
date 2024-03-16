@@ -64,7 +64,7 @@
       },
       {
         "name": "pickedNumbers",
-        "type": "core::array::Array::<core::integer::u32>"
+        "type": "core::array::Span::<core::integer::u32>"
       },
       {
         "name": "payOut",
@@ -77,6 +77,26 @@
       {
         "name": "sameCombinationCounter",
         "type": "core::integer::u128"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "core::array::Span::<core::integer::u128>",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<core::integer::u128>"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "core::array::Span::<lottery::ticket::interface::TicketGetter>",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<lottery::ticket::interface::TicketGetter>"
       }
     ]
   },
@@ -155,6 +175,22 @@
           }
         ],
         "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "getTicketByIds",
+        "inputs": [
+          {
+            "name": "ticketIds",
+            "type": "core::array::Span::<core::integer::u128>"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::array::Span::<lottery::ticket::interface::TicketGetter>"
+          }
+        ],
+        "state_mutability": "view"
       }
     ]
   },
@@ -173,16 +209,6 @@
       }
     ],
     "state_mutability": "view"
-  },
-  {
-    "type": "struct",
-    "name": "core::array::Span::<core::integer::u128>",
-    "members": [
-      {
-        "name": "snapshot",
-        "type": "@core::array::Array::<core::integer::u128>"
-      }
-    ]
   },
   {
     "type": "function",

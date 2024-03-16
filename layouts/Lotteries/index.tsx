@@ -19,15 +19,14 @@ import ABILottery from '@/abi/lotteries645.json';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 const Lotteries = () => {
   const { address } = useAccount();
-  const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
-    useContractRead({
-      functionName: 'getCurrentLottery',
-      abi: ABILottery,
-      address: CONTRACT_ADDRESS.lottery,
-      watch: true,
-    });
-  console.log('Loading', isCurrentLotteryLoading);
-  // console.log(Number(currentLotteryData?.state));
+  // const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
+  //   useContractRead({
+  //     functionName: 'getCurrentLottery',
+  //     abi: ABILottery,
+  //     address: CONTRACT_ADDRESS.lottery,
+  //     watch: false,
+  //   });
+
   return (
     <Container maxWidth="container.xl">
       <Center

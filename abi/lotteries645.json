@@ -6,6 +6,16 @@
   },
   {
     "type": "struct",
+    "name": "core::array::Span::<core::integer::u32>",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<core::integer::u32>"
+      }
+    ]
+  },
+  {
+    "type": "struct",
     "name": "core::integer::u256",
     "members": [
       {
@@ -15,16 +25,6 @@
       {
         "name": "high",
         "type": "core::integer::u128"
-      }
-    ]
-  },
-  {
-    "type": "struct",
-    "name": "core::array::Span::<core::integer::u32>",
-    "members": [
-      {
-        "name": "snapshot",
-        "type": "@core::array::Array::<core::integer::u32>"
       }
     ]
   },
@@ -96,7 +96,7 @@
     "items": [
       {
         "type": "function",
-        "name": "startNewLottery",
+        "name": "manualStartNewLottery",
         "inputs": [],
         "outputs": [],
         "state_mutability": "external"
@@ -107,7 +107,7 @@
         "inputs": [
           {
             "name": "pickedNumbers",
-            "type": "core::array::Array::<core::integer::u32>"
+            "type": "core::array::Span::<core::integer::u32>"
           }
         ],
         "outputs": [],
@@ -204,7 +204,7 @@
     ],
     "outputs": [
       {
-        "type": "core::array::Array::<core::integer::u32>"
+        "type": "core::array::Span::<core::integer::u32>"
       }
     ],
     "state_mutability": "view"
