@@ -86,7 +86,7 @@ const Button: ComponentStyleConfig = {
       width: 'fit-content',
       bg: '#151933',
       borderRadius: '3xl',
-      minW:'242px',
+      minW: '242px',
       py: 6,
       transition: 'all .3s',
       _hover: {
@@ -110,30 +110,37 @@ const Button: ComponentStyleConfig = {
     lotteryNumber: ({ isActive }) => ({
       height: 12,
       width: 12,
-      fontWeight: 700,
       position: 'relative',
       transform: 'rotate(-45deg)',
       background: '#192678',
-       _before:{
+      _before: {
         content: '""',
-        display:isActive?'block':'none',
+        display: isActive ? 'block' : 'none',
         position: 'absolute',
         inset: 0,
-        borderRadius:'8px',
+        borderRadius: '8px',
         padding: '4px',
         background: 'gradient.100',
-        ' -webkit-mask':
+       WebkitMask:
           ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-        '  -webkit-mask-composite': 'xor',
-        ' mask-composite': 'exclude',
+       WebkitMaskComposite: 'xor',
+        maskComposite: 'exclude',
       },
       p: {
-        fontSize:'xl',
+        fontSize: 'xl',
+        fontWeight: 800,
         backgroundClip: isActive ? 'text' : undefined,
-        background: isActive ? 'gradient.100' : undefined,
+        background: isActive
+          ? 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)'
+          : undefined,
         ' -webkit-background-clip': isActive ? 'text' : undefined,
         '-webkit-text-fill-color': isActive ? 'transparent' : undefined,
-        transform:'rotate(45deg)',     
+        transform: 'rotate(45deg)',
+      '  -webkit-text-stroke': '1px transparent'
+        // outline: '1px solid',
+
+        // outline:
+        //   ' linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
       },
       _hover: {},
     }),

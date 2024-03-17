@@ -51,6 +51,7 @@ const Lotteries = () => {
       }
     }
   }, [isCurrentLotteryLoading]);
+  console.log('Now', currentLotteryData);
   return (
     <Container maxWidth="container.xl">
       <Center
@@ -144,13 +145,21 @@ const Lotteries = () => {
               </Text>
             </Flex>
           </HStack>
+
           {currentLottery?.state == 1 && (
-            <Link href={`/lotteries/buy`}>
-              <Button variant="primary" width="full">
-                Ticket price 0.4 STRK
-              </Button>
-            </Link>
+            <>
+              {new Date(currentLottery.drawTime) < new Date() ? (
+                <Link href={`/lotteries/buy`}>
+                  <Button variant="primary" width="full">
+                    Ticket price 0.4 STRK
+                  </Button>
+                </Link>
+              ) : (
+                <Text textAlign="center">Close To Buy - Wait Draw</Text>
+              )}
+            </>
           )}
+
           {currentLottery?.state == 0 && (
             <Text textAlign="center">Lottery Closed</Text>
           )}

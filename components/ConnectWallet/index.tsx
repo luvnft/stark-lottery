@@ -31,33 +31,28 @@ const ConnectWallet = () => {
     <>
       <Box>
         <Button
-          variant="walletConnect"
+          variant="primary"
           onClick={() => {
             onOpen();
           }}
+          bg="#1B266B"
+          borderRadius="32px"
+          gap={4}
+          role="group"
+          color="#E4E8FF"
+          transition="ease-in-out .3s"
+          _hover={{
+            bg: 'gradient.100',
+          }}
         >
-          <HStack
-            py={4}
-            px={8}
-            bg="#1B266B"
-            borderRadius="32px"
-            gap={4}
-            role="group"
-            color="#E4E8FF"
-            transition="ease-in-out .3s"
-            _hover={{
-              bg: 'gradient.100',
+          <Icon as={WalletIcon} h={6} w={6} />
+          <Text
+            sx={{
+              display: { md: 'block', base: 'none' },
             }}
           >
-            <Icon as={WalletIcon} h={6} w={6} />
-            <Text
-              sx={{
-                display: { md: 'block', base: 'none' },
-              }}
-            >
-              Connect to a wallet
-            </Text>
-          </HStack>
+            Connect to a wallet
+          </Text>
         </Button>
 
         <ModalConnectWallet isOpen={isOpen} onClose={onClose}>

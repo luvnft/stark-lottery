@@ -31,9 +31,10 @@ export   function convertBigIntsToNumbers(obj: any) {
   }
 
 
- export const convertTimestampToFormattedDate = (dateConvert: string) => {
+ export const convertTimestampToFormattedDate = (dateConvert: number) => {
+ 
   // Convert given timestamp to a Date object
-  const givenDate = new Date(dateConvert);
+  const givenDate = new Date(dateConvert*1000);
 
   // Format the desired date and time
   const formattedDate = new Intl.DateTimeFormat('en-US', {

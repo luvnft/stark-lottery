@@ -28,7 +28,7 @@ interface TicketUserProps {
   user: string;
 }
 const MyTicketPage = () => {
-  const { user, isLoading, chainId } = useAuth();
+  const { user } = useAuth();
   const { address } = useAccount();
   const [listMyLotteries, setListMyLotteries] = useState<number[]>([]); // List ticket get from contract lottery
   const [listMyTickets, setListMyTickets] = useState<TicketUserProps[]>();
@@ -95,34 +95,36 @@ const MyTicketPage = () => {
               <Flex flexDirection="column" gap={10}>
                 {listMyTickets?.length !== 0 && listMyTickets ? (
                   <>
-                    {listMyTickets.map(data => (
-                      <HStack
-                        gap={{ md: 8, base: 6 }}
-                        padding={6}
-                        bg="#0A1450"
-                        borderRadius="3xl"
-                        justifyContent="space-between"
-                      >
-                        <Text variant="title" fontSize="lg">
-                          Lottery: #{data.lotteryId}
-                        </Text>
-                        <Text variant="title" fontSize="lg">
-                          TicketID: #{data.ticketId}
-                        </Text>
-                        <HStack gap={8}>
-                          {data.pickedNumbers.map(dataPicked => (
-                            <Button variant="lotteryNumber" isActive={true}>
-                              <Text>{dataPicked}</Text>
-                            </Button>
-                          ))}
+                    {listMyTickets
+                      .map(data => (
+                        <HStack
+                          gap={{ md: 8, base: 6 }}
+                          padding={6}
+                          bg="#0A1450"
+                          borderRadius="3xl"
+                          justifyContent="space-between"
+                        >
+                          <Text variant="title" fontSize="lg">
+                            Lottery: #{data.lotteryId}
+                          </Text>
+                          <Text variant="title" fontSize="lg">
+                            TicketID: #{data.ticketId}
+                          </Text>
+                          <HStack gap={8}>
+                            {data.pickedNumbers.map(dataPicked => (
+                              <Button variant="lotteryNumber" isActive={true}>
+                                <Text>{dataPicked}</Text>
+                              </Button>
+                            ))}
+                          </HStack>
+                          <ClaimResult
+                            ticketId={data.ticketId}
+                            lotteryId={data.lotteryId}
+                            pickedNumber={data.pickedNumbers}
+                          />
                         </HStack>
-                        <ClaimResult
-                          ticketId={data.ticketId}
-                          lotteryId={data.lotteryId}
-                          pickedNumber={data.pickedNumbers}
-                        />
-                      </HStack>
-                    ))}
+                      ))
+                      .reverse()}
                   </>
                 ) : (
                   <> You Have't Ticket</>

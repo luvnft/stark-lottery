@@ -14,6 +14,7 @@ const PrimaryCard = ({ style, children }: IProps) => {
         inset: 0,
         borderRadius: '32px',
         padding: '2px',
+
         background: 'gradient.100',
         ' -webkit-mask':
           ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',

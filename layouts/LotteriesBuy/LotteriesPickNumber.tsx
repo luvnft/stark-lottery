@@ -105,7 +105,12 @@ const LotteriesPickNumber = () => {
     const newSortData = listNumber.sort((a, b) => a - b);
 
     return contractLotteries?.populateTransaction['buyTicket']!(newSortData);
-  }, [address, contractLotteries?.populateTransaction, listNumber]);
+  }, [
+    address,
+    contractLotteries?.populateTransaction,
+    listNumber,
+    contractEth?.populateTransaction,
+  ]);
   const {
     writeAsync: writeApprove,
     data: dataApprove,
@@ -120,26 +125,18 @@ const LotteriesPickNumber = () => {
   } = useContractWrite({ calls: callBuyTicket });
 
   const handleBuyTicket = async () => {
-    const handleBuy = new Promise((resolve, reject) => {
-      try {
-        if (isLoadingAllowce || isLoadingMinPrice) {
-          reject('Please Waiting loadding Contract');
-        }
-
-        if (Number(allowceData) < Number(minPriceTicketData)) {
-          writeApprove();
-        }
-        writeBuyTicket();
-        resolve(dataBuyTicket);
-      } catch (error) {
-        reject(error);
+    try {
+      if (isLoadingAllowce || isLoadingMinPrice) {
+        return;
       }
-    });
-    toast.promise(handleBuy, {
-      success: { title: 'You Buy Ticket Success!', description: 'Looks great' },
-      error: { title: 'Buy rejected', description: 'Something wrong' },
-      loading: { title: 'Pending', description: 'Please wait...' },
-    });
+      console.log('dsa');
+      if (Number(allowceData) < Number(minPriceTicketData)) {
+        await writeApprove();
+      } else {
+        await writeBuyTicket();
+      }
+    } catch (error) {}
+
     setListNumber([]);
   };
   return (

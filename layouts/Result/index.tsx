@@ -1,11 +1,15 @@
 'use client';
-import { convertBigIntsToNumbers } from '@/utils';
+import {
+  convertBigIntsToNumbers,
+  convertTimestampToFormattedDate,
+} from '@/utils';
 import { useContractRead } from '@starknet-react/core';
 import React, { useEffect, useState } from 'react';
 import ABILottery from '@/abi/lotteries645.json';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { LotteryProps } from '../Lotteries';
 import {
+  Box,
   Button,
   Container,
   Flex,
@@ -63,37 +67,44 @@ const ResultPage = () => {
           <>
             {listResult && listResult.length ? (
               <Flex flexDirection="column" gap={10}>
-                {listResult.map((data: any) => (
-                  <HStack
-                    minH="100px"
-                    gap={{ md: 8, base: 6 }}
-                    padding={6}
-                    bg="#0A1450"
-                    borderRadius="3xl"
-                    justifyContent="space-between"
-                  >
-                    <Text variant="title" fontSize="lg">
-                      Lottery: #{data.lotteryId}
-                    </Text>
-
-                    <HStack gap={8}>
-                      {data.drawnNumbers.length ? (
-                        <>
-                          {' '}
-                          {data.drawnNumbers.map((dataPicked: number) => (
-                            <Button variant="lotteryNumber" isActive={true}>
-                              <Text>{dataPicked}</Text>
-                            </Button>
-                          ))}
-                        </>
-                      ) : (
-                        <>
-                          <Text>Result Not Available</Text>
-                        </>
-                      )}
+                {listResult
+                  .map((data: any) => (
+                    <HStack
+                      minH="100px"
+                      gap={{ md: 8, base: 6 }}
+                      padding={6}
+                      bg="#0A1450"
+                      borderRadius="3xl"
+                      justifyContent="space-between"
+                    >
+                      <Text variant="title" fontSize="lg">
+                        Lottery: #{data.id}
+                      </Text>
+                      <Box>
+                        <Text color="#7A8CFF" fontWeight="medium">
+                          {convertTimestampToFormattedDate(
+                            data.drawTime as any
+                          )}
+                        </Text>
+                      </Box>
+                      <HStack gap={8}>
+                        {data.drawnNumbers.length ? (
+                          <>
+                            {data.drawnNumbers.map((dataPicked: number) => (
+                              <Button variant="lotteryNumber" isActive={true}>
+                                <Text>{dataPicked}</Text>
+                              </Button>
+                            ))}
+                          </>
+                        ) : (
+                          <>
+                            <Text>Result Not Available</Text>
+                          </>
+                        )}
+                      </HStack>
                     </HStack>
-                  </HStack>
-                ))}
+                  ))
+                  .reverse()}
               </Flex>
             ) : (
               <Text>Empty Data</Text>
