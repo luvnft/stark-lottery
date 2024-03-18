@@ -7,7 +7,7 @@ import LotteriesPickNumber from './LotteriesPickNumber';
 import StarkNetToken from '@/public/assets/icons/general/stark_token.svg';
 import ArrowIcon from '@/public/assets/icons/general/arrow.svg';
 import Link from 'next/link';
-import { useAccount } from '@starknet-react/core';
+
 import { useAuth } from '@/hooks/useAuth';
 import PleaseConnectWallet from '../MyTicket/PleaseConnectWallet';
 const LotteriesBuyPage = () => {

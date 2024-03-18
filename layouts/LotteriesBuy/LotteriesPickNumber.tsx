@@ -8,7 +8,6 @@ import {
   IconButton,
   Progress,
   Text,
-  useToast,
 } from '@chakra-ui/react';
 import React, { useMemo, useState } from 'react';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
@@ -28,7 +27,7 @@ const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
 
   const { address } = useAccount();
-  const toast = useToast();
+
   const handleSelectNumber = (value: number) => {
     if (listNumber.includes(value)) {
       const newArr = listNumber.filter(x => x != value);

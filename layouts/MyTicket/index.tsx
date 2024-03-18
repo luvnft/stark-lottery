@@ -3,9 +3,11 @@
 import { useAuth } from '@/hooks/useAuth';
 import {
   Button,
+  Center,
   Container,
   Flex,
   HStack,
+  Icon,
   Spinner,
   Text,
 } from '@chakra-ui/react';
@@ -18,7 +20,7 @@ import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { convertBigIntsToNumbers } from '@/utils';
 import ClaimResult from './ClaimResult';
-
+import EmptyIcon from '@/public/assets/arts/empty.svg';
 interface TicketUserProps {
   lotteryAddress: string;
   lotteryId: number;
@@ -84,9 +86,6 @@ const MyTicketPage = () => {
       <Container maxWidth="container.xl">
         {user ? (
           <>
-            <Text variant="title" py={10}>
-              Your Ticket
-            </Text>
             {isLoadingMyTicket ? (
               <>
                 <Spinner size="lg" />
@@ -95,6 +94,9 @@ const MyTicketPage = () => {
               <Flex flexDirection="column" gap={10}>
                 {listMyTickets?.length !== 0 && listMyTickets ? (
                   <>
+                    <Text variant="title" py={10}>
+                      Your Ticket
+                    </Text>
                     {listMyTickets
                       .map(data => (
                         <HStack
@@ -127,7 +129,23 @@ const MyTicketPage = () => {
                       .reverse()}
                   </>
                 ) : (
-                  <> You Have't Ticket</>
+                  <Center minH="90vh">
+                    <Flex
+                      flexDirection="column"
+                      padding={8}
+                      bg="#0A1450"
+                      alignItems="center"
+                      borderRadius="3xl"
+                    >
+                      <Icon as={EmptyIcon} height="240px" width="240px" />
+                      <Text mt={6} fontSize="2xl" fontWeight="bold" mb={3}>
+                        No tickets found
+                      </Text>
+                      <Text color="#7A8CFF">
+                        Looks like you haven’t added anything to your cart yet!
+                      </Text>
+                    </Flex>
+                  </Center>
                 )}
               </Flex>
             )}

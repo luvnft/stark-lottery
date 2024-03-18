@@ -1,7 +1,61 @@
-import React from 'react';
+import { Box, BoxProps, SystemStyleObject } from '@chakra-ui/react';
 
-const Scrollbar = () => {
-  return <div>Scrollbar</div>;
+import React, { PropsWithChildren } from 'react';
+
+export const scrollbarThumb = (rest?: SystemStyleObject) => ({
+  '::-webkit-scrollbar-thumb': {
+    bg: '#119DF7',
+    borderRadius: '1rem',
+    ...rest,
+  },
+});
+
+export const scrollbarWebkit = (rest?: SystemStyleObject) => ({
+  '::-webkit-scrollbar': {
+    height: '0.1875rem',
+    bg: 'inherit',
+    ...rest,
+  },
+});
+
+type ScrollbarProps = PropsWithChildren & BoxProps;
+type Props = {
+  scrollBarColor?: string;
+  alway?: boolean;
 };
 
-export default Scrollbar;
+export default function Scrollbar({
+  scrollBarColor,
+  children,
+  alway,
+  ...rest
+}: ScrollbarProps & Props) {
+  return (
+    <Box
+      overflowY="auto"
+      // height="100%"
+      _hover={scrollbarThumb({
+        bg: '#119DF7',
+        width: 2,
+      })}
+      sx={{
+        ...(alway
+          ? scrollbarThumb({
+              bg: '#119DF7',
+              width: 2,
+            })
+          : {}),
+        ...scrollbarWebkit({
+          width: 2,
+          height: 2,
+        }),
+        '::-webkit-scrollbar-corner': {
+          display: 'none',
+        },
+      }}
+      {...rest}
+    >
+      {children}
+    </Box>
+  );
+}
