@@ -7,6 +7,7 @@ import {
   UnorderedList,
   ListItem,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 
 const RuleSection = () => {
@@ -29,10 +30,11 @@ const RuleSection = () => {
               <ListItem key={`rule-${index}`}>{item}</ListItem>
             ))}
           </UnorderedList>
-
-          <Button mt={10} variant="primary">
-            Buy Now
-          </Button>
+          <Link href="/lotteries">
+            <Button mt={10} variant="primary">
+              Buy Now
+            </Button>
+          </Link>
         </Box>
       </HStack>
     </Box>

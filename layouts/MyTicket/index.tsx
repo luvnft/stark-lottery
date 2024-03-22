@@ -1,6 +1,5 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
 import {
   Button,
   Center,
@@ -30,10 +29,11 @@ interface TicketUserProps {
   user: string;
 }
 const MyTicketPage = () => {
-  const { user } = useAuth();
   const { address } = useAccount();
   const [listMyLotteries, setListMyLotteries] = useState<number[]>([]); // List ticket get from contract lottery
   const [listMyTickets, setListMyTickets] = useState<TicketUserProps[]>();
+  //Update State loading ticket;
+  const [loadingTicket, setLoadingTicket] = useState(false);
   const { data: dataTicket, isLoading: isLoadingTicket } = useContractRead({
     functionName: 'getUserTickets',
     abi: ABITicket,
@@ -63,9 +63,11 @@ const MyTicketPage = () => {
 
   useEffect(() => {
     if (!isLoadingTicket) {
+      setLoadingTicket(true);
       const dataFlat = flatArrayTicket(dataTicket);
       if (dataFlat) {
         setListMyLotteries(() => dataFlat);
+        setLoadingTicket(false);
       }
     }
   }, [isLoadingTicket]);
@@ -83,16 +85,18 @@ const MyTicketPage = () => {
 
   return (
     <>
-      <Container maxWidth="container.xl">
-        {user ? (
+      <Container maxWidth="container.xl" minH="80vh">
+        {address ? (
           <>
-            {isLoadingMyTicket ? (
+            {isLoadingMyTicket || isLoadingTicket ? (
               <>
                 <Spinner size="lg" />
               </>
             ) : (
               <Flex flexDirection="column" gap={10}>
-                {listMyTickets?.length !== 0 && listMyTickets ? (
+                {listMyTickets?.length !== 0 &&
+                listMyTickets &&
+                !isLoadingTicket ? (
                   <>
                     <Text variant="title" py={10}>
                       Your Ticket
@@ -100,6 +104,7 @@ const MyTicketPage = () => {
                     {listMyTickets
                       .map(data => (
                         <HStack
+                          key={`MyTicket-${data.ticketId}`}
                           gap={{ md: 8, base: 6 }}
                           padding={6}
                           bg="#0A1450"
@@ -114,12 +119,17 @@ const MyTicketPage = () => {
                           </Text>
                           <HStack gap={8}>
                             {data.pickedNumbers.map(dataPicked => (
-                              <Button variant="lotteryNumber" isActive={true}>
+                              <Button
+                                variant="lotteryNumber"
+                                isActive={true}
+                                key={`Myticket-Number-${dataPicked}-${data.ticketId}`}
+                              >
                                 <Text>{dataPicked}</Text>
                               </Button>
                             ))}
                           </HStack>
                           <ClaimResult
+                            key={`Claim-${data.ticketId}`}
                             ticketId={data.ticketId}
                             lotteryId={data.lotteryId}
                             pickedNumber={data.pickedNumbers}

@@ -20,12 +20,10 @@ export const scrollbarWebkit = (rest?: SystemStyleObject) => ({
 
 type ScrollbarProps = PropsWithChildren & BoxProps;
 type Props = {
-  scrollBarColor?: string;
   alway?: boolean;
 };
 
 export default function Scrollbar({
-  scrollBarColor,
   children,
   alway,
   ...rest

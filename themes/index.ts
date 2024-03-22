@@ -121,10 +121,11 @@ const Button: ComponentStyleConfig = {
         borderRadius: '8px',
         padding: '4px',
         background: 'gradient.100',
-       WebkitMask:
+        WebkitMask:
           ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-       WebkitMaskComposite: 'xor',
+        // WebkitMaskComposite: 'xor',
         maskComposite: 'exclude',
+ 
       },
       p: {
         fontSize: 'xl',
@@ -133,14 +134,11 @@ const Button: ComponentStyleConfig = {
         background: isActive
           ? 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)'
           : undefined,
-        ' -webkit-background-clip': isActive ? 'text' : undefined,
-        '-webkit-text-fill-color': isActive ? 'transparent' : undefined,
+        WebkitBackgroundClip: isActive ? 'text' : undefined,
+        WebkitTextFillColor: isActive ? 'transparent' : undefined,
         transform: 'rotate(45deg)',
-      '  -webkit-text-stroke': '1px transparent'
-        // outline: '1px solid',
-
-        // outline:
-        //   ' linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
+        WebkitTextStroke: '1px transparent',
+ 
       },
       _hover: {},
     }),

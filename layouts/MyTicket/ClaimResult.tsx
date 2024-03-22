@@ -80,7 +80,11 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                   <Text>Draw Numbers:</Text>
                   <HStack gap={8}>
                     {currentData.drawnNumbers.map((num: number) => (
-                      <Button variant="lotteryNumber" isActive={true}>
+                      <Button
+                        variant="lotteryNumber"
+                        isActive={true}
+                        key={`num-lotteries-${num}`}
+                      >
                         <Text>{num}</Text>
                       </Button>
                     ))}
@@ -91,11 +95,20 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
               <HStack my={8} gap={4}>
                 <Text>Your Numbers:</Text>
                 <HStack gap={8}>
-                  {pickedNumber.map((num: number) => (
-                    <Button variant="lotteryNumber" isActive={false}>
-                      <Text>{num}</Text>
-                    </Button>
-                  ))}
+                  {currentData &&
+                    pickedNumber.map((num: number) => {
+                      const isActive = currentData.drawnNumbers.includes(num);
+
+                      return (
+                        <Button
+                          variant="lotteryNumber"
+                          isActive={isActive}
+                          key={`guess-${num}`}
+                        >
+                          <Text>{num}</Text>
+                        </Button>
+                      );
+                    })}
                 </HStack>
               </HStack>
 
@@ -105,17 +118,11 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                     pickedNumber.includes(x)
                   ).length > 2 ? (
                     <>
-                      <HStack my={6}>
-                        <Text>Win: </Text>
-                        <HStack>
-                          {currentData &&
-                            [...currentData.drawnNumbers]
-                              .filter(x => pickedNumber.includes(x))
-                              .map(data => <Text color="red">{data}</Text>)}
-                        </HStack>
-                      </HStack>
-
-                      <Button onClick={async () => writeClaim()}>
+                      <Button
+                        width="full"
+                        variant="primary"
+                        onClick={async () => writeClaim()}
+                      >
                         Claim Your Reward
                       </Button>
                     </>

@@ -21,6 +21,7 @@ import {
   useContract,
   useContractRead,
   useContractWrite,
+  useWaitForTransaction,
 } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 const LotteriesPickNumber = () => {
@@ -39,6 +40,7 @@ const LotteriesPickNumber = () => {
       }
     }
   };
+
   function getRandomNumbers() {
     const minNumber = 1;
     const maxNumber = 45;
@@ -91,12 +93,14 @@ const LotteriesPickNumber = () => {
   });
 
   const callsApprove = useMemo(() => {
-    if (!address || !contractEth || !minPriceTicketData) return [];
+    if (!address || !contractEth || isLoadingMinPrice || !minPriceTicketData)
+      return [];
+
     return contractEth?.populateTransaction['approve']!(
       CONTRACT_ADDRESS.governance,
-      minPriceTicketData
+      Number(minPriceTicketData)
     );
-  }, [address, contractEth?.populateTransaction]);
+  }, [address, contractEth?.populateTransaction, isLoadingMinPrice]);
 
   const callBuyTicket = useMemo(() => {
     if (!address || !contractLotteries || listNumber.length < 6) return [];
@@ -110,6 +114,8 @@ const LotteriesPickNumber = () => {
     listNumber,
     contractEth?.populateTransaction,
   ]);
+
+  /// Writing Approve
   const {
     writeAsync: writeApprove,
     data: dataApprove,
@@ -123,13 +129,27 @@ const LotteriesPickNumber = () => {
     isPending: isPendingBuyTicket,
   } = useContractWrite({ calls: callBuyTicket });
 
+  //Waiting to confirm Buy
+  const {
+    data: dataTicketBuyTx,
+    isLoading: isLoadingBuyTX,
+    isError: isErrorBuyTx,
+    error: errorBuyTxt,
+  } = useWaitForTransaction({
+    hash: '0x506af677710999cb3d4679e0281f04009247b64cb4e95db58530e3940f3aff3',
+    watch: true,
+    retry: true,
+    refetchInterval: 10000,
+  });
+
   const handleBuyTicket = async () => {
     try {
       if (isLoadingAllowce || isLoadingMinPrice) {
         return;
       }
-      console.log('dsa');
+
       if (Number(allowceData) < Number(minPriceTicketData)) {
+        console.log(Number(allowceData), Number(minPriceTicketData));
         await writeApprove();
       } else {
         await writeBuyTicket();

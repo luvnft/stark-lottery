@@ -1,17 +1,14 @@
 import { useAuth } from '@/hooks/useAuth';
 import { logout, setUserLoading } from '@/redux/user/user-slice';
 import { ellipseMiddle } from '@/utils';
-import { Button, HStack, Icon, Text } from '@chakra-ui/react';
-import { useBalance, useDisconnect } from '@starknet-react/core';
+import { Button, Icon, Text } from '@chakra-ui/react';
+import { useDisconnect } from '@starknet-react/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import LogoutIcon from '@/public/assets/icons/general/logout.svg';
 const ProfileAccount = () => {
   const { user } = useAuth();
-  const { isLoading, data } = useBalance({
-    address: user ? user : undefined,
-    watch: true,
-  });
+
   const { disconnect } = useDisconnect();
   const dispatch = useDispatch();
   return (

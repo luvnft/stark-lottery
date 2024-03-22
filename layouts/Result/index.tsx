@@ -57,7 +57,7 @@ const ResultPage = () => {
 
   return (
     <>
-      <Container maxWidth="container.xl">
+      <Container maxWidth="container.xl" minH="90vh">
         <Text textAlign="center" variant="title" my={5}>
           Result Page
         </Text>

@@ -1,6 +1,5 @@
 import { Container, HStack, Text } from '@chakra-ui/react';
 import React from 'react';
-import ListSocial from '../Social/ListSocial';
 
 const Footer = () => {
   return (

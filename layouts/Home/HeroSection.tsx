@@ -1,4 +1,5 @@
 import { Box, Center, Text, Image, Button, Flex } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 
 const HeroSection = () => {
@@ -14,7 +15,9 @@ const HeroSection = () => {
             Lott3ry offers decentralised, open and fair lottery using
             next-generation on-chain randomness.
           </Text>
-          <Button variant="primary">Try Now</Button>
+          <Link href="/lotteries">
+            <Button variant="primary">Try Now</Button>
+          </Link>
         </Flex>
         <Box position="relative">
           <Box position="relative" height="600px" w="600px">

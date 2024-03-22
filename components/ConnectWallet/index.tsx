@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Text,
-  Icon,
-  useDisclosure,
-  HStack,
-} from '@chakra-ui/react';
+import { Box, Button, Text, Icon, useDisclosure } from '@chakra-ui/react';
 import { useConnect } from '@starknet-react/core';
 import { useDispatch } from 'react-redux';
 
