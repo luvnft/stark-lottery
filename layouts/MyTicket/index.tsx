@@ -20,6 +20,7 @@ import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { convertBigIntsToNumbers } from '@/utils';
 import ClaimResult from './ClaimResult';
 import EmptyIcon from '@/public/assets/arts/empty.svg';
+import { useAuth } from '@/hooks/useAuth';
 interface TicketUserProps {
   lotteryAddress: string;
   lotteryId: number;
@@ -29,7 +30,7 @@ interface TicketUserProps {
   user: string;
 }
 const MyTicketPage = () => {
-  const { address } = useAccount();
+  const { user } = useAuth();
   const [listMyLotteries, setListMyLotteries] = useState<number[]>([]); // List ticket get from contract lottery
   const [listMyTickets, setListMyTickets] = useState<TicketUserProps[]>();
   //Update State loading ticket;
@@ -37,7 +38,7 @@ const MyTicketPage = () => {
   const { data: dataTicket, isLoading: isLoadingTicket } = useContractRead({
     functionName: 'getUserTickets',
     abi: ABITicket,
-    args: [address as string],
+    args: [user as string],
     address: CONTRACT_ADDRESS.ticket,
     watch: true,
   });
@@ -86,7 +87,7 @@ const MyTicketPage = () => {
   return (
     <>
       <Container maxWidth="container.xl" minH="80vh">
-        {address ? (
+        {user ? (
           <>
             {isLoadingMyTicket || isLoadingTicket ? (
               <>

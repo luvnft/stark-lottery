@@ -17,9 +17,11 @@ import {
   convertBigIntsToNumbers,
   convertTimestampToFormattedDate,
 } from '@/utils';
+import { useAuth } from '@/hooks/useAuth';
 const LotteriesBuyPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
-  const { address } = useAccount();
+
+  const { user } = useAuth();
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
     useContractRead({
       functionName: 'getCurrentLottery',
@@ -39,7 +41,7 @@ const LotteriesBuyPage = () => {
   }, [isCurrentLotteryLoading]);
   return (
     <Container maxWidth="container.xl">
-      {address ? (
+      {user ? (
         <Flex flexDirection="column" gap={5}>
           <HStack
             width="full"
