@@ -1,6 +1,7 @@
 import React from 'react';
 import WinHandIcon from '@/public/assets/arts/ticket_win.svg';
 import { Box, Center, Flex, HStack, Icon, Text } from '@chakra-ui/react';
+import StrkIcon from '@/public/assets/icons/general/stark_token.svg';
 interface IWinGuessProps {
   guess: string;
   price: string;
@@ -70,7 +71,10 @@ const LotteriesWork = () => {
               justifyContent="space-between"
             >
               <Text>{item.guess}</Text>
-              <Text>{item.price} STRK</Text>
+              <HStack>
+                <Text color="#7A8CFF">{item.price} </Text>
+                <Icon as={StrkIcon} h={6} w={6} />
+              </HStack>
             </HStack>
           ))}
         </Flex>

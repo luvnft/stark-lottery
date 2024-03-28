@@ -8,8 +8,9 @@ import {
   IconButton,
   Progress,
   Text,
+  useToast,
 } from '@chakra-ui/react';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
 import RandomIcon from '@/public/assets/icons/general/random.svg';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
@@ -26,9 +27,12 @@ import {
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
-
+  const [currentTx, setCurrentTx] = useState('');
   const { address } = useAccount();
-
+  const toast = useToast({
+    position: 'top-right',
+    duration: 6000,
+  });
   const handleSelectNumber = (value: number) => {
     if (listNumber.includes(value)) {
       const newArr = listNumber.filter(x => x != value);
@@ -74,7 +78,12 @@ const LotteriesPickNumber = () => {
       address: CONTRACT_ADDRESS.governance,
       watch: true,
     });
-  const { data: allowceData, isLoading: isLoadingAllowce } = useContractRead({
+
+  const {
+    data: allowceData,
+    isLoading: isLoadingAllowce,
+    refetch: refetchAllowce,
+  } = useContractRead({
     functionName: 'allowance',
     abi: ABIEth,
     args: [address as string, CONTRACT_ADDRESS.governance],
@@ -123,25 +132,35 @@ const LotteriesPickNumber = () => {
   } = useContractWrite({
     calls: callsApprove,
   });
+
   const {
     writeAsync: writeBuyTicket,
     data: dataBuyTicket,
     isPending: isPendingBuyTicket,
   } = useContractWrite({ calls: callBuyTicket });
+  useEffect(() => {
+    if (dataBuyTicket && dataBuyTicket.transaction_hash != currentTx) {
+      setCurrentTx(dataBuyTicket.transaction_hash);
+    }
+  }, [dataBuyTicket]);
 
-  //Waiting to confirm Buy
   const {
     data: dataTicketBuyTx,
     isLoading: isLoadingBuyTX,
     isError: isErrorBuyTx,
     error: errorBuyTxt,
   } = useWaitForTransaction({
-    hash: '0x506af677710999cb3d4679e0281f04009247b64cb4e95db58530e3940f3aff3',
+    hash: currentTx,
     watch: true,
     retry: true,
     refetchInterval: 10000,
+    enabled: currentTx != '',
   });
-
+  useEffect(() => {
+    if (!isLoadingBuyTX && dataBuyTicket) {
+      console.log('Buy', dataBuyTicket);
+    }
+  }, [isLoadingBuyTX, dataTicketBuyTx]);
   const handleBuyTicket = async () => {
     try {
       if (isLoadingAllowce || isLoadingMinPrice) {
@@ -150,19 +169,38 @@ const LotteriesPickNumber = () => {
 
       if (Number(allowceData) < Number(minPriceTicketData)) {
         console.log(Number(allowceData), Number(minPriceTicketData));
-        await writeApprove();
-      } else {
-        await writeBuyTicket();
-      }
-    } catch (error) {}
 
-    setListNumber([]);
+        await writeApprove();
+        toast({
+          status: 'success',
+          description: `You Approve Success`,
+        });
+        await refetchAllowce();
+      } else {
+        writeBuyTicket().then(res => {
+          setCurrentTx(res.transaction_hash);
+          toast({
+            status: 'success',
+            description: `You Buy Success`,
+          });
+        });
+        setListNumber([]);
+      }
+    } catch (error: any) {
+      console.log('Error Buy', error);
+      if (error.message === 'User abort') {
+        toast({
+          status: 'error',
+          description: `You Rejected Buy Ticket`,
+        });
+      }
+    }
   };
   return (
     <Box
-      padding={6}
+      padding={{ md: 8, base: 6 }}
       background="#0A1450"
-      borderRadius="2xl"
+      borderRadius="32px"
       display="flex"
       flexDirection="column"
       gap={5}
@@ -175,11 +213,17 @@ const LotteriesPickNumber = () => {
               const value = getRandomNumbers();
               await setListNumber(() => value);
             }}
-            icon={<Icon as={RandomIcon} h={8} w={8} />}
+            bg="#1B266B"
+            _hover={{
+              opacity: 0.7,
+            }}
+            icon={<Icon as={RandomIcon} h={8} w={8} color="white" />}
             aria-label=""
           />
           <IconButton
-            icon={<Icon as={ClearIcon} h={8} w={8} />}
+            bg="#1B266B"
+            _hover={{ opacity: 0.7 }}
+            icon={<Icon as={ClearIcon} h={8} w={8} color="white" />}
             aria-label=""
             onClick={() => {
               setListNumber([]);
@@ -196,7 +240,7 @@ const LotteriesPickNumber = () => {
         max={6}
         borderRadius="2xl"
       />
-      <Flex gap={{ md: 8, base: 5 }} flexWrap="wrap" my={6}>
+      <Flex gap={{ md: 8, base: 8 }} flexWrap="wrap" my={6}>
         {Array.from({ length: 45 }).map((_, index) => {
           const active = listNumber.includes(index + 1);
           return (
