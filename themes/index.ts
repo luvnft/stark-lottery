@@ -94,8 +94,8 @@ const Button: ComponentStyleConfig = {
       },
     },
     primary: {
-      px: 8,
-      py: 4,
+      px: { md: 8, base: 6 },
+      py: { md: 4, base: 3 },
       borderRadius: '32px',
       bg: 'primary.game.300',
       width: 'fit-content',
@@ -125,7 +125,6 @@ const Button: ComponentStyleConfig = {
           ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
         // WebkitMaskComposite: 'xor',
         maskComposite: 'exclude',
- 
       },
       p: {
         fontSize: 'xl',
@@ -138,7 +137,6 @@ const Button: ComponentStyleConfig = {
         WebkitTextFillColor: isActive ? 'transparent' : undefined,
         transform: 'rotate(45deg)',
         WebkitTextStroke: '1px transparent',
- 
       },
       _hover: {},
     }),

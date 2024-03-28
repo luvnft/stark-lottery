@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import ProfileAccount from '../ConnectWallet/ProfileAccount';
 import { setChainId, setUser } from '@/redux/user/user-slice';
 import { saveUserToStorage } from '@/redux/user/user-helper';
+import LogoLong from '../Logo';
 
 const Header = () => {
   const { user, isLoading, chainId } = useAuth();
@@ -48,9 +49,9 @@ const Header = () => {
       zIndex={9}
     >
       <Container maxWidth="container.xl">
-        <HStack justifyContent="space-between" py={6}>
+        <HStack justifyContent="space-between" py={{ md: 6, base: 4 }}>
           <Link href="/">
-            <Text> Logo Decolgen</Text>
+            <LogoLong />
           </Link>
 
           <ListPageItem

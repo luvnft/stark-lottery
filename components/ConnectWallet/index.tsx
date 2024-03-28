@@ -29,16 +29,17 @@ const ConnectWallet = () => {
             onOpen();
           }}
           bg="#1B266B"
-          borderRadius="32px"
+          borderRadius={{ md: '32px', base: '12px' }}
           gap={4}
           role="group"
           color="#E4E8FF"
+          minW={{ mg: '240px', base: '80px' }}
           transition="ease-in-out .3s"
           _hover={{
             bg: 'gradient.100',
           }}
         >
-          <Icon as={WalletIcon} h={6} w={6} />
+          <Icon as={WalletIcon} h={6} width={6} />
           <Text
             sx={{
               display: { md: 'block', base: 'none' },

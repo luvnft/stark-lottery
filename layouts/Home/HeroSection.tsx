@@ -1,7 +1,7 @@
 import { Box, Center, Text, Image, Button, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
-
+import JackPotIcon from '@/public/assets/arts/jackpot.svg';
 const HeroSection = () => {
   return (
     <>
@@ -21,7 +21,8 @@ const HeroSection = () => {
         </Flex>
         <Box position="relative">
           <Box position="relative" height="600px" w="600px">
-            <Image src="/assets/arts/jackpot.svg" height="full" width="full" />
+            {/* <Image src="/assets/arts/jackpot.svg" height="full" width="full" /> */}
+            <JackPotIcon />
             <Box
               position="absolute"
               top={0}
