@@ -8,6 +8,7 @@ import {
   Text,
   Spinner,
   ModalCloseButton,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import ABILottery from '@/abi/lotteries645.json';
@@ -61,10 +62,17 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
     calls: callClaim,
   });
   const { isOpen, onClose, onOpen } = useDisclosure();
-
+  const toast = useToast({
+    position: 'top-right',
+    duration: 6000,
+  });
   return (
     <>
-      <Button variant="primary" onClick={onOpen}>
+      <Button
+        variant="primary"
+        onClick={onOpen}
+        width={{ md: 'inherit', base: 'full' }}
+      >
         View Result
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="2xl">
@@ -76,9 +84,15 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
           ) : (
             <>
               {currentData && currentData.drawnNumbers.length != 0 && (
-                <HStack gap={2}>
-                  <Text>Draw Numbers:</Text>
-                  <HStack gap={8}>
+                <HStack
+                  gap={2}
+                  flexWrap={{ md: 'nowrap', base: 'wrap' }}
+                  rowGap={4}
+                >
+                  <Text fontSize="lg" fontWeight="bold">
+                    Draw Numbers:
+                  </Text>
+                  <HStack gap={8} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
                     {currentData.drawnNumbers.map((num: number) => (
                       <Button
                         variant="lotteryNumber"
@@ -92,9 +106,16 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                 </HStack>
               )}
 
-              <HStack my={8} gap={4}>
-                <Text>Your Numbers:</Text>
-                <HStack gap={8}>
+              <HStack
+                my={8}
+                gap={4}
+                flexWrap={{ md: 'nowrap', base: 'wrap' }}
+                rowGap={4}
+              >
+                <Text fontSize="lg" fontWeight="bold">
+                  Your Numbers:
+                </Text>
+                <HStack gap={8} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
                   {currentData &&
                     pickedNumber.map((num: number) => {
                       const isActive = currentData.drawnNumbers.includes(num);
@@ -116,12 +137,26 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                 <>
                   {[...currentData.drawnNumbers].filter(x =>
                     pickedNumber.includes(x)
-                  ).length > 2 ? (
+                  ).length > 1 ? (
                     <>
                       <Button
-                        width="full"
+                        w="full"
                         variant="primary"
-                        onClick={async () => writeClaim()}
+                        onClick={async () => {
+                          try {
+                            await writeClaim();
+                            toast({
+                              title: 'Claim Success',
+                              status: 'success',
+                            });
+                          } catch (error: any) {
+                            toast({
+                              title: 'Claim Error',
+                              status: 'error',
+                              description: 'Your Ticket claimed',
+                            });
+                          }
+                        }}
                       >
                         Claim Your Reward
                       </Button>

@@ -1,4 +1,11 @@
-import { Box, Button, Text, Icon, useDisclosure } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Text,
+  Icon,
+  useDisclosure,
+  ButtonProps,
+} from '@chakra-ui/react';
 import { useConnect } from '@starknet-react/core';
 import { useDispatch } from 'react-redux';
 
@@ -8,7 +15,7 @@ import ModalConnectWallet from './ModalConnectWallet';
 
 import WalletIcon from '@/public/assets/icons/general/wallet.svg';
 import BtnConnectWallet from './BtnConnectWallet';
-const ConnectWallet = () => {
+const ConnectWallet = ({ sx }: { sx?: ButtonProps }) => {
   const { connect, connectors } = useConnect();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,11 +40,8 @@ const ConnectWallet = () => {
           gap={4}
           role="group"
           color="#E4E8FF"
-          minW={{ mg: '240px', base: '80px' }}
-          transition="ease-in-out .3s"
-          _hover={{
-            bg: 'gradient.100',
-          }}
+          width={{ md: '220px', base: '80px' }}
+          {...sx}
         >
           <Icon as={WalletIcon} h={6} width={6} />
           <Text
@@ -45,7 +49,7 @@ const ConnectWallet = () => {
               display: { md: 'block', base: 'none' },
             }}
           >
-            Connect to a wallet
+            Connect Wallet
           </Text>
         </Button>
 

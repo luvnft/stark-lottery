@@ -99,12 +99,31 @@ const Button: ComponentStyleConfig = {
       borderRadius: '32px',
       bg: 'primary.game.300',
       width: 'fit-content',
-      transition: 'all .3s',
+      overflow: 'hidden',
+      position: 'relative',
+      zIndex: 1,
       minW: '240px',
       minH: '60px',
       fontWeight: '700',
+      // transition: 'background-color 300ms ease-in-out',
+      transitionDuration: '200ms',
+
       _hover: {
+        _before: {
+          opacity: 1,
+        },
+      },
+      _before: {
+        content: "''",
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
         bg: 'gradient.100',
+        transition: 'opacity 0.3s linear',
+        zIndex: -1,
+        opacity: 0,
       },
     },
     lotteryNumber: ({ isActive }) => ({

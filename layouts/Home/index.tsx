@@ -6,6 +6,7 @@ import VectorIcon4 from '@/public/assets/arts/vector/vec-4.svg';
 import HeroSection from './HeroSection';
 import TechSection from './TechSection';
 import RuleSection from './RuleSection';
+import FAQ from './FAQ';
 const HomePage = () => {
   return (
     <>
@@ -15,8 +16,8 @@ const HomePage = () => {
           position="absolute"
           left={0}
           zIndex={-1}
-          height="444px"
-          width="545px"
+          height={{ md: '444px', base: 'auto' }}
+          width={{ md: '545px', base: '250px' }}
           sx={{
             path: {
               fill: 'url(#gradient_1)',
@@ -50,6 +51,9 @@ const HomePage = () => {
 
       <Container maxWidth="container.xl" overflow="hidden">
         <RuleSection />
+      </Container>
+      <Container maxWidth="container.xl" overflow="hidden">
+        <FAQ />
       </Container>
     </>
   );

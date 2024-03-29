@@ -1,18 +1,21 @@
-import { Box, Center, Text, Image, Button, Flex } from '@chakra-ui/react';
+import { Box, Center, Text, Image, Button, Flex, Icon } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 import JackPotIcon from '@/public/assets/arts/jackpot.svg';
 const HeroSection = () => {
   return (
     <>
-      <Center py={14}>
+      <Center py={14} flexWrap={{ md: 'nowrap', base: 'wrap-reverse' }}>
         <Flex flexDirection="column" gap={6}>
           <Text>INTRODUCING LOTTERY</Text>
-          <Text fontSize="64px" fontWeight="800">
+          <Text
+            fontSize={{ lg: '64px', md: '48px', base: '32px' }}
+            fontWeight="800"
+          >
             Fully automated blockchain lottery.
           </Text>
           <Text fontWeight="600">
-            Lott3ry offers decentralised, open and fair lottery using
+            Lottery offers decentralised, open and fair lottery using
             next-generation on-chain randomness.
           </Text>
           <Link href="/lotteries">
@@ -20,9 +23,18 @@ const HeroSection = () => {
           </Link>
         </Flex>
         <Box position="relative">
-          <Box position="relative" height="600px" w="600px">
+          <Box
+            position="relative"
+            height={{ md: '600px', base: '300px' }}
+            w={{ md: '600px', base: '300px' }}
+          >
             {/* <Image src="/assets/arts/jackpot.svg" height="full" width="full" /> */}
-            <JackPotIcon />
+
+            <Icon
+              as={JackPotIcon}
+              height={{ md: '600px', base: '320px' }}
+              w={{ md: '600px', base: '320px' }}
+            />
             <Box
               position="absolute"
               top={0}
@@ -36,17 +48,17 @@ const HeroSection = () => {
           <Image
             src="/assets/arts/token_fly.svg"
             position="absolute"
-            top={24}
+            top={{ md: 24, base: 10 }}
             zIndex={-1}
             transform="rotate(-25deg)"
-            height="200px"
-            width="200px"
+            height={{ lg: '200px', md: '150px', base: '80px' }}
+            width={{ lg: '200px', md: '150px', base: '80px' }}
           />
           <Image
             src="/assets/arts/token_fly.svg"
             position="absolute"
-            height="253px"
-            width="253px"
+            height={{ lg: '200px', md: '150px', base: '80px' }}
+            width={{ lg: '200px', md: '150px', base: '80px' }}
             transform="rotate(30deg)"
             bottom={5}
             right={'-5'}

@@ -27,10 +27,20 @@ const ResultPage = () => {
       address: CONTRACT_ADDRESS.lottery,
       watch: true,
     });
+
   const { data: resultData, isLoading: isLoadingResultData } = useContractRead({
     functionName: 'getLotteryByIds',
     abi: ABILottery,
-    args: [[1, 2]],
+    args: [
+      [
+        ...Array.from(
+          { length: currentLottery ? currentLottery.id : 0 },
+          function (v, k) {
+            return k + 1;
+          }
+        ),
+      ],
+    ],
     address: CONTRACT_ADDRESS.lottery,
     watch: true,
   });
@@ -41,6 +51,7 @@ const ResultPage = () => {
       if (temp) {
         convertBigIntsToNumbers(temp);
         setCurrentLottery(() => temp);
+        console.log('Current Lottery', temp);
       }
     }
   }, [isCurrentLotteryLoading]);
@@ -76,6 +87,7 @@ const ResultPage = () => {
                       bg="#0A1450"
                       borderRadius="3xl"
                       justifyContent="space-between"
+                      flexWrap={{ md: 'nowrap', base: 'wrap' }}
                     >
                       <Text variant="title" fontSize="lg">
                         Lottery: #{data.id}
@@ -87,7 +99,7 @@ const ResultPage = () => {
                           )}
                         </Text>
                       </Box>
-                      <HStack gap={8}>
+                      <HStack gap={8} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
                         {data.drawnNumbers.length ? (
                           <>
                             {data.drawnNumbers.map((dataPicked: number) => (

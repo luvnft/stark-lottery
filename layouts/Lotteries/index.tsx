@@ -21,6 +21,7 @@ import {
   convertBigIntsToNumbers,
   convertTimestampToFormattedDate,
 } from '@/utils';
+import { LOTTERY } from '@/config/value';
 export interface LotteryProps {
   amountOfTickets: number;
   drawTime: number;
@@ -125,7 +126,7 @@ const Lotteries = () => {
               <Text fontSize="lg">Jackpot</Text>
               <HStack>
                 <Text fontSize="lg" fontWeight="bold">
-                  500
+                  {LOTTERY.jackpot}
                 </Text>
                 <Icon as={StarknetIcon} height={6} width={6} />
               </HStack>
@@ -151,7 +152,7 @@ const Lotteries = () => {
               {new Date(currentLottery.drawTime * 1000) > new Date() ? (
                 <Link href={`/lotteries/buy`}>
                   <Button variant="primary" width="full">
-                    Ticket price 0.4 STRK
+                    Ticket price {LOTTERY.price_ticket} STRK
                   </Button>
                 </Link>
               ) : (

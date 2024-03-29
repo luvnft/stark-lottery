@@ -8,11 +8,7 @@ const LogoLong = () => {
   return (
     <HStack gap={1}>
       <Icon as={LogoIcon} height={10} w={10} />
-      <Flex
-        flexDirection="column"
-        gap={1}
-        display={{ md: 'flex', base: 'none' }}
-      >
+      <Flex flexDirection="column" gap={1}>
         <StarkText />
         <PotText />
       </Flex>

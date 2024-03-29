@@ -1,4 +1,4 @@
-import { Box, Container, HStack, Text } from '@chakra-ui/react';
+import { Box, Container, HStack } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import ListPageItem from './ListPageItem';
 import Link from 'next/link';
@@ -10,6 +10,7 @@ import ProfileAccount from '../ConnectWallet/ProfileAccount';
 import { setChainId, setUser } from '@/redux/user/user-slice';
 import { saveUserToStorage } from '@/redux/user/user-helper';
 import LogoLong from '../Logo';
+import PageDrawer from '../PageDrawer';
 
 const Header = () => {
   const { user, isLoading, chainId } = useAuth();
@@ -61,7 +62,20 @@ const Header = () => {
               fontSize: 'lg',
             }}
           />
-          {user ? <ProfileAccount /> : <ConnectWallet />}
+          <Box
+            sx={{
+              display: { md: 'block', base: 'none' },
+            }}
+          >
+            {user ? <ProfileAccount /> : <ConnectWallet />}
+          </Box>
+          <Box
+            sx={{
+              display: { md: 'none', base: 'block' },
+            }}
+          >
+            <PageDrawer />
+          </Box>
         </HStack>
       </Container>
     </Box>

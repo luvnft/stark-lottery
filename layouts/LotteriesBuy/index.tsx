@@ -18,6 +18,7 @@ import {
   convertTimestampToFormattedDate,
 } from '@/utils';
 import { useAuth } from '@/hooks/useAuth';
+import { LOTTERY } from '@/config/value';
 const LotteriesBuyPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
 
@@ -45,25 +46,25 @@ const LotteriesBuyPage = () => {
         <Flex flexDirection="column" gap={5}>
           <HStack
             width="full"
-            justifyContent={{ md: 'space-between', base: 'flex-end' }}
+            justifyContent={{ md: 'space-between', base: 'flex-start' }}
             flexWrap={{ md: 'nowrap', base: 'wrap' }}
           >
-            <HStack fontWeight="800">
-              <Link
-                href="/lotteries"
-                style={{
-                  height: '2rem',
-                  width: '2rem',
-                }}
-              >
+            <Link href="/lotteries">
+              <HStack fontWeight="800">
                 <Icon as={ArrowIcon} height={8} w={8} />
-              </Link>
-              <Text fontSize="xl">Lottery "6 out of 45"</Text>
-            </HStack>
-            <Flex flexDirection="column" alignItems="flex-end" minW="500px">
+
+                <Text fontSize="xl">Lottery "6 out of 45"</Text>
+              </HStack>
+            </Link>
+            <Flex
+              flexDirection="column"
+              alignItems="flex-end"
+              alignSelf="end"
+              width={{ md: 'auto', base: 'full' }}
+            >
               <HStack>
                 <Text fontWeight="bold" fontSize="xl">
-                  Jackpot 3000
+                  Jackpot {LOTTERY.jackpot}
                 </Text>
                 <Icon as={StarkNetToken} h={6} w={6} />
               </HStack>

@@ -111,6 +111,7 @@ const MyTicketPage = () => {
                           bg="#0A1450"
                           borderRadius="3xl"
                           justifyContent="space-between"
+                          flexWrap={{ md: 'nowrap', base: 'wrap' }}
                         >
                           <Text variant="title" fontSize="lg">
                             Lottery: #{data.lotteryId}
@@ -118,7 +119,10 @@ const MyTicketPage = () => {
                           <Text variant="title" fontSize="lg">
                             TicketID: #{data.ticketId}
                           </Text>
-                          <HStack gap={8}>
+                          <HStack
+                            gap={8}
+                            flexWrap={{ md: 'nowrap', base: 'wrap' }}
+                          >
                             {data.pickedNumbers.map(dataPicked => (
                               <Button
                                 variant="lotteryNumber"
