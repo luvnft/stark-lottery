@@ -10,25 +10,20 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
 import RandomIcon from '@/public/assets/icons/general/random.svg';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import ABIGovernance from '@/abi/governance.json';
 import ABIEth from '@/abi/ETH.json';
-import ABILotteries from '@/abi/lotteries645.json';
-import {
-  useAccount,
-  useContract,
-  useContractRead,
-  useContractWrite,
-  useWaitForTransaction,
-} from '@starknet-react/core';
+
+import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
+import { CallData, uint256 } from 'starknet';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
-  const [currentTx, setCurrentTx] = useState('');
-  const { address } = useAccount();
+  const [isLoading, setIsLoading] = useState(false);
+  const { address, account } = useAccount();
   const toast = useToast({
     position: 'top-right',
     duration: 6000,
@@ -79,11 +74,7 @@ const LotteriesPickNumber = () => {
       watch: true,
     });
 
-  const {
-    data: allowceData,
-    isLoading: isLoadingAllowce,
-    refetch: refetchAllowce,
-  } = useContractRead({
+  const { data: allowceData, isLoading: isLoadingAllowce } = useContractRead({
     functionName: 'allowance',
     abi: ABIEth,
     args: [address as string, CONTRACT_ADDRESS.governance],
@@ -91,97 +82,54 @@ const LotteriesPickNumber = () => {
     watch: true,
   });
 
-  const { contract: contractEth } = useContract({
-    abi: ABIEth,
-    address: CONTRACT_ADDRESS.eth,
-  });
-  const { contract: contractLotteries } = useContract({
-    abi: ABILotteries,
-    address: CONTRACT_ADDRESS.lottery,
-  });
-
-  const callsApprove = useMemo(() => {
-    if (!address || !contractEth || isLoadingMinPrice || !minPriceTicketData)
-      return [];
-
-    return contractEth?.populateTransaction['approve']!(
-      CONTRACT_ADDRESS.governance,
-      Number(minPriceTicketData)
-    );
-  }, [address, contractEth?.populateTransaction, isLoadingMinPrice]);
-
-  const callBuyTicket = useMemo(() => {
-    if (!address || !contractLotteries || listNumber.length < 6) return [];
-
-    const newSortData = listNumber.sort((a, b) => a - b);
-
-    return contractLotteries?.populateTransaction['buyTicket']!(newSortData);
-  }, [
-    address,
-    contractLotteries?.populateTransaction,
-    listNumber,
-    contractEth?.populateTransaction,
-  ]);
-
-  /// Writing Approve
-  const {
-    writeAsync: writeApprove,
-    data: dataApprove,
-    isPending: isPendingApprove,
-  } = useContractWrite({
-    calls: callsApprove,
-  });
-
-  const {
-    writeAsync: writeBuyTicket,
-    data: dataBuyTicket,
-    isPending: isPendingBuyTicket,
-  } = useContractWrite({ calls: callBuyTicket });
-  useEffect(() => {
-    if (dataBuyTicket && dataBuyTicket.transaction_hash != currentTx) {
-      setCurrentTx(dataBuyTicket.transaction_hash);
-    }
-  }, [dataBuyTicket]);
-
-  const {
-    data: dataTicketBuyTx,
-    isLoading: isLoadingBuyTX,
-    isError: isErrorBuyTx,
-    error: errorBuyTxt,
-  } = useWaitForTransaction({
-    hash: currentTx,
-    watch: true,
-    retry: true,
-    refetchInterval: 10000,
-    enabled: currentTx != '',
-  });
-
   const handleBuyTicket = async () => {
     try {
-      if (isLoadingAllowce || isLoadingMinPrice) {
+      if (isLoadingAllowce || isLoadingMinPrice || !account) {
         return;
       }
-
+      setIsLoading(true);
       if (Number(allowceData) < Number(minPriceTicketData)) {
-        await writeApprove();
+        const newSortData = listNumber.sort((a, b) => a - b);
+
+        const mutation = await account.execute([
+          {
+            contractAddress: CONTRACT_ADDRESS.eth,
+            entrypoint: 'approve',
+            calldata: CallData.compile({
+              spender: CONTRACT_ADDRESS.governance,
+              amount: uint256.bnToUint256(Number(minPriceTicketData)),
+            }),
+          },
+
+          {
+            contractAddress: CONTRACT_ADDRESS.lottery,
+            entrypoint: 'buyTicket',
+
+            calldata: CallData.compile({
+              pickedNumbers: newSortData,
+            }),
+          },
+        ]);
+        console.log('Now', mutation);
         toast({
           status: 'success',
-          description: `You Approve Success`,
+          description: `You  Buy success Ticket !`,
         });
-        console.log('Approve Success ??', dataApprove);
-        await refetchAllowce();
       } else {
-        writeBuyTicket().then(res => {
-          setCurrentTx(res.transaction_hash);
-          toast({
-            status: 'success',
-            description: `You Buy Success`,
-          });
-        });
+        const newSortData = listNumber.sort((a, b) => a - b);
+        await account.execute([
+          {
+            contractAddress: CONTRACT_ADDRESS.lottery,
+            entrypoint: 'buyTicket',
+            calldata: CallData.compile({
+              pickedNumbers: [...newSortData],
+            }),
+          },
+        ]);
       }
+
       setListNumber([]);
     } catch (error: any) {
-      console.log('Error Buy', error);
       if (error.message === 'User abort') {
         toast({
           status: 'error',
@@ -189,6 +137,7 @@ const LotteriesPickNumber = () => {
         });
       }
     }
+    setIsLoading(false);
   };
   return (
     <Box
@@ -257,12 +206,7 @@ const LotteriesPickNumber = () => {
             {listNumber.length == 6 && address && (
               <Button
                 variant="buy_ticket"
-                isLoading={
-                  isPendingBuyTicket ||
-                  isLoadingAllowce ||
-                  isLoadingMinPrice ||
-                  isPendingApprove
-                }
+                isLoading={isLoadingAllowce || isLoadingMinPrice || isLoading}
                 onClick={async () => {
                   await handleBuyTicket();
                 }}

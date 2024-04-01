@@ -34,7 +34,7 @@ const ResultPage = () => {
     args: [
       [
         ...Array.from(
-          { length: currentLottery ? currentLottery.id : 0 },
+          { length: currentLottery ? currentLottery.id - 1 : 0 },
           function (v, k) {
             return k + 1;
           }
@@ -51,7 +51,6 @@ const ResultPage = () => {
       if (temp) {
         convertBigIntsToNumbers(temp);
         setCurrentLottery(() => temp);
-        console.log('Current Lottery', temp);
       }
     }
   }, [isCurrentLotteryLoading]);
@@ -81,6 +80,7 @@ const ResultPage = () => {
                 {listResult
                   .map((data: any) => (
                     <HStack
+                      key={data.id}
                       minH="100px"
                       gap={{ md: 8, base: 6 }}
                       padding={6}
@@ -89,9 +89,16 @@ const ResultPage = () => {
                       justifyContent="space-between"
                       flexWrap={{ md: 'nowrap', base: 'wrap' }}
                     >
-                      <Text variant="title" fontSize="lg">
-                        Lottery: #{data.id}
-                      </Text>
+                      <HStack gap={2}>
+                        <Text variant="title" fontSize="lg">
+                          Lottery: #{data.id}
+                        </Text>
+                        <Text as="span" color="#7A8CFF">
+                          {data.id === 5 && 'Closed Beta Test'}
+                          {data.id < 5 && 'Internal Testing '}
+                        </Text>
+                      </HStack>
+
                       <Box>
                         <Text color="#7A8CFF" fontWeight="medium">
                           {convertTimestampToFormattedDate(
@@ -103,7 +110,11 @@ const ResultPage = () => {
                         {data.drawnNumbers.length ? (
                           <>
                             {data.drawnNumbers.map((dataPicked: number) => (
-                              <Button variant="lotteryNumber" isActive={true}>
+                              <Button
+                                key={`${dataPicked} - ${data.id}`}
+                                variant="lotteryNumber"
+                                isActive={true}
+                              >
                                 <Text>{dataPicked}</Text>
                               </Button>
                             ))}
