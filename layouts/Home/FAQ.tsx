@@ -67,7 +67,7 @@ const FAQ = () => {
   return (
     <Box>
       <Text mb={10} variant="title">
-        StarkPot 6/45 Lottery On-Chain Games FAQ
+        FAQ
       </Text>
       <Flex flexDir="column" gap={6}>
         {listFAQ.map((item, index) => (

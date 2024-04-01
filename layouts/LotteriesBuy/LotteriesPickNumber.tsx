@@ -91,7 +91,6 @@ const LotteriesPickNumber = () => {
     watch: true,
   });
 
-  // contract Eth
   const { contract: contractEth } = useContract({
     abi: ABIEth,
     address: CONTRACT_ADDRESS.eth,
@@ -156,11 +155,7 @@ const LotteriesPickNumber = () => {
     refetchInterval: 10000,
     enabled: currentTx != '',
   });
-  useEffect(() => {
-    if (!isLoadingBuyTX && dataBuyTicket) {
-      console.log('Buy', dataBuyTicket);
-    }
-  }, [isLoadingBuyTX, dataTicketBuyTx]);
+
   const handleBuyTicket = async () => {
     try {
       if (isLoadingAllowce || isLoadingMinPrice) {
@@ -168,13 +163,12 @@ const LotteriesPickNumber = () => {
       }
 
       if (Number(allowceData) < Number(minPriceTicketData)) {
-        console.log(Number(allowceData), Number(minPriceTicketData));
-
         await writeApprove();
         toast({
           status: 'success',
           description: `You Approve Success`,
         });
+        console.log('Approve Success ??', dataApprove);
         await refetchAllowce();
       } else {
         writeBuyTicket().then(res => {
@@ -184,8 +178,8 @@ const LotteriesPickNumber = () => {
             description: `You Buy Success`,
           });
         });
-        setListNumber([]);
       }
+      setListNumber([]);
     } catch (error: any) {
       console.log('Error Buy', error);
       if (error.message === 'User abort') {

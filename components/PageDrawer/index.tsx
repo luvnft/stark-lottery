@@ -24,7 +24,7 @@ const PageDrawer = () => {
       <IconButton
         onClick={onOpen}
         aria-label=""
-        icon={<Icon as={MenuIcon} h={10} w={10} color="white" />}
+        icon={<Icon as={MenuIcon} h={8} w={8} color="white" />}
         height={10}
         w={10}
         bg=""

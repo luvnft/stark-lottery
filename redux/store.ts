@@ -9,13 +9,13 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 import { userSlice } from './user/user-slice';
+import sessionStorage from 'redux-persist/es/storage/session';
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: sessionStorage,
   version: 1,
   whitelist: ['user', 'chainId'],
 };
