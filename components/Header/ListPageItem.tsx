@@ -30,7 +30,7 @@ const ListPageItem = ({ sx }: IProps) => {
     },
   ];
   return (
-    <HStack gap={{ lg: 8, md: 6, base: 4 }} {...sx}>
+    <HStack gap={{ lg: 6, base: 4 }} {...sx}>
       {ListPage.map(page => {
         const pageActive = (): boolean => {
           if (page.link === '/') {
@@ -58,6 +58,17 @@ const ListPageItem = ({ sx }: IProps) => {
           </Link>
         );
       })}
+      <Link href="https://decolgen.gitbook.io/stark-arcade-doc" target="_blank">
+        <Text
+          px={6}
+          py={2}
+          borderRadius="32px"
+          color={'white'}
+          borderBottomColor="#119EF9"
+        >
+          GitBook
+        </Text>
+      </Link>
     </HStack>
   );
 };

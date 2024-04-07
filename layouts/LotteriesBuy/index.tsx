@@ -53,7 +53,7 @@ const LotteriesBuyPage = () => {
               <HStack fontWeight="800">
                 <Icon as={ArrowIcon} height={8} w={8} />
 
-                <Text fontSize="xl">Lottery "6 out of 45"</Text>
+                <Text fontSize="xl">{`Lottery "6 out of 45"`}</Text>
               </HStack>
             </Link>
             <Flex
