@@ -1,5 +1,5 @@
 export const LOTTERY = {
-  price_ticket: 0.5,
+  price_ticket: 1,
   jackpot: 3000,
 };
 // export const WIN_PRICE = {

@@ -21,7 +21,7 @@ import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { CallData, uint256 } from 'starknet';
 const LotteriesPickNumber = () => {
-  const [listNumber, setListNumber] = useState<number[]>([]);
+  const [listNumber, setListNumber] = useState<number[]>([]); // TODO Fix Buy Many Ticket
   const [isLoading, setIsLoading] = useState(false);
   const { address, account } = useAccount();
   const toast = useToast({

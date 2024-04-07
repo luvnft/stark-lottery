@@ -1,13 +1,10 @@
 import { Chain, sepolia } from '@starknet-react/chains';
 import {
-  ChainProviderFactory,
   InjectedConnector,
   StarknetConfig,
   jsonRpcProvider,
-  publicProvider,
 } from '@starknet-react/core';
 import React, { PropsWithChildren } from 'react';
-import { Provider, RpcProvider } from 'starknet';
 
 import { ArgentMobileConnector } from 'starknetkit/argentMobile';
 

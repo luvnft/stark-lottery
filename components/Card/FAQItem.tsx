@@ -4,15 +4,17 @@ import {
   Flex,
   HStack,
   Icon,
+  Link,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
 import ArrowIcon from '@/public/assets/icons/general/arrow.svg';
+import { ContentProps } from '@/layouts/Home/FAQ';
 interface FAQItemProps {
   id: number;
   title: string;
-  content: string[];
+  content: ContentProps[];
 }
 const FAQItem = ({ id, title, content }: FAQItemProps) => {
   const { isOpen, onToggle } = useDisclosure();
@@ -27,6 +29,7 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
           transition="all .3s"
           _hover={{
             bg: '#0A1450',
+            opacity: 0.8,
           }}
         >
           <Text fontSize="lg" fontWeight="bold">{`${id}.${title}`}</Text>
@@ -39,9 +42,28 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
         <Collapse in={isOpen} animateOpacity>
           <Flex flexDirection="column" gap={2} paddingY={4}>
             {content.map((item, index) => (
-              <Text color="#7A8CFF" key={`${item}-${index}`}>
-                {item}
-              </Text>
+              <>
+                {item.type === 'text' && (
+                  <Text color="#7A8CFF" key={`${item}-${index}`} {...item.sx}>
+                    {item.content}
+                  </Text>
+                )}
+                {item.type === 'list' && (
+                  <li color="#7A8CFF" key={`${item}-${index}`}>
+                    {item.content}
+                  </li>
+                )}
+                {item.type === 'link' && (
+                  <Link
+                    href={item.content}
+                    target="_blank"
+                    color="#7A8CFF"
+                    key={`${item}-${index}`}
+                  >
+                    {item.content}
+                  </Link>
+                )}
+              </>
             ))}
           </Flex>
         </Collapse>

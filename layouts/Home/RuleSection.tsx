@@ -18,12 +18,17 @@ const RuleSection = () => {
     'The draw only happens if at least one ticket is sold, otherwise the draw is rescheduled.',
   ];
   return (
-    <Box py="100px">
+    <Box py={{ md: '100px', base: '80px' }}>
       <Text mb={10} variant="title">
         Three classic lottery games with simple rules
       </Text>
-      <HStack gap="40px">
-        <Image src="/assets/arts/rule-art.svg" height="600px" width="600px" />
+      <HStack gap="40px" flexWrap={{ lg: 'nowrap', base: 'wrap' }}>
+        <Image
+          alt="Rule Image"
+          src="/assets/arts/rule-art.svg"
+          height={{ lg: '600px', md: '400px', base: 'full' }}
+          width={{ lg: '600px', md: '400px', base: 'full' }}
+        />
         <Box>
           <UnorderedList>
             {List.map((item, index) => (
@@ -31,7 +36,11 @@ const RuleSection = () => {
             ))}
           </UnorderedList>
           <Link href="/lotteries">
-            <Button mt={10} variant="primary">
+            <Button
+              mt={10}
+              variant="primary"
+              width={{ md: 'inherit', base: 'full' }}
+            >
               Buy Now
             </Button>
           </Link>
