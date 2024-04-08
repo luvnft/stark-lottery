@@ -78,6 +78,11 @@ const LotteriesBuyPage = () => {
                     )}
                 </>
               </Text>
+              {currentLottery?.amountOfTickets && (
+                <Text fontWeight="bold">
+                  Ticket Sold: {currentLottery.amountOfTickets}
+                </Text>
+              )}
             </Flex>
           </HStack>
           {currentLottery &&

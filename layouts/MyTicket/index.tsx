@@ -21,7 +21,7 @@ import { convertBigIntsToNumbers } from '@/utils';
 import ClaimResult from './ClaimResult';
 import EmptyIcon from '@/public/assets/arts/empty.svg';
 import { useAuth } from '@/hooks/useAuth';
-import { num, uint256 } from 'starknet';
+import RefreshIcon from '@/public/assets/icons/general/refresh.svg';
 
 interface TicketUserProps {
   lotteryAddress: string;
@@ -38,7 +38,7 @@ const MyTicketPage = () => {
   const [listMyTickets, setListMyTickets] = useState<TicketUserProps[]>();
   //Update State loading ticket;
   const [loadingTicket, setLoadingTicket] = useState(true);
-
+  const [loadingLottery, setLoadingLottery] = useState(true);
   const flatArrayTicket = (inputArray: any) => {
     if (!inputArray) {
       return;
@@ -56,31 +56,36 @@ const MyTicketPage = () => {
     abi: ABITicket,
     address: CONTRACT_ADDRESS.ticket,
   });
-  const callUserData = useMemo(() => {
-    if (!user || !contractTicket) return setLoadingTicket(true);
-    const data = contractTicket?.getUserTickets(user).then((res: any) => {
+  const getDataLottery = async () => {
+    if (!user || !contractTicket) return setLoadingLottery(true);
+    contractTicket?.getUserTickets(user).then((res: any) => {
       const dataFlat = flatArrayTicket(res);
       if (dataFlat) {
-        setListMyLotteries(() => dataFlat);
+        setListMyLotteries(dataFlat);
       }
+      setLoadingLottery(false);
     });
+  };
+  const callUserData = useMemo(() => {
+    getDataLottery();
   }, [user, contractTicket]);
 
-  useEffect(() => {
-    const getDataTicket = async () => {
-      if (!contractTicket || !listMyLotteries) return;
-      contractTicket?.getTicketByIds([...listMyLotteries]).then((res: any) => {
-        const temp: any = res;
+  const getDataTicket = async () => {
+    if (!contractTicket || loadingLottery) return setLoadingTicket(true);
+    contractTicket?.getTicketByIds([...listMyLotteries]).then((res: any) => {
+      const temp: any = res;
 
-        if (temp) {
-          convertBigIntsToNumbers(temp);
-          setListMyTickets(() => temp);
-        }
-        setTimeout(() => {
-          setLoadingTicket(false);
-        }, 1000);
-      });
-    };
+      if (temp) {
+        convertBigIntsToNumbers(temp);
+        setListMyTickets(() => temp);
+      }
+      setTimeout(() => {
+        setLoadingTicket(false);
+      }, 1000);
+    });
+  };
+
+  useEffect(() => {
     getDataTicket();
   }, [contractTicket, listMyLotteries]);
   return (
@@ -88,7 +93,7 @@ const MyTicketPage = () => {
       <Container maxWidth="container.xl" minH="80vh">
         {user ? (
           <>
-            {loadingTicket ? (
+            {loadingTicket || loadingLottery ? (
               <>
                 <Spinner size="lg" />
               </>
@@ -96,7 +101,24 @@ const MyTicketPage = () => {
               <Flex flexDirection="column" gap={10} py={10}>
                 {listMyTickets?.length !== 0 && listMyTickets ? (
                   <>
-                    <Text variant="title">Your Ticket</Text>
+                    <HStack gap={4}>
+                      <Text variant="title">Your Ticket</Text>
+                      <Button
+                        leftIcon={<Icon as={RefreshIcon} />}
+                        _hover={{
+                          opacity: 0.8,
+                        }}
+                        bg="#1B266B"
+                        color="white"
+                        onClick={async () => {
+                          setLoadingLottery(true);
+                          await getDataLottery();
+                        }}
+                      >
+                        Refresh Data
+                      </Button>
+                    </HStack>
+
                     {listMyTickets
                       .map(data => (
                         <HStack

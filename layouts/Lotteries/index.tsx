@@ -53,7 +53,7 @@ const Lotteries = () => {
       }
     }
   }, [isCurrentLotteryLoading]);
-
+  console.log('Current', currentLottery);
   return (
     <Container maxWidth="container.xl">
       <Center
@@ -147,15 +147,20 @@ const Lotteries = () => {
               </Text>
             </Flex>
           </HStack>
-          {(currentLottery?.startTime as any) < new Date().getTime() / 1000 &&
-            currentLottery?.state == 1 && (
-              <Text textAlign="center" color="#7A8CFF" fontWeight="bold" my={4}>
-                {` StartTime:
+          {currentLottery?.amountOfTickets && (
+            <Text fontWeight="bold">
+              Ticket Sold: {currentLottery.amountOfTickets}
+            </Text>
+          )}
+
+          {(currentLottery?.startTime as any) && currentLottery?.state == 1 && (
+            <Text textAlign="center" color="#7A8CFF" fontWeight="bold" my={4}>
+              {` StartTime:
                 ${convertTimestampToFormattedDate(
                   currentLottery.startTime as any
                 )}`}
-              </Text>
-            )}
+            </Text>
+          )}
           {currentLottery?.state == 1 && (
             <>
               {new Date(currentLottery.drawTime * 1000) > new Date() ? (
