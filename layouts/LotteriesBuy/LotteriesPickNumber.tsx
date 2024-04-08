@@ -20,6 +20,7 @@ import ABIEth from '@/abi/ETH.json';
 import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { CallData, uint256 } from 'starknet';
+import { LOTTERY } from '@/config/value';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]); // TODO Fix Buy Many Ticket
   const [isLoading, setIsLoading] = useState(false);
@@ -212,7 +213,7 @@ const LotteriesPickNumber = () => {
                 }}
                 rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
               >
-                Buy Ticket | 0.5
+                Buy Ticket | {LOTTERY.price_ticket}
               </Button>
             )}
           </>

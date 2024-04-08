@@ -1,8 +1,9 @@
-import { Chain, sepolia } from '@starknet-react/chains';
+import { Chain, mainnet, sepolia } from '@starknet-react/chains';
 import {
   InjectedConnector,
   StarknetConfig,
   jsonRpcProvider,
+  starkscan,
 } from '@starknet-react/core';
 import React, { PropsWithChildren } from 'react';
 
@@ -16,14 +17,14 @@ const ProviderStarknet = ({ children }: PropsWithChildren) => {
   ];
   function rpc(chain: Chain) {
     return {
-      nodeUrl: `https://starknet-sepolia.public.blastapi.io`,
+      nodeUrl: `https://starknet-mainnet.g.alchemy.com/v2/d9queTbdIieL2dGfWalpnShIHLRtHczH`,
     };
   }
 
   const provider = jsonRpcProvider({ rpc });
   return (
     <StarknetConfig
-      chains={[sepolia]}
+      chains={[mainnet]}
       provider={provider}
       connectors={connectors}
     >

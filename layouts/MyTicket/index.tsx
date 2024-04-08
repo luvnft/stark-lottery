@@ -11,16 +11,18 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import PleaseConnectWallet from './PleaseConnectWallet';
 import ABITicket from '@/abi/ticket.json';
-import { useAccount, useContractRead } from '@starknet-react/core';
+import { useContract } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { convertBigIntsToNumbers } from '@/utils';
 import ClaimResult from './ClaimResult';
 import EmptyIcon from '@/public/assets/arts/empty.svg';
 import { useAuth } from '@/hooks/useAuth';
+import { num, uint256 } from 'starknet';
+
 interface TicketUserProps {
   lotteryAddress: string;
   lotteryId: number;
@@ -31,17 +33,12 @@ interface TicketUserProps {
 }
 const MyTicketPage = () => {
   const { user } = useAuth();
+
   const [listMyLotteries, setListMyLotteries] = useState<number[]>([]); // List ticket get from contract lottery
   const [listMyTickets, setListMyTickets] = useState<TicketUserProps[]>();
   //Update State loading ticket;
-  const [loadingTicket, setLoadingTicket] = useState(false);
-  const { data: dataTicket, isLoading: isLoadingTicket } = useContractRead({
-    functionName: 'getUserTickets',
-    abi: ABITicket,
-    args: [user as string],
-    address: CONTRACT_ADDRESS.ticket,
-    watch: true,
-  });
+  const [loadingTicket, setLoadingTicket] = useState(true);
+
   const flatArrayTicket = (inputArray: any) => {
     if (!inputArray) {
       return;
@@ -54,54 +51,52 @@ const MyTicketPage = () => {
 
     return value;
   };
-  const { data: dataMyTicket, isLoading: isLoadingMyTicket } = useContractRead({
-    functionName: 'getTicketByIds',
-    abi: ABITicket,
-    args: [listMyLotteries || []],
-    address: CONTRACT_ADDRESS.ticket,
-    watch: true,
-  });
 
-  useEffect(() => {
-    if (!isLoadingTicket) {
-      setLoadingTicket(true);
-      const dataFlat = flatArrayTicket(dataTicket);
+  const { contract: contractTicket } = useContract({
+    abi: ABITicket,
+    address: CONTRACT_ADDRESS.ticket,
+  });
+  const callUserData = useMemo(() => {
+    if (!user || !contractTicket) return setLoadingTicket(true);
+    const data = contractTicket?.getUserTickets(user).then((res: any) => {
+      const dataFlat = flatArrayTicket(res);
       if (dataFlat) {
         setListMyLotteries(() => dataFlat);
-        setLoadingTicket(false);
       }
-    }
-  }, [isLoadingTicket]);
+    });
+  }, [user, contractTicket]);
 
   useEffect(() => {
-    if (!isLoadingMyTicket && dataMyTicket) {
-      const temp: any = dataMyTicket;
+    const getDataTicket = async () => {
+      if (!contractTicket || !listMyLotteries) return;
+      contractTicket?.getTicketByIds([...listMyLotteries]).then((res: any) => {
+        const temp: any = res;
 
-      if (temp) {
-        convertBigIntsToNumbers(temp);
-        setListMyTickets(() => temp);
-      }
-    }
-  }, [isLoadingMyTicket, dataMyTicket]);
-
+        if (temp) {
+          convertBigIntsToNumbers(temp);
+          setListMyTickets(() => temp);
+        }
+        setTimeout(() => {
+          setLoadingTicket(false);
+        }, 1000);
+      });
+    };
+    getDataTicket();
+  }, [contractTicket, listMyLotteries]);
   return (
     <>
       <Container maxWidth="container.xl" minH="80vh">
         {user ? (
           <>
-            {isLoadingMyTicket || isLoadingTicket ? (
+            {loadingTicket ? (
               <>
                 <Spinner size="lg" />
               </>
             ) : (
-              <Flex flexDirection="column" gap={10}>
-                {listMyTickets?.length !== 0 &&
-                listMyTickets &&
-                !isLoadingTicket ? (
+              <Flex flexDirection="column" gap={10} py={10}>
+                {listMyTickets?.length !== 0 && listMyTickets ? (
                   <>
-                    <Text variant="title" py={10}>
-                      Your Ticket
-                    </Text>
+                    <Text variant="title">Your Ticket</Text>
                     {listMyTickets
                       .map(data => (
                         <HStack

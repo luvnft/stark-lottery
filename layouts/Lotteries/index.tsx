@@ -25,6 +25,7 @@ import { LOTTERY } from '@/config/value';
 export interface LotteryProps {
   amountOfTickets: number;
   drawTime: number;
+  startTime: number;
   drawnNumbers: number[];
   id: number;
   jackpot: number;
@@ -118,7 +119,7 @@ const Lotteries = () => {
             </Button>
           </Center>
           <Text fontSize="3xl" fontWeight="bold" mt={8}>
-            Lottery "6 out of 45 "
+            {` Lottery "6 out of 45 "`}
           </Text>
 
           <HStack justifyContent="space-between" mt={4} mb={8}>
@@ -146,7 +147,15 @@ const Lotteries = () => {
               </Text>
             </Flex>
           </HStack>
-
+          {(currentLottery?.startTime as any) < new Date().getTime() / 1000 &&
+            currentLottery?.state == 1 && (
+              <Text textAlign="center" color="#7A8CFF" fontWeight="bold" my={4}>
+                {` StartTime:
+                ${convertTimestampToFormattedDate(
+                  currentLottery.startTime as any
+                )}`}
+              </Text>
+            )}
           {currentLottery?.state == 1 && (
             <>
               {new Date(currentLottery.drawTime * 1000) > new Date() ? (

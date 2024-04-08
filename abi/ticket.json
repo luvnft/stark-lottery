@@ -1,12 +1,12 @@
 [
   {
-    "type": "impl",
     "name": "TicketImpl",
+    "type": "impl",
     "interface_name": "lottery::ticket::interface::ITicket"
   },
   {
-    "type": "struct",
     "name": "core::integer::u256",
+    "type": "struct",
     "members": [
       {
         "name": "low",
@@ -19,8 +19,8 @@
     ]
   },
   {
-    "type": "struct",
     "name": "core::array::Span::<core::integer::u32>",
+    "type": "struct",
     "members": [
       {
         "name": "snapshot",
@@ -29,8 +29,8 @@
     ]
   },
   {
-    "type": "struct",
     "name": "lottery::ticket::interface::TicketHash",
+    "type": "struct",
     "members": [
       {
         "name": "lotteryAddress",
@@ -47,8 +47,8 @@
     ]
   },
   {
-    "type": "struct",
     "name": "lottery::ticket::interface::TicketGetter",
+    "type": "struct",
     "members": [
       {
         "name": "ticketId",
@@ -81,32 +81,12 @@
     ]
   },
   {
-    "type": "struct",
-    "name": "core::array::Span::<core::integer::u128>",
-    "members": [
-      {
-        "name": "snapshot",
-        "type": "@core::array::Array::<core::integer::u128>"
-      }
-    ]
-  },
-  {
-    "type": "struct",
-    "name": "core::array::Span::<lottery::ticket::interface::TicketGetter>",
-    "members": [
-      {
-        "name": "snapshot",
-        "type": "@core::array::Array::<lottery::ticket::interface::TicketGetter>"
-      }
-    ]
-  },
-  {
-    "type": "interface",
     "name": "lottery::ticket::interface::ITicket",
+    "type": "interface",
     "items": [
       {
-        "type": "function",
         "name": "createTicket",
+        "type": "function",
         "inputs": [
           {
             "name": "pickedNumbers",
@@ -129,8 +109,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "setPaidOut",
+        "type": "function",
         "inputs": [
           {
             "name": "ticketId",
@@ -145,8 +125,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "getCombinationCounter",
+        "type": "function",
         "inputs": [
           {
             "name": "param",
@@ -161,8 +141,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "getTicketById",
+        "type": "function",
         "inputs": [
           {
             "name": "ticketId",
@@ -177,17 +157,17 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "getTicketByIds",
+        "type": "function",
         "inputs": [
           {
             "name": "ticketIds",
-            "type": "core::array::Span::<core::integer::u128>"
+            "type": "core::array::Array::<core::integer::u128>"
           }
         ],
         "outputs": [
           {
-            "type": "core::array::Span::<lottery::ticket::interface::TicketGetter>"
+            "type": "core::array::Array::<lottery::ticket::interface::TicketGetter>"
           }
         ],
         "state_mutability": "view"
@@ -195,8 +175,8 @@
     ]
   },
   {
-    "type": "function",
     "name": "getSerializePickedNumbers",
+    "type": "function",
     "inputs": [
       {
         "name": "pickedNumbers",
@@ -211,8 +191,30 @@
     "state_mutability": "view"
   },
   {
+    "name": "changeGorvernanceContract",
     "type": "function",
+    "inputs": [
+      {
+        "name": "newGorvernance",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "core::array::Span::<core::integer::u128>",
+    "type": "struct",
+    "members": [
+      {
+        "name": "snapshot",
+        "type": "@core::array::Array::<core::integer::u128>"
+      }
+    ]
+  },
+  {
     "name": "getUserTickets",
+    "type": "function",
     "inputs": [
       {
         "name": "userAddress",
@@ -227,9 +229,54 @@
     "state_mutability": "view"
   },
   {
-    "type": "constructor",
+    "name": "OwnableImpl",
+    "type": "impl",
+    "interface_name": "openzeppelin::access::ownable::interface::IOwnable"
+  },
+  {
+    "name": "openzeppelin::access::ownable::interface::IOwnable",
+    "type": "interface",
+    "items": [
+      {
+        "name": "owner",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "name": "transfer_ownership",
+        "type": "function",
+        "inputs": [
+          {
+            "name": "new_owner",
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "name": "renounce_ownership",
+        "type": "function",
+        "inputs": [],
+        "outputs": [],
+        "state_mutability": "external"
+      }
+    ]
+  },
+  {
     "name": "constructor",
+    "type": "constructor",
     "inputs": [
+      {
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
       {
         "name": "governanceAddress",
         "type": "core::starknet::contract_address::ContractAddress"
@@ -237,46 +284,80 @@
     ]
   },
   {
-    "type": "event",
-    "name": "lottery::ticket::ticket::Ticket::TicketCreated",
     "kind": "struct",
+    "name": "lottery::ticket::ticket::Ticket::TicketCreated",
+    "type": "event",
     "members": [
       {
+        "kind": "key",
         "name": "ticketId",
-        "type": "core::integer::u128",
-        "kind": "key"
+        "type": "core::integer::u128"
       },
       {
+        "kind": "data",
         "name": "user",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "lotteryAddress",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "lotteryId",
-        "type": "core::integer::u128",
-        "kind": "data"
+        "type": "core::integer::u128"
       },
       {
+        "kind": "data",
         "name": "pickedNumbers",
-        "type": "core::array::Array::<core::integer::u32>",
-        "kind": "data"
+        "type": "core::array::Array::<core::integer::u32>"
       }
     ]
   },
   {
+    "kind": "struct",
+    "name": "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
     "type": "event",
-    "name": "lottery::ticket::ticket::Ticket::Event",
+    "members": [
+      {
+        "kind": "data",
+        "name": "previous_owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "kind": "data",
+        "name": "new_owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
+  },
+  {
     "kind": "enum",
+    "name": "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+    "type": "event",
     "variants": [
       {
+        "kind": "nested",
+        "name": "OwnershipTransferred",
+        "type": "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "lottery::ticket::ticket::Ticket::Event",
+    "type": "event",
+    "variants": [
+      {
+        "kind": "nested",
         "name": "TicketCreated",
-        "type": "lottery::ticket::ticket::Ticket::TicketCreated",
-        "kind": "nested"
+        "type": "lottery::ticket::ticket::Ticket::TicketCreated"
+      },
+      {
+        "kind": "flat",
+        "name": "OwnableEvent",
+        "type": "openzeppelin::access::ownable::ownable::OwnableComponent::Event"
       }
     ]
   }

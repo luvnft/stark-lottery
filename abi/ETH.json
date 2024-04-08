@@ -1,12 +1,46 @@
 [
   {
+    "name": "LockingContract",
     "type": "impl",
-    "name": "MintableToken",
-    "interface_name": "src::mintable_token_interface::IMintableToken"
+    "interface_name": "src::mintable_lock_interface::ILockingContract"
   },
   {
-    "type": "struct",
+    "name": "src::mintable_lock_interface::ILockingContract",
+    "type": "interface",
+    "items": [
+      {
+        "name": "set_locking_contract",
+        "type": "function",
+        "inputs": [
+          {
+            "name": "locking_contract",
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "name": "get_locking_contract",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "state_mutability": "view"
+      }
+    ]
+  },
+  {
+    "name": "LockAndDelegate",
+    "type": "impl",
+    "interface_name": "src::mintable_lock_interface::ILockAndDelegate"
+  },
+  {
     "name": "core::integer::u256",
+    "type": "struct",
     "members": [
       {
         "name": "low",
@@ -19,12 +53,71 @@
     ]
   },
   {
+    "name": "src::mintable_lock_interface::ILockAndDelegate",
     "type": "interface",
-    "name": "src::mintable_token_interface::IMintableToken",
     "items": [
       {
+        "name": "lock_and_delegate",
         "type": "function",
+        "inputs": [
+          {
+            "name": "delegatee",
+            "type": "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            "name": "amount",
+            "type": "core::integer::u256"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "name": "lock_and_delegate_by_sig",
+        "type": "function",
+        "inputs": [
+          {
+            "name": "account",
+            "type": "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            "name": "delegatee",
+            "type": "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            "name": "amount",
+            "type": "core::integer::u256"
+          },
+          {
+            "name": "nonce",
+            "type": "core::felt252"
+          },
+          {
+            "name": "expiry",
+            "type": "core::integer::u64"
+          },
+          {
+            "name": "signature",
+            "type": "core::array::Array::<core::felt252>"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      }
+    ]
+  },
+  {
+    "name": "MintableToken",
+    "type": "impl",
+    "interface_name": "src::mintable_token_interface::IMintableToken"
+  },
+  {
+    "name": "src::mintable_token_interface::IMintableToken",
+    "type": "interface",
+    "items": [
+      {
         "name": "permissioned_mint",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -39,8 +132,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "permissioned_burn",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -57,17 +150,17 @@
     ]
   },
   {
-    "type": "impl",
     "name": "MintableTokenCamelImpl",
+    "type": "impl",
     "interface_name": "src::mintable_token_interface::IMintableTokenCamel"
   },
   {
-    "type": "interface",
     "name": "src::mintable_token_interface::IMintableTokenCamel",
+    "type": "interface",
     "items": [
       {
-        "type": "function",
         "name": "permissionedMint",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -82,8 +175,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "permissionedBurn",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -100,13 +193,13 @@
     ]
   },
   {
-    "type": "impl",
     "name": "Replaceable",
+    "type": "impl",
     "interface_name": "src::replaceability_interface::IReplaceable"
   },
   {
-    "type": "struct",
     "name": "core::array::Span::<core::felt252>",
+    "type": "struct",
     "members": [
       {
         "name": "snapshot",
@@ -115,8 +208,8 @@
     ]
   },
   {
-    "type": "struct",
     "name": "src::replaceability_interface::EICData",
+    "type": "struct",
     "members": [
       {
         "name": "eic_hash",
@@ -129,8 +222,8 @@
     ]
   },
   {
-    "type": "enum",
     "name": "core::option::Option::<src::replaceability_interface::EICData>",
+    "type": "enum",
     "variants": [
       {
         "name": "Some",
@@ -143,8 +236,8 @@
     ]
   },
   {
-    "type": "enum",
     "name": "core::bool",
+    "type": "enum",
     "variants": [
       {
         "name": "False",
@@ -157,8 +250,8 @@
     ]
   },
   {
-    "type": "struct",
     "name": "src::replaceability_interface::ImplementationData",
+    "type": "struct",
     "members": [
       {
         "name": "impl_hash",
@@ -175,12 +268,12 @@
     ]
   },
   {
-    "type": "interface",
     "name": "src::replaceability_interface::IReplaceable",
+    "type": "interface",
     "items": [
       {
-        "type": "function",
         "name": "get_upgrade_delay",
+        "type": "function",
         "inputs": [],
         "outputs": [
           {
@@ -190,8 +283,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "get_impl_activation_time",
+        "type": "function",
         "inputs": [
           {
             "name": "implementation_data",
@@ -206,8 +299,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "add_new_implementation",
+        "type": "function",
         "inputs": [
           {
             "name": "implementation_data",
@@ -218,8 +311,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "remove_implementation",
+        "type": "function",
         "inputs": [
           {
             "name": "implementation_data",
@@ -230,8 +323,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "replace_to",
+        "type": "function",
         "inputs": [
           {
             "name": "implementation_data",
@@ -244,17 +337,17 @@
     ]
   },
   {
-    "type": "impl",
     "name": "AccessControlImplExternal",
+    "type": "impl",
     "interface_name": "src::access_control_interface::IAccessControl"
   },
   {
-    "type": "interface",
     "name": "src::access_control_interface::IAccessControl",
+    "type": "interface",
     "items": [
       {
-        "type": "function",
         "name": "has_role",
+        "type": "function",
         "inputs": [
           {
             "name": "role",
@@ -273,8 +366,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "get_role_admin",
+        "type": "function",
         "inputs": [
           {
             "name": "role",
@@ -291,17 +384,17 @@
     ]
   },
   {
-    "type": "impl",
     "name": "RolesImpl",
+    "type": "impl",
     "interface_name": "src::roles_interface::IMinimalRoles"
   },
   {
-    "type": "interface",
     "name": "src::roles_interface::IMinimalRoles",
+    "type": "interface",
     "items": [
       {
-        "type": "function",
         "name": "is_governance_admin",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -316,8 +409,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "is_upgrade_governor",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -332,8 +425,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "register_governance_admin",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -344,8 +437,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "remove_governance_admin",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -356,8 +449,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "register_upgrade_governor",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -368,8 +461,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "remove_upgrade_governor",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -380,8 +473,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "renounce",
+        "type": "function",
         "inputs": [
           {
             "name": "role",
@@ -394,17 +487,17 @@
     ]
   },
   {
-    "type": "impl",
     "name": "ERC20Impl",
+    "type": "impl",
     "interface_name": "openzeppelin::token::erc20::interface::IERC20"
   },
   {
-    "type": "interface",
     "name": "openzeppelin::token::erc20::interface::IERC20",
+    "type": "interface",
     "items": [
       {
-        "type": "function",
         "name": "name",
+        "type": "function",
         "inputs": [],
         "outputs": [
           {
@@ -414,8 +507,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "symbol",
+        "type": "function",
         "inputs": [],
         "outputs": [
           {
@@ -425,8 +518,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "decimals",
+        "type": "function",
         "inputs": [],
         "outputs": [
           {
@@ -436,8 +529,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "total_supply",
+        "type": "function",
         "inputs": [],
         "outputs": [
           {
@@ -447,8 +540,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "balance_of",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -463,8 +556,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "allowance",
+        "type": "function",
         "inputs": [
           {
             "name": "owner",
@@ -483,8 +576,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "transfer",
+        "type": "function",
         "inputs": [
           {
             "name": "recipient",
@@ -503,8 +596,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "transfer_from",
+        "type": "function",
         "inputs": [
           {
             "name": "sender",
@@ -527,8 +620,8 @@
         "state_mutability": "external"
       },
       {
-        "type": "function",
         "name": "approve",
+        "type": "function",
         "inputs": [
           {
             "name": "spender",
@@ -549,17 +642,17 @@
     ]
   },
   {
-    "type": "impl",
     "name": "ERC20CamelOnlyImpl",
+    "type": "impl",
     "interface_name": "openzeppelin::token::erc20::interface::IERC20CamelOnly"
   },
   {
-    "type": "interface",
     "name": "openzeppelin::token::erc20::interface::IERC20CamelOnly",
+    "type": "interface",
     "items": [
       {
-        "type": "function",
         "name": "totalSupply",
+        "type": "function",
         "inputs": [],
         "outputs": [
           {
@@ -569,8 +662,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "balanceOf",
+        "type": "function",
         "inputs": [
           {
             "name": "account",
@@ -585,8 +678,8 @@
         "state_mutability": "view"
       },
       {
-        "type": "function",
         "name": "transferFrom",
+        "type": "function",
         "inputs": [
           {
             "name": "sender",
@@ -611,8 +704,8 @@
     ]
   },
   {
-    "type": "constructor",
     "name": "constructor",
+    "type": "constructor",
     "inputs": [
       {
         "name": "name",
@@ -649,8 +742,8 @@
     ]
   },
   {
-    "type": "function",
     "name": "increase_allowance",
+    "type": "function",
     "inputs": [
       {
         "name": "spender",
@@ -669,8 +762,8 @@
     "state_mutability": "external"
   },
   {
-    "type": "function",
     "name": "decrease_allowance",
+    "type": "function",
     "inputs": [
       {
         "name": "spender",
@@ -689,8 +782,8 @@
     "state_mutability": "external"
   },
   {
-    "type": "function",
     "name": "increaseAllowance",
+    "type": "function",
     "inputs": [
       {
         "name": "spender",
@@ -709,8 +802,8 @@
     "state_mutability": "external"
   },
   {
-    "type": "function",
     "name": "decreaseAllowance",
+    "type": "function",
     "inputs": [
       {
         "name": "spender",
@@ -729,300 +822,300 @@
     "state_mutability": "external"
   },
   {
-    "type": "event",
-    "name": "openzeppelin::token::erc20_v070::erc20::ERC20::Transfer",
     "kind": "struct",
+    "name": "src::strk::erc20_lockable::ERC20Lockable::Transfer",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "from",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "to",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "value",
-        "type": "core::integer::u256",
-        "kind": "data"
+        "type": "core::integer::u256"
       }
     ]
   },
   {
-    "type": "event",
-    "name": "openzeppelin::token::erc20_v070::erc20::ERC20::Approval",
     "kind": "struct",
+    "name": "src::strk::erc20_lockable::ERC20Lockable::Approval",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "owner",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "spender",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "value",
-        "type": "core::integer::u256",
-        "kind": "data"
+        "type": "core::integer::u256"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::replaceability_interface::ImplementationAdded",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "implementation_data",
-        "type": "src::replaceability_interface::ImplementationData",
-        "kind": "data"
+        "type": "src::replaceability_interface::ImplementationData"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::replaceability_interface::ImplementationRemoved",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "implementation_data",
-        "type": "src::replaceability_interface::ImplementationData",
-        "kind": "data"
+        "type": "src::replaceability_interface::ImplementationData"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::replaceability_interface::ImplementationReplaced",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "implementation_data",
-        "type": "src::replaceability_interface::ImplementationData",
-        "kind": "data"
+        "type": "src::replaceability_interface::ImplementationData"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::replaceability_interface::ImplementationFinalized",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "impl_hash",
-        "type": "core::starknet::class_hash::ClassHash",
-        "kind": "data"
+        "type": "core::starknet::class_hash::ClassHash"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::access_control_interface::RoleGranted",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "role",
-        "type": "core::felt252",
-        "kind": "data"
+        "type": "core::felt252"
       },
       {
+        "kind": "data",
         "name": "account",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "sender",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::access_control_interface::RoleRevoked",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "role",
-        "type": "core::felt252",
-        "kind": "data"
+        "type": "core::felt252"
       },
       {
+        "kind": "data",
         "name": "account",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "sender",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::access_control_interface::RoleAdminChanged",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "role",
-        "type": "core::felt252",
-        "kind": "data"
+        "type": "core::felt252"
       },
       {
+        "kind": "data",
         "name": "previous_admin_role",
-        "type": "core::felt252",
-        "kind": "data"
+        "type": "core::felt252"
       },
       {
+        "kind": "data",
         "name": "new_admin_role",
-        "type": "core::felt252",
-        "kind": "data"
+        "type": "core::felt252"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::roles_interface::GovernanceAdminAdded",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "added_account",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "added_by",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::roles_interface::GovernanceAdminRemoved",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "removed_account",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "removed_by",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
-    "type": "event",
+    "kind": "struct",
     "name": "src::roles_interface::UpgradeGovernorAdded",
-    "kind": "struct",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "added_account",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "added_by",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
-    "type": "event",
-    "name": "src::roles_interface::UpgradeGovernorRemoved",
     "kind": "struct",
+    "name": "src::roles_interface::UpgradeGovernorRemoved",
+    "type": "event",
     "members": [
       {
+        "kind": "data",
         "name": "removed_account",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       },
       {
+        "kind": "data",
         "name": "removed_by",
-        "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
-    "type": "event",
-    "name": "openzeppelin::token::erc20_v070::erc20::ERC20::Event",
     "kind": "enum",
+    "name": "src::strk::erc20_lockable::ERC20Lockable::Event",
+    "type": "event",
     "variants": [
       {
+        "kind": "nested",
         "name": "Transfer",
-        "type": "openzeppelin::token::erc20_v070::erc20::ERC20::Transfer",
-        "kind": "nested"
+        "type": "src::strk::erc20_lockable::ERC20Lockable::Transfer"
       },
       {
+        "kind": "nested",
         "name": "Approval",
-        "type": "openzeppelin::token::erc20_v070::erc20::ERC20::Approval",
-        "kind": "nested"
+        "type": "src::strk::erc20_lockable::ERC20Lockable::Approval"
       },
       {
+        "kind": "nested",
         "name": "ImplementationAdded",
-        "type": "src::replaceability_interface::ImplementationAdded",
-        "kind": "nested"
+        "type": "src::replaceability_interface::ImplementationAdded"
       },
       {
+        "kind": "nested",
         "name": "ImplementationRemoved",
-        "type": "src::replaceability_interface::ImplementationRemoved",
-        "kind": "nested"
+        "type": "src::replaceability_interface::ImplementationRemoved"
       },
       {
+        "kind": "nested",
         "name": "ImplementationReplaced",
-        "type": "src::replaceability_interface::ImplementationReplaced",
-        "kind": "nested"
+        "type": "src::replaceability_interface::ImplementationReplaced"
       },
       {
+        "kind": "nested",
         "name": "ImplementationFinalized",
-        "type": "src::replaceability_interface::ImplementationFinalized",
-        "kind": "nested"
+        "type": "src::replaceability_interface::ImplementationFinalized"
       },
       {
+        "kind": "nested",
         "name": "RoleGranted",
-        "type": "src::access_control_interface::RoleGranted",
-        "kind": "nested"
+        "type": "src::access_control_interface::RoleGranted"
       },
       {
+        "kind": "nested",
         "name": "RoleRevoked",
-        "type": "src::access_control_interface::RoleRevoked",
-        "kind": "nested"
+        "type": "src::access_control_interface::RoleRevoked"
       },
       {
+        "kind": "nested",
         "name": "RoleAdminChanged",
-        "type": "src::access_control_interface::RoleAdminChanged",
-        "kind": "nested"
+        "type": "src::access_control_interface::RoleAdminChanged"
       },
       {
+        "kind": "nested",
         "name": "GovernanceAdminAdded",
-        "type": "src::roles_interface::GovernanceAdminAdded",
-        "kind": "nested"
+        "type": "src::roles_interface::GovernanceAdminAdded"
       },
       {
+        "kind": "nested",
         "name": "GovernanceAdminRemoved",
-        "type": "src::roles_interface::GovernanceAdminRemoved",
-        "kind": "nested"
+        "type": "src::roles_interface::GovernanceAdminRemoved"
       },
       {
+        "kind": "nested",
         "name": "UpgradeGovernorAdded",
-        "type": "src::roles_interface::UpgradeGovernorAdded",
-        "kind": "nested"
+        "type": "src::roles_interface::UpgradeGovernorAdded"
       },
       {
+        "kind": "nested",
         "name": "UpgradeGovernorRemoved",
-        "type": "src::roles_interface::UpgradeGovernorRemoved",
-        "kind": "nested"
+        "type": "src::roles_interface::UpgradeGovernorRemoved"
       }
     ]
   }
