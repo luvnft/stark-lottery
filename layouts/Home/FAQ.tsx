@@ -12,7 +12,6 @@ interface FAQProps {
   content: ContentProps[];
 }
 const FAQ = () => {
-  //TODO Fix FAQ Content
   const listFAQ: FAQProps[] = [
     {
       title: 'How do I play StarkPot 6/45 Lottery?',

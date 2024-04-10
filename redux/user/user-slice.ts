@@ -1,16 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getItemFromLocal } from './user-helper';
 import { IInitialState } from './user-interface';
 
 const initialState: IInitialState = {
-  user: getItemFromLocal('persist:root')
-    ? getItemFromLocal('persist:root').user.user
-    : null,
+  user: null,
   isLoading: false,
-  chainId: getItemFromLocal('persist:root')
-    ? getItemFromLocal('persist:root').user.chainId
-    : null,
+  chainId: null,
 };
 
 export const userSlice = createSlice({
@@ -27,11 +22,12 @@ export const userSlice = createSlice({
     setChainId: (state, action) => {
       state.chainId = action.payload;
     },
-    logout:(state)=>{
-      state.user=null;
-      state.chainId=null;
-      state.isLoading=false;
-    }
+    logout: state => {
+      state.user = null;
+      state.chainId = null;
+      state.isLoading = false;
+    },
   },
 });
-export const { setUser, setUserLoading, setChainId ,logout} = userSlice.actions;
+export const { setUser, setUserLoading, setChainId, logout } =
+  userSlice.actions;

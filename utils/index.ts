@@ -48,3 +48,7 @@ export const convertTimestampToFormattedDate = (dateConvert: number) => {
 
   return result;
 };
+
+export const sortArrayAscending = (array: number[]) => {
+  return array.sort((a, b) => a - b);
+};

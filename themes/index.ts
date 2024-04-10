@@ -159,6 +159,17 @@ const Button: ComponentStyleConfig = {
       },
       _hover: {},
     }),
+    icon_btn: {
+      bg: '#1B266B',
+      _hover: {
+        opacity: 0.7,
+      },
+      svg: {
+        color: 'white',
+        height: 8,
+        width: 8,
+      },
+    },
   },
 };
 

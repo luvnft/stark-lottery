@@ -18,7 +18,7 @@ import ConnectWallet from '../ConnectWallet';
 // Hamburger Active Product
 const PageDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, isLoading, chainId } = useAuth();
+  const { user } = useAuth();
   return (
     <>
       <IconButton

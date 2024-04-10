@@ -8,7 +8,7 @@ import { useAccount, useConnect } from '@starknet-react/core';
 import { useDispatch } from 'react-redux';
 import ProfileAccount from '../ConnectWallet/ProfileAccount';
 import { setChainId, setUser } from '@/redux/user/user-slice';
-import { saveUserToStorage } from '@/redux/user/user-helper';
+
 import LogoLong from '../Logo';
 import PageDrawer from '../PageDrawer';
 
@@ -21,7 +21,6 @@ const Header = () => {
   useEffect(() => {
     if (address && address != user) {
       dispatch(setUser(address));
-      saveUserToStorage(address);
     }
   }, [address]);
 

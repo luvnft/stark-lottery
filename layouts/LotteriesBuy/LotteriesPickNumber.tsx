@@ -13,6 +13,7 @@ import {
 import React, { useState } from 'react';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
 import RandomIcon from '@/public/assets/icons/general/random.svg';
+import CartAdd from '@/public/assets/icons/general/add_cart.svg';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import ABIGovernance from '@/abi/governance.json';
 import ABIEth from '@/abi/ETH.json';
@@ -21,10 +22,16 @@ import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { CallData, uint256 } from 'starknet';
 import { LOTTERY } from '@/config/value';
+import CartControl from '@/components/Cart';
+
+import { sortArrayAscending } from '@/utils';
+import { useCart } from '@/hooks/useCart';
 const LotteriesPickNumber = () => {
-  const [listNumber, setListNumber] = useState<number[]>([]); // TODO Fix Buy Many Ticket
+  const [listNumber, setListNumber] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { address, account } = useAccount();
+  const { addTicketToCart } = useCart();
+
   const toast = useToast({
     position: 'top-right',
     duration: 6000,
@@ -89,10 +96,10 @@ const LotteriesPickNumber = () => {
         return;
       }
       setIsLoading(true);
+      // const newSortData = listNumber.sort((a, b) => a - b);
+      const newSortData = sortArrayAscending(listNumber);
       if (Number(allowceData) < Number(minPriceTicketData)) {
-        const newSortData = listNumber.sort((a, b) => a - b);
-
-        const mutation = await account.execute([
+        await account.execute([
           {
             contractAddress: CONTRACT_ADDRESS.eth,
             entrypoint: 'approve',
@@ -111,13 +118,12 @@ const LotteriesPickNumber = () => {
             }),
           },
         ]);
-        console.log('Now', mutation);
+
         toast({
           status: 'success',
           description: `You  Buy success Ticket !`,
         });
       } else {
-        const newSortData = listNumber.sort((a, b) => a - b);
         await account.execute([
           {
             contractAddress: CONTRACT_ADDRESS.lottery,
@@ -157,22 +163,19 @@ const LotteriesPickNumber = () => {
               const value = getRandomNumbers();
               await setListNumber(() => value);
             }}
-            bg="#1B266B"
-            _hover={{
-              opacity: 0.7,
-            }}
-            icon={<Icon as={RandomIcon} h={8} w={8} color="white" />}
+            variant="icon_btn"
+            icon={<Icon as={RandomIcon} />}
             aria-label=""
           />
           <IconButton
-            bg="#1B266B"
-            _hover={{ opacity: 0.7 }}
-            icon={<Icon as={ClearIcon} h={8} w={8} color="white" />}
+            variant="icon_btn"
+            icon={<Icon as={ClearIcon} />}
             aria-label=""
             onClick={() => {
               setListNumber([]);
             }}
           />
+          <CartControl />
         </HStack>
       </HStack>
       <Text color="#7A8CFF">Pick 6 number</Text>
@@ -205,16 +208,33 @@ const LotteriesPickNumber = () => {
         {address ? (
           <>
             {listNumber.length == 6 && address && (
-              <Button
-                variant="buy_ticket"
-                isLoading={isLoadingAllowce || isLoadingMinPrice || isLoading}
-                onClick={async () => {
-                  await handleBuyTicket();
-                }}
-                rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
-              >
-                Buy Ticket | {LOTTERY.price_ticket}
-              </Button>
+              <HStack gap={2} flexWrap="wrap">
+                <Button
+                  width={{ md: 'auto', base: 'full' }}
+                  variant="buy_ticket"
+                  isLoading={isLoadingAllowce || isLoadingMinPrice || isLoading}
+                  onClick={async () => {
+                    await handleBuyTicket();
+                  }}
+                  rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
+                >
+                  Buy Ticket | {LOTTERY.price_ticket}
+                </Button>
+                <Button
+                  variant="primary"
+                  minH={12}
+                  width={{ md: 'auto', base: 'full' }}
+                  borderRadius="8px"
+                  leftIcon={<Icon as={CartAdd} h={5} w={5} color="white" />}
+                  onClick={async () => {
+                    const newSortData = sortArrayAscending(listNumber);
+                    await addTicketToCart(newSortData);
+                    setListNumber([]);
+                  }}
+                >
+                  Add To Cart
+                </Button>
+              </HStack>
             )}
           </>
         ) : (
