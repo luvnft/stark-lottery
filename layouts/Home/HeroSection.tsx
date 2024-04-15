@@ -28,10 +28,9 @@ const HeroSection = () => {
             height={{ md: '600px', base: '300px' }}
             w={{ md: '600px', base: '300px' }}
           >
-            {/* <Image src="/assets/arts/jackpot.svg" height="full" width="full" /> */}
-
             <Icon
               as={JackPotIcon}
+              aria-label="jackpot"
               height={{ md: '600px', base: '320px' }}
               w={{ md: '600px', base: '320px' }}
             />
@@ -46,6 +45,7 @@ const HeroSection = () => {
           </Box>
 
           <Image
+            alt="token left"
             src="/assets/arts/token_fly.svg"
             position="absolute"
             top={{ md: 24, base: 10 }}
@@ -55,6 +55,7 @@ const HeroSection = () => {
             width={{ lg: '200px', md: '150px', base: '80px' }}
           />
           <Image
+            alt="token"
             src="/assets/arts/token_fly.svg"
             position="absolute"
             height={{ lg: '200px', md: '150px', base: '80px' }}

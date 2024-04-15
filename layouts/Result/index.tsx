@@ -63,7 +63,14 @@ const ResultPage = () => {
 
       if (temp) {
         convertBigIntsToNumbers(temp);
-        setListResult(() => temp);
+        // setListResult(() => temp)}
+        setListResult(() => [
+          {
+            id: 1,
+            drawnNumbers: [23, 30, 22, 18, 28, 13],
+            drawTime: 1712793600,
+          },
+        ]);
       }
     }
   }, [isLoadingResultData]);
@@ -97,10 +104,10 @@ const ResultPage = () => {
                           <Text variant="title" fontSize="lg">
                             Lottery: #{data.id}
                           </Text>
-                          <Text as="span" color="#7A8CFF">
+                          {/* <Text as="span" color="#7A8CFF">
                             {data.id === 5 && 'Closed Beta Test'}
                             {data.id < 5 && 'Internal Testing '}
-                          </Text>
+                          </Text> */}
                         </HStack>
 
                         <Box>

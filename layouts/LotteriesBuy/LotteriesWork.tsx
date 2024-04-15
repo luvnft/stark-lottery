@@ -1,5 +1,5 @@
 import React from 'react';
-import WinHandIcon from '@/public/assets/arts/ticket_win.svg';
+import WinHandIcon from '@/public/assets/arts/ticket/ticket_win.svg';
 import { Box, Center, Flex, HStack, Icon, Text } from '@chakra-ui/react';
 import StrkIcon from '@/public/assets/icons/general/stark_token.svg';
 import { WIN_PRICE } from '@/config/value';
@@ -9,10 +9,6 @@ interface IWinGuessProps {
 }
 const LotteriesWork = () => {
   const ListRewardWin: IWinGuessProps[] = [
-    {
-      guess: '2',
-      price: WIN_PRICE.match_2,
-    },
     {
       guess: '3',
       price: WIN_PRICE.match_3,

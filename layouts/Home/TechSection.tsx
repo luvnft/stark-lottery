@@ -34,6 +34,7 @@ const TechSection = () => {
         >
           {ListTech.map(item => (
             <PrimaryCard
+              key={item.title}
               style={{
                 width: '380px',
                 height: '400px',
@@ -52,14 +53,14 @@ const TechSection = () => {
             </PrimaryCard>
           ))}
         </HStack>
-        <Box
+        {/* <Box
           position="absolute"
           bottom={0}
           right="-80%"
           height="full"
           width="full"
           background=" radial-gradient(40.8% 32.43% at 50% 50%, rgba(17, 155, 245, 0.5) 0%, rgba(10, 90, 143, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected "
-        />
+        /> */}
       </Box>
     </>
   );

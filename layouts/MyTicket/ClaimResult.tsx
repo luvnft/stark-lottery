@@ -18,10 +18,7 @@ import {
   useContractWrite,
 } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
-import {
-  convertBigIntsToNumbers,
-  convertTimestampToFormattedDate,
-} from '@/utils';
+import { convertTimestampToFormattedDate } from '@/utils';
 interface IProps {
   lotteryId: number;
   ticketId: number;
@@ -46,10 +43,14 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
   }, [isLoadingLottery, contractLottery?.populateTransaction]);
   useEffect(() => {
     if (!isLoadingLottery && dataLottery) {
-      const temp: any = dataLottery;
-
+      // const temp: any = dataLottery;
+      const temp = {
+        id: 1,
+        drawnNumbers: [23, 30, 22, 18, 28, 13],
+        drawTime: 1712793600,
+      };
       if (temp) {
-        convertBigIntsToNumbers(temp);
+        // convertBigIntsToNumbers(temp);
         setCurrentData(() => temp);
       }
     }
@@ -137,7 +138,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                 <>
                   {[...currentData.drawnNumbers].filter(x =>
                     pickedNumber.includes(x)
-                  ).length > 1 ? (
+                  ).length > 2 ? (
                     <>
                       <Button
                         w="full"

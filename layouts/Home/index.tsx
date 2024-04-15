@@ -7,54 +7,75 @@ import HeroSection from './HeroSection';
 import TechSection from './TechSection';
 import RuleSection from './RuleSection';
 import FAQ from './FAQ';
+import IntroSection from './IntroSection';
+import FadeInVisible from '@/components/animations/FadeInVisible';
 const HomePage = () => {
   return (
     <>
-      <Box position="relative">
-        <Icon
-          as={VectorIcon1}
-          position="absolute"
-          left={0}
-          zIndex={-1}
-          height={{ md: '444px', base: 'auto' }}
-          width={{ md: '545px', base: '250px' }}
-          sx={{
-            path: {
-              fill: 'url(#gradient_1)',
-            },
-          }}
-        />
-        <Container maxWidth="container.xl">
-          <HeroSection />
-        </Container>
-        <Icon
-          as={VectorIcon4}
-          position="absolute"
-          right={25}
-          bottom={0}
-          zIndex={-1}
-          height="432px"
-          width="437px"
-          sx={{
-            path: {
-              fill: 'url(#gradient_1)',
-            },
-          }}
-        />
-      </Box>
+      <FadeInVisible>
+        <Box
+          bg="#081041"
+          bgImage={`url('/assets/arts/intro_bg.png')`}
+          py="240px"
+          bgRepeat="no-repeat"
+          bgSize="cover"
+        >
+          <Container maxWidth="container.xl">
+            <IntroSection />
+          </Container>
+        </Box>
+      </FadeInVisible>
 
-      <Box bg="#081041">
+      <FadeInVisible>
+        <Box position="relative">
+          <Icon
+            as={VectorIcon1}
+            position="absolute"
+            left={0}
+            zIndex={-1}
+            height={{ md: '444px', base: 'auto' }}
+            width={{ md: '545px', base: '250px' }}
+            sx={{
+              path: {
+                fill: 'url(#gradient_1)',
+              },
+            }}
+          />
+          <Container maxWidth="container.xl">
+            <HeroSection />
+          </Container>
+          <Icon
+            as={VectorIcon4}
+            position="absolute"
+            right={25}
+            bottom={0}
+            zIndex={-1}
+            height="432px"
+            width="437px"
+            sx={{
+              path: {
+                fill: 'url(#gradient_1)',
+              },
+            }}
+          />
+        </Box>
+      </FadeInVisible>
+      <FadeInVisible>
+        <Box bg="#081041">
+          <Container maxWidth="container.xl" overflow="hidden">
+            <TechSection />
+          </Container>
+        </Box>
+      </FadeInVisible>
+
+      <FadeInVisible>
         <Container maxWidth="container.xl" overflow="hidden">
-          <TechSection />
+          <RuleSection />
         </Container>
-      </Box>
-
-      <Container maxWidth="container.xl" overflow="hidden">
-        <RuleSection />
-      </Container>
-      <Container maxWidth="container.xl" overflow="hidden">
-        <FAQ />
-      </Container>
+        <Container maxWidth="container.xl" overflow="hidden">
+          <FAQ />
+        </Container>
+      </FadeInVisible>
     </>
   );
 };

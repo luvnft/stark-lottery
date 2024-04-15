@@ -3,7 +3,6 @@ export const LOTTERY = {
   jackpot: `5000+`,
 };
 export const WIN_PRICE = {
-  match_2: `1`,
   match_3: `3`,
   match_4: `30`,
   match_5: `1000`,

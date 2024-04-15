@@ -1,5 +1,5 @@
 export const CONTRACT_ADDRESS = {
-  lottery: '0x05586009655188e141de233562ac5bcbaa8a5a5b2241dadc4dd4346a8b316d5f',
+  lottery: '0x03b41b4957e3cf6c8925049c84616606acab70f816a08f541f687ba60c62ce5d',
   eth: '0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d',
   ticket: '0x0043d10af1c387c68e9d3a003d85bca14b9fc9bd64329228102c02cd888b7c2b',
   governance:

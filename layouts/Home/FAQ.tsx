@@ -50,7 +50,6 @@ const FAQ = () => {
             'Prizes are awarded based on the number of matching numbers:',
           type: 'text',
         },
-        { content: '2 numbers match = Win 1 $STRK', type: 'list' },
         { content: '3 numbers match = Secure 3 $STRK', type: 'list' },
         { content: '4 numbers match = Grab 30 $STRK', type: 'list' },
         { content: '5 numbers match = Take home 1000 $STRK', type: 'list' },

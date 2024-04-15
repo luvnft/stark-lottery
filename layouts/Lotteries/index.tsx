@@ -53,7 +53,7 @@ const Lotteries = () => {
       }
     }
   }, [isCurrentLotteryLoading]);
-  console.log('Current', currentLottery);
+
   return (
     <Container maxWidth="container.xl">
       <Center
@@ -147,7 +147,7 @@ const Lotteries = () => {
               </Text>
             </Flex>
           </HStack>
-          {currentLottery?.amountOfTickets && (
+          {currentLottery && currentLottery?.amountOfTickets != 0 && (
             <Text fontWeight="bold">
               Ticket Sold: {currentLottery.amountOfTickets}
             </Text>

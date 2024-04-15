@@ -333,6 +333,20 @@
     "state_mutability": "external"
   },
   {
+    "name": "core::bool",
+    "type": "enum",
+    "variants": [
+      {
+        "name": "False",
+        "type": "()"
+      },
+      {
+        "name": "True",
+        "type": "()"
+      }
+    ]
+  },
+  {
     "name": "updateLottery",
     "type": "function",
     "inputs": [
@@ -351,10 +365,34 @@
       {
         "name": "jackpot",
         "type": "core::integer::u256"
+      },
+      {
+        "name": "state",
+        "type": "core::integer::u8"
+      },
+      {
+        "name": "isCancelLottey",
+        "type": "core::bool"
       }
     ],
     "outputs": [],
     "state_mutability": "external"
+  },
+  {
+    "name": "isCanceledRound",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "lotteryId",
+        "type": "core::integer::u128"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "core::bool"
+      }
+    ],
+    "state_mutability": "view"
   },
   {
     "name": "OwnableImpl",
