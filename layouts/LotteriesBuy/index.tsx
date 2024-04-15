@@ -12,13 +12,13 @@ import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 
 import PleaseConnectWallet from '../MyTicket/PleaseConnectWallet';
 import { LotteryProps } from '../Lotteries';
-import { useAccount, useContractRead } from '@starknet-react/core';
+import { useContractRead } from '@starknet-react/core';
 import {
   convertBigIntsToNumbers,
   convertTimestampToFormattedDate,
 } from '@/utils';
 import { useAuth } from '@/hooks/useAuth';
-import { LOTTERY } from '@/config/value';
+
 const LotteriesBuyPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
 
@@ -40,6 +40,7 @@ const LotteriesBuyPage = () => {
       }
     }
   }, [isCurrentLotteryLoading]);
+
   return (
     <Container maxWidth="container.xl">
       {user ? (
@@ -64,7 +65,12 @@ const LotteriesBuyPage = () => {
             >
               <HStack>
                 <Text fontWeight="bold" fontSize="xl">
-                  Jackpot {LOTTERY.jackpot}
+                  {` Jackpot
+                  ${
+                    !isCurrentLotteryLoading
+                      ? Math.trunc(Number(currentLottery?.jackpot) / 1e18)
+                      : 'Loading...'
+                  }`}
                 </Text>
                 <Icon as={StarkNetToken} h={6} w={6} />
               </HStack>

@@ -82,58 +82,39 @@ const LotteriesPickNumber = () => {
       watch: true,
     });
 
-  const { data: allowceData, isLoading: isLoadingAllowce } = useContractRead({
-    functionName: 'allowance',
-    abi: ABIEth,
-    args: [address as string, CONTRACT_ADDRESS.governance],
-    address: CONTRACT_ADDRESS.eth,
-    watch: true,
-  });
-
   const handleBuyTicket = async () => {
     try {
-      if (isLoadingAllowce || isLoadingMinPrice || !account) {
+      if (isLoadingMinPrice || !account) {
         return;
       }
       setIsLoading(true);
       // const newSortData = listNumber.sort((a, b) => a - b);
       const newSortData = sortArrayAscending(listNumber);
-      if (Number(allowceData) < Number(minPriceTicketData)) {
-        await account.execute([
-          {
-            contractAddress: CONTRACT_ADDRESS.eth,
-            entrypoint: 'approve',
-            calldata: CallData.compile({
-              spender: CONTRACT_ADDRESS.governance,
-              amount: uint256.bnToUint256(Number(minPriceTicketData)),
-            }),
-          },
 
-          {
-            contractAddress: CONTRACT_ADDRESS.lottery,
-            entrypoint: 'buyTicket',
+      await account.execute([
+        {
+          contractAddress: CONTRACT_ADDRESS.eth,
+          entrypoint: 'approve',
+          calldata: CallData.compile({
+            spender: CONTRACT_ADDRESS.governance,
+            amount: uint256.bnToUint256(Number(minPriceTicketData)),
+          }),
+        },
 
-            calldata: CallData.compile({
-              pickedNumbers: newSortData,
-            }),
-          },
-        ]);
+        {
+          contractAddress: CONTRACT_ADDRESS.lottery,
+          entrypoint: 'buyTicket',
 
-        toast({
-          status: 'success',
-          description: `You  Buy success Ticket !`,
-        });
-      } else {
-        await account.execute([
-          {
-            contractAddress: CONTRACT_ADDRESS.lottery,
-            entrypoint: 'buyTicket',
-            calldata: CallData.compile({
-              pickedNumbers: [...newSortData],
-            }),
-          },
-        ]);
-      }
+          calldata: CallData.compile({
+            pickedNumbers: newSortData,
+          }),
+        },
+      ]);
+
+      toast({
+        status: 'success',
+        description: `You  Buy success Ticket !`,
+      });
 
       setListNumber([]);
     } catch (error: any) {
@@ -212,7 +193,7 @@ const LotteriesPickNumber = () => {
                 <Button
                   width={{ md: 'auto', base: 'full' }}
                   variant="buy_ticket"
-                  isLoading={isLoadingAllowce || isLoadingMinPrice || isLoading}
+                  isLoading={isLoadingMinPrice || isLoading}
                   onClick={async () => {
                     await handleBuyTicket();
                   }}

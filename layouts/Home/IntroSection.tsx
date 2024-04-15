@@ -12,7 +12,7 @@ import { useContractRead } from '@starknet-react/core';
 import { LotteryProps } from '../Lotteries';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import ABILottery from '@/abi/lotteries645.json';
-import { LOTTERY } from '@/config/value';
+
 const IntroSection = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
@@ -38,7 +38,7 @@ const IntroSection = () => {
         bottom={-5}
         right={10}
         position="absolute"
-        zIndex={1}
+        zIndex={{ md: 1, base: 0 }}
         alt="Planet 1"
         src="/assets/arts/planet_1.png"
       />
@@ -53,6 +53,7 @@ const IntroSection = () => {
         alt="Planet 3"
         top={0}
         left={24}
+        zIndex={{ md: 1, base: -1 }}
         position="absolute"
         src="/assets/arts/planet_3.png"
       />
@@ -77,7 +78,12 @@ const IntroSection = () => {
         >
           <HStack justifyContent="center">
             <GradientText
-              content="5,000"
+              content={`
+                  ${
+                    !isCurrentLotteryLoading
+                      ? Math.trunc(Number(currentLottery?.jackpot) / 1e18)
+                      : 'Loading...'
+                  }`}
               sx={{
                 fontSize: '3rem',
                 fontWeight: 'bold',
@@ -94,8 +100,8 @@ const IntroSection = () => {
               position="absolute"
               top={0}
               left={0}
-              height="320px"
-              width="320px"
+              height={{ md: '320px', base: 'full' }}
+              width={{ md: '320px', base: 'full' }}
               background="radial-gradient(40.8% 32.43% at 50% 50%, rgba(17, 155, 245, 0.5) 20%, rgba(10, 90, 143, 0) 100%) "
             />
             <Image alt="ticket Jack" src="/assets/arts/ticket/ticket_win.svg" />

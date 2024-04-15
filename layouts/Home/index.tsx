@@ -16,7 +16,7 @@ const HomePage = () => {
         <Box
           bg="#081041"
           bgImage={`url('/assets/arts/intro_bg.png')`}
-          py="240px"
+          py={{ md: '100px', base: '50px' }}
           bgRepeat="no-repeat"
           bgSize="cover"
         >

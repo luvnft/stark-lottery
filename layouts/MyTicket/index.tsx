@@ -150,12 +150,14 @@ const MyTicketPage = () => {
                               </Button>
                             ))}
                           </HStack>
-                          <ClaimResult
-                            key={`Claim-${data.ticketId}`}
-                            ticketId={data.ticketId}
-                            lotteryId={data.lotteryId}
-                            pickedNumber={data.pickedNumbers}
-                          />
+                          {data.ticketId !== 1 && (
+                            <ClaimResult
+                              key={`Claim-${data.ticketId}`}
+                              ticketId={data.ticketId}
+                              lotteryId={data.lotteryId}
+                              pickedNumber={data.pickedNumbers}
+                            />
+                          )}
                         </HStack>
                       ))
                       .reverse()}

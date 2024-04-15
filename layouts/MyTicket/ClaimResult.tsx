@@ -18,7 +18,11 @@ import {
   useContractWrite,
 } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
-import { convertTimestampToFormattedDate } from '@/utils';
+import {
+  convertBigIntsToNumbers,
+  convertTimestampToFormattedDate,
+} from '@/utils';
+
 interface IProps {
   lotteryId: number;
   ticketId: number;
@@ -43,14 +47,16 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
   }, [isLoadingLottery, contractLottery?.populateTransaction]);
   useEffect(() => {
     if (!isLoadingLottery && dataLottery) {
-      // const temp: any = dataLottery;
-      const temp = {
-        id: 1,
-        drawnNumbers: [23, 30, 22, 18, 28, 13],
-        drawTime: 1712793600,
-      };
+      const temp = dataLottery;
+      // const temp = {
+      //   id: 1,
+      //   drawnNumbers: [23, 30, 22, 18, 28, 13],
+      //   drawTime: 1712793600,
+      //   state: 1,
+
+      // };
       if (temp) {
-        // convertBigIntsToNumbers(temp);
+        convertBigIntsToNumbers(temp);
         setCurrentData(() => temp);
       }
     }
@@ -118,6 +124,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                 </Text>
                 <HStack gap={8} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
                   {currentData &&
+                    currentData.drawTime &&
                     pickedNumber.map((num: number) => {
                       const isActive = currentData.drawnNumbers.includes(num);
 
@@ -134,7 +141,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                 </HStack>
               </HStack>
 
-              {currentData && currentData.drawnNumbers.length ? (
+              {currentData.drawnNumbers.length ? (
                 <>
                   {[...currentData.drawnNumbers].filter(x =>
                     pickedNumber.includes(x)
