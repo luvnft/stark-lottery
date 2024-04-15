@@ -141,7 +141,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                 </HStack>
               </HStack>
 
-              {currentData.drawnNumbers.length ? (
+              {currentData && currentData.drawnNumbers.length ? (
                 <>
                   {[...currentData.drawnNumbers].filter(x =>
                     pickedNumber.includes(x)

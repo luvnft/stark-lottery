@@ -46,7 +46,7 @@ const ListPageItem = ({ sx }: IProps) => {
         return (
           <Link href={page.link} key={page.link}>
             <Text
-              px={8}
+              px={{ xl: 8, base: 4 }}
               py={2}
               borderRadius="32px"
               color={pageActive() ? '#119EF9' : 'white'}
@@ -60,7 +60,7 @@ const ListPageItem = ({ sx }: IProps) => {
       })}
       <Link href="https://decolgen.gitbook.io/stark-arcade-doc" target="_blank">
         <Text
-          px={6}
+          px={{ lg: 8, md: 4 }}
           py={2}
           borderRadius="32px"
           color={'white'}

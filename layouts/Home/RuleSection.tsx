@@ -22,7 +22,7 @@ const RuleSection = () => {
       <Text mb={10} variant="title">
         Three classic lottery games with simple rules
       </Text>
-      <HStack gap="40px" flexWrap={{ lg: 'nowrap', base: 'wrap' }}>
+      <HStack gap="40px" flexWrap={{ md: 'nowrap', base: 'wrap' }}>
         <Image
           alt="Rule Image"
           src="/assets/arts/rule-art.svg"

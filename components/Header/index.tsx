@@ -56,7 +56,7 @@ const Header = () => {
 
           <ListPageItem
             sx={{
-              display: { md: 'flex', base: 'none' },
+              display: { lg: 'flex', base: 'none' },
               fontWeight: 'bold',
               fontSize: 'lg',
             }}
@@ -70,7 +70,7 @@ const Header = () => {
           </Box>
           <Box
             sx={{
-              display: { md: 'none', base: 'block' },
+              display: { lg: 'none', base: 'block' },
             }}
           >
             <PageDrawer />

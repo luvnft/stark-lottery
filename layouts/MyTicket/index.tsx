@@ -150,7 +150,7 @@ const MyTicketPage = () => {
                               </Button>
                             ))}
                           </HStack>
-                          {data.ticketId !== 1 && (
+                          {data.lotteryId > 1 && (
                             <ClaimResult
                               key={`Claim-${data.ticketId}`}
                               ticketId={data.ticketId}

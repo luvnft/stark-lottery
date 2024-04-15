@@ -5,7 +5,7 @@ import JackPotIcon from '@/public/assets/arts/jackpot.svg';
 const HeroSection = () => {
   return (
     <>
-      <Center py={14} flexWrap={{ md: 'nowrap', base: 'wrap-reverse' }}>
+      <Center py={14} flexWrap={{ lg: 'nowrap', base: 'wrap-reverse' }}>
         <Flex flexDirection="column" gap={6}>
           <Text>INTRODUCING LOTTERY</Text>
           <Text
@@ -25,14 +25,14 @@ const HeroSection = () => {
         <Box position="relative">
           <Box
             position="relative"
-            height={{ md: '600px', base: '300px' }}
-            w={{ md: '600px', base: '300px' }}
+            height={{ lg: '600px', base: 'full' }}
+            w={{ lg: '600px', base: 'full' }}
           >
             <Icon
               as={JackPotIcon}
               aria-label="jackpot"
-              height={{ md: '600px', base: '320px' }}
-              w={{ md: '600px', base: '320px' }}
+              height="full"
+              w="full"
             />
             <Box
               position="absolute"
@@ -62,7 +62,7 @@ const HeroSection = () => {
             width={{ lg: '200px', md: '150px', base: '80px' }}
             transform="rotate(30deg)"
             bottom={5}
-            right={'-5'}
+            right={{ lg: 0, base: 10 }}
           />
         </Box>
       </Center>

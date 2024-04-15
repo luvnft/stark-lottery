@@ -12,6 +12,7 @@ import { useContractRead } from '@starknet-react/core';
 import { LotteryProps } from '../Lotteries';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import ABILottery from '@/abi/lotteries645.json';
+import TimeReminder from '@/components/TimeReminder';
 
 const IntroSection = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
@@ -32,28 +33,31 @@ const IntroSection = () => {
       }
     }
   }, [isCurrentLotteryLoading]);
+
   return (
     <Box position="relative">
       <Image
-        bottom={-5}
-        right={10}
+        bottom={{ lg: -5, base: 20 }}
+        right={{ lg: 10, base: 0 }}
         position="absolute"
-        zIndex={{ md: 1, base: 0 }}
+        zIndex={1}
+        height={{ lg: 'auto', md: '200px', base: '80px' }}
         alt="Planet 1"
         src="/assets/arts/planet_1.png"
       />
       <Image
         bottom={-16}
-        left={48}
+        left={{ lg: 48, md: 12, base: 8 }}
         alt="Planet 2"
         position="absolute"
         src="/assets/arts/planet_2.png"
       />
       <Image
         alt="Planet 3"
-        top={0}
-        left={24}
-        zIndex={{ md: 1, base: -1 }}
+        top={{ md: 0, base: '-10' }}
+        left={{ lg: 24, md: 8, base: 3 }}
+        zIndex={{ md: 1, base: 0 }}
+        height={{ lg: 'auto', md: '200px', base: '80px' }}
         position="absolute"
         src="/assets/arts/planet_3.png"
       />
@@ -69,7 +73,7 @@ const IntroSection = () => {
         <PrimaryCard
           style={{
             pt: 8,
-            px: 24,
+            px: { lg: 24, md: 12, base: 4 },
             _hover: {},
           }}
           styleBorder={{
@@ -85,12 +89,16 @@ const IntroSection = () => {
                       : 'Loading...'
                   }`}
               sx={{
-                fontSize: '3rem',
+                fontSize: { md: '3rem', base: '2rem' },
                 fontWeight: 'bold',
                 bg: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
               }}
             />
-            <Icon as={StrkIcon} h={10} w={10} />
+            <Icon
+              as={StrkIcon}
+              h={{ md: 10, base: 6 }}
+              w={{ md: 10, base: 6 }}
+            />
           </HStack>
           <Text fontSize="2xl" fontWeight="bold">
             In Prizes!
@@ -106,21 +114,18 @@ const IntroSection = () => {
             />
             <Image alt="ticket Jack" src="/assets/arts/ticket/ticket_win.svg" />
           </Box>
+          {(currentLottery?.drawTime as any) && currentLottery?.state == 1 && (
+            <Box zIndex={2} width="full">
+              <TimeReminder targetDate={currentLottery.drawTime * 1000} />
+            </Box>
+          )}
         </PrimaryCard>
 
-        {(currentLottery?.startTime as any) && currentLottery?.state == 1 && (
-          <Text textAlign="center" color="#7A8CFF" fontWeight="bold" my={4}>
-            {` StartTime:
-                ${convertTimestampToFormattedDate(
-                  currentLottery.startTime as any
-                )}`}
-          </Text>
-        )}
         {currentLottery?.state == 1 && (
           <>
             {new Date(currentLottery.drawTime * 1000) > new Date() ? (
               <Link href={`/lotteries/buy`}>
-                <Button variant="primary" width="full">
+                <Button variant="primary" width="full" my={5}>
                   Get Your Ticket Now
                 </Button>
               </Link>
