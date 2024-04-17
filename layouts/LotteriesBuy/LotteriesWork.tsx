@@ -49,7 +49,7 @@ const LotteriesWork = () => {
         <Flex
           flexDirection="column"
           gap={5}
-          minW={{ md: '400px', base: '300px' }}
+          minW={{ md: '400px', base: 'full' }}
         >
           <HStack
             justifyContent="space-between"
