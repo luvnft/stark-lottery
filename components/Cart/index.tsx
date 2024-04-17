@@ -29,7 +29,6 @@ import { useAccount, useContractRead } from '@starknet-react/core';
 import ABIGovernance from '@/abi/governance.json';
 import { Call, CallData, uint256 } from 'starknet';
 
-import ABIEth from '@/abi/ETH.json';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { LOTTERY } from '@/config/value';
 const CartControl = () => {
@@ -54,9 +53,16 @@ const CartControl = () => {
     if (!isSelected(listSelect, listValue)) {
       setListSelect(prev => [...prev, listValue]);
     } else {
+      console.log('Deselect', listValue);
       const newArr = listSelect.filter(item =>
-        item.every((num, index) => num !== listValue[index])
+        item.some((num, index) => {
+          if (num !== listValue[index]) {
+            return true;
+          }
+        })
       );
+
+      console.log('Deselect', newArr);
       setListSelect(newArr);
     }
   };
