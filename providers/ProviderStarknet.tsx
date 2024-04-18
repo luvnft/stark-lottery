@@ -3,7 +3,6 @@ import {
   InjectedConnector,
   StarknetConfig,
   jsonRpcProvider,
-  starkscan,
 } from '@starknet-react/core';
 import React, { PropsWithChildren } from 'react';
 

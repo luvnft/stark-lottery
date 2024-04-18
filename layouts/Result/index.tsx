@@ -63,14 +63,14 @@ const ResultPage = () => {
 
       if (temp) {
         convertBigIntsToNumbers(temp);
-        // setListResult(() => temp)}
-        setListResult(() => [
-          {
-            id: 1,
-            drawnNumbers: [23, 30, 22, 18, 28, 13],
-            drawTime: 1712793600,
-          },
-        ]);
+        setListResult(() => temp);
+        // setListResult(() => [
+        //   {
+        //     id: 1,
+        //     drawnNumbers: [23, 30, 22, 18, 28, 13],
+        //     drawTime: 1712793600,
+        //   },
+        // ]);
       }
     }
   }, [isLoadingResultData]);
@@ -90,58 +90,92 @@ const ResultPage = () => {
                 <Flex flexDirection="column" gap={10}>
                   {listResult
                     .map((data: any) => (
-                      <HStack
-                        key={data.id}
-                        minH="100px"
-                        gap={{ md: 8, base: 6 }}
-                        padding={6}
-                        bg="#0A1450"
-                        borderRadius="3xl"
-                        justifyContent="space-between"
-                        flexWrap={{ md: 'nowrap', base: 'wrap' }}
-                      >
-                        <HStack gap={2}>
-                          <Text variant="title" fontSize="lg">
-                            Lottery: #{data.id}
-                          </Text>
-                          {/* <Text as="span" color="#7A8CFF">
-                            {data.id === 5 && 'Closed Beta Test'}
-                            {data.id < 5 && 'Internal Testing '}
-                          </Text> */}
-                        </HStack>
+                      <>
+                        {data.id != 1 && (
+                          <HStack
+                            key={data.id}
+                            minH="100px"
+                            gap={{ md: 8, base: 6 }}
+                            padding={6}
+                            bg="#0A1450"
+                            borderRadius="3xl"
+                            justifyContent="space-between"
+                            flexWrap={{ md: 'nowrap', base: 'wrap' }}
+                          >
+                            <HStack gap={2}>
+                              <Text variant="title" fontSize="lg">
+                                Lottery: #{data.id}
+                              </Text>
+                            </HStack>
 
-                        <Box>
-                          <Text color="#7A8CFF" fontWeight="medium">
-                            {convertTimestampToFormattedDate(
-                              data.drawTime as any
-                            )}
-                          </Text>
-                        </Box>
-                        <HStack
-                          gap={8}
-                          flexWrap={{ md: 'nowrap', base: 'wrap' }}
-                        >
-                          {data.drawnNumbers.length ? (
-                            <>
-                              {data.drawnNumbers.map((dataPicked: number) => (
-                                <Button
-                                  key={`${dataPicked} - ${data.id}`}
-                                  variant="lotteryNumber"
-                                  isActive={true}
-                                >
-                                  <Text>{dataPicked}</Text>
-                                </Button>
-                              ))}
-                            </>
-                          ) : (
-                            <>
-                              <Text>Result Not Available</Text>
-                            </>
-                          )}
-                        </HStack>
-                      </HStack>
+                            <Box>
+                              <Text color="#7A8CFF" fontWeight="medium">
+                                {convertTimestampToFormattedDate(
+                                  data.drawTime as any
+                                )}
+                              </Text>
+                            </Box>
+                            <HStack
+                              gap={8}
+                              flexWrap={{ md: 'nowrap', base: 'wrap' }}
+                            >
+                              {data.drawnNumbers.length ? (
+                                <>
+                                  {data.drawnNumbers.map(
+                                    (dataPicked: number) => (
+                                      <Button
+                                        key={`${dataPicked} - ${data.id}`}
+                                        variant="lotteryNumber"
+                                        isActive={true}
+                                      >
+                                        <Text>{dataPicked}</Text>
+                                      </Button>
+                                    )
+                                  )}
+                                </>
+                              ) : (
+                                <>
+                                  <Text>Result Not Available</Text>
+                                </>
+                              )}
+                            </HStack>
+                          </HStack>
+                        )}
+                      </>
                     ))
                     .reverse()}
+                  <HStack
+                    minH="100px"
+                    gap={{ md: 8, base: 6 }}
+                    padding={6}
+                    bg="#0A1450"
+                    borderRadius="3xl"
+                    justifyContent="space-between"
+                    flexWrap={{ md: 'nowrap', base: 'wrap' }}
+                  >
+                    <HStack gap={2}>
+                      <Text variant="title" fontSize="lg">
+                        Lottery: #1
+                      </Text>
+                    </HStack>
+
+                    <Box>
+                      <Text color="#7A8CFF" fontWeight="medium">
+                        {convertTimestampToFormattedDate(1712793600)}
+                      </Text>
+                    </Box>
+                    <HStack gap={8} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
+                      {[23, 30, 22, 18, 28, 13].map((dataPicked: number) => (
+                        <Button
+                          key={`${dataPicked} `}
+                          variant="lotteryNumber"
+                          isActive={true}
+                        >
+                          <Text>{dataPicked}</Text>
+                        </Button>
+                      ))}
+                    </HStack>
+                  </HStack>
                 </Flex>
               </>
             ) : (
