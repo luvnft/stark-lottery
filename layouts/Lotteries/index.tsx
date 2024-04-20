@@ -7,6 +7,7 @@ import {
   Flex,
   HStack,
   Icon,
+  Skeleton,
   Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -123,7 +124,7 @@ const Lotteries = () => {
           </Text>
 
           <HStack justifyContent="space-between" mt={4} mb={8}>
-            <Flex flexDirection="column">
+            <Flex flexDirection="column" gap={1}>
               <Text fontSize="lg">Jackpot</Text>
               <HStack>
                 <Text fontSize="lg" fontWeight="bold">
@@ -135,58 +136,86 @@ const Lotteries = () => {
             <Box>
               <Icon as={LineIcon} height="50px" />
             </Box>
-            <Flex flexDirection="column" alignItems="center">
-              <Text>Draw #{currentLottery?.id}</Text>
-              <Text fontWeight={700}>
+            <Flex flexDirection="column" alignItems="center" gap={1}>
+              {isCurrentLotteryLoading ? (
                 <>
-                  {currentLottery &&
-                    convertTimestampToFormattedDate(
-                      currentLottery.drawTime as any
-                    )}
+                  <Skeleton>Draw # 1234</Skeleton>
+                  <Skeleton>............</Skeleton>
                 </>
-              </Text>
+              ) : (
+                <>
+                  <Text>Draw # {currentLottery?.id}</Text>
+                  <Text fontWeight={700}>
+                    {currentLottery &&
+                      convertTimestampToFormattedDate(
+                        currentLottery.drawTime as any
+                      )}
+                  </Text>
+                </>
+              )}
             </Flex>
           </HStack>
-          {currentLottery && currentLottery?.amountOfTickets != 0 && (
-            <Text fontWeight="bold">
-              Ticket Sold: {currentLottery.amountOfTickets}
-            </Text>
-          )}
 
-          {(currentLottery?.startTime as any) && currentLottery?.state == 1 && (
-            <Text textAlign="center" color="#7A8CFF" fontWeight="bold" my={4}>
-              {` StartTime:
+          <Flex flexDirection="column" gap={2}>
+            {isCurrentLotteryLoading ? (
+              <>
+                <Skeleton>Ticket Sold : ####</Skeleton>
+                <Skeleton>StartTime: ####</Skeleton>
+              </>
+            ) : (
+              <>
+                {currentLottery && currentLottery?.amountOfTickets != 0 && (
+                  <Text fontWeight="bold">
+                    Ticket Sold: {currentLottery.amountOfTickets}
+                  </Text>
+                )}
+                {(currentLottery?.startTime as any) &&
+                  currentLottery?.state == 1 && (
+                    <Text
+                      textAlign="center"
+                      color="#7A8CFF"
+                      fontWeight="bold"
+                      my={4}
+                    >
+                      {` StartTime:
                 ${convertTimestampToFormattedDate(
                   currentLottery.startTime as any
                 )}`}
-            </Text>
-          )}
-          {currentLottery?.state == 1 && (
-            <>
-              {new Date(currentLottery.drawTime * 1000) > new Date() ? (
-                <Link href={`/lotteries/buy`}>
-                  <Button variant="primary" width="full">
-                    Ticket price {LOTTERY.price_ticket} STRK
-                  </Button>
-                </Link>
-              ) : (
-                <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
-                  Sale End - Wait Draw
-                </Text>
-              )}
-            </>
-          )}
+                    </Text>
+                  )}
+                {currentLottery?.state == 1 && (
+                  <>
+                    {new Date(currentLottery.drawTime * 1000) > new Date() ? (
+                      <Link href={`/lotteries/buy`}>
+                        <Button variant="primary" width="full">
+                          Ticket price {LOTTERY.price_ticket} STRK
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Text
+                        textAlign="center"
+                        color="#7A8CFF"
+                        fontWeight="bold"
+                      >
+                        Sale End - Wait Draw
+                      </Text>
+                    )}
+                  </>
+                )}
 
-          {currentLottery?.state == 0 && (
-            <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
-              Lottery Closed
-            </Text>
-          )}
-          {currentLottery?.state == 2 && (
-            <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
-              Lottery Drawing
-            </Text>
-          )}
+                {currentLottery?.state == 0 && (
+                  <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
+                    Lottery Closed
+                  </Text>
+                )}
+                {currentLottery?.state == 2 && (
+                  <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
+                    Lottery Drawing
+                  </Text>
+                )}
+              </>
+            )}
+          </Flex>
         </Flex>
       </Center>
     </Container>
