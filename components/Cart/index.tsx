@@ -35,7 +35,7 @@ const CartControl = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { cart, clearTicketCart, updateTicketsCart } = useCart();
 
-  const { address, account } = useAccount();
+  const { account } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
 
   const [listSelect, setListSelect] = useState<number[][]>([]);
@@ -53,7 +53,6 @@ const CartControl = () => {
     if (!isSelected(listSelect, listValue)) {
       setListSelect(prev => [...prev, listValue]);
     } else {
-      console.log('Deselect', listValue);
       const newArr = listSelect.filter(item =>
         item.some((num, index) => {
           if (num !== listValue[index]) {
@@ -62,7 +61,6 @@ const CartControl = () => {
         })
       );
 
-      console.log('Deselect', newArr);
       setListSelect(newArr);
     }
   };
