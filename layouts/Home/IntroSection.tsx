@@ -115,27 +115,46 @@ const IntroSection = () => {
             <Image alt="ticket Jack" src="/assets/arts/ticket/ticket_win.svg" />
           </Box>
           {(currentLottery?.drawTime as any) && currentLottery?.state == 1 && (
-            <Box zIndex={2} width="full">
-              <TimeReminder targetDate={currentLottery.drawTime * 1000} />
-            </Box>
+            <>
+              {new Date(currentLottery.startTime * 1000) > new Date() ? (
+                <>
+                  <Box zIndex={2} width="full">
+                    <Text fontSize="lg" fontWeight="bold">
+                      Open Sale
+                    </Text>
+                    <TimeReminder
+                      targetDate={currentLottery.startTime * 1000}
+                    />
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <Text>Sale End</Text>
+                  <Box zIndex={2} width="full">
+                    <TimeReminder targetDate={currentLottery.drawTime * 1000} />
+                  </Box>
+                </>
+              )}
+            </>
           )}
         </PrimaryCard>
 
-        {currentLottery?.state == 1 && (
-          <>
-            {new Date(currentLottery.drawTime * 1000) > new Date() ? (
-              <Link href={`/lotteries/buy`}>
-                <Button variant="primary" width="full" my={5}>
-                  Get Your Ticket Now
-                </Button>
-              </Link>
-            ) : (
-              <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
-                Sale End - Wait Draw
-              </Text>
-            )}
-          </>
-        )}
+        {currentLottery?.state == 1 &&
+          new Date(currentLottery.startTime * 1000) < new Date() && (
+            <>
+              {new Date(currentLottery.drawTime * 1000) > new Date() ? (
+                <Link href={`/lotteries/buy`}>
+                  <Button variant="primary" width="full" my={5}>
+                    Get Your Ticket Now
+                  </Button>
+                </Link>
+              ) : (
+                <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
+                  Sale End - Wait Draw
+                </Text>
+              )}
+            </>
+          )}
 
         {currentLottery?.state == 0 && (
           <Text textAlign="center" color="#7A8CFF" fontWeight="bold">

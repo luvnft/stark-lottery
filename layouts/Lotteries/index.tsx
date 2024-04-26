@@ -67,7 +67,7 @@ const Lotteries = () => {
           src="/assets/arts/lotteries_art.png"
           height={450}
           width={800}
-          alt={''}
+          alt=" Ticket Art Lotteries"
         />
         <Flex
           flexGrow={1}
@@ -183,25 +183,27 @@ const Lotteries = () => {
                 )}`}
                     </Text>
                   )}
-                {currentLottery?.state == 1 && (
-                  <>
-                    {new Date(currentLottery.drawTime * 1000) > new Date() ? (
-                      <Link href={`/lotteries/buy`}>
-                        <Button variant="primary" width="full">
-                          Ticket price {LOTTERY.price_ticket} STRK
-                        </Button>
-                      </Link>
-                    ) : (
-                      <Text
-                        textAlign="center"
-                        color="#7A8CFF"
-                        fontWeight="bold"
-                      >
-                        Sale End - Wait Draw
-                      </Text>
-                    )}
-                  </>
-                )}
+
+                {currentLottery?.state == 1 &&
+                  new Date(currentLottery.startTime * 1000) < new Date() && (
+                    <>
+                      {new Date(currentLottery.drawTime * 1000) > new Date() ? (
+                        <Link href={`/lotteries/buy`}>
+                          <Button variant="primary" width="full">
+                            Ticket price {LOTTERY.price_ticket} STRK
+                          </Button>
+                        </Link>
+                      ) : (
+                        <Text
+                          textAlign="center"
+                          color="#7A8CFF"
+                          fontWeight="bold"
+                        >
+                          Sale End - Wait Draw
+                        </Text>
+                      )}
+                    </>
+                  )}
 
                 {currentLottery?.state == 0 && (
                   <Text textAlign="center" color="#7A8CFF" fontWeight="bold">

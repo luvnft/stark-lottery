@@ -1,3 +1,4 @@
+import { setChainId } from '@/redux/user/user-slice';
 import {
   HStack,
   Modal,
@@ -6,18 +7,26 @@ import {
   ModalContent,
   Text,
   ModalOverlay,
+  Box,
 } from '@chakra-ui/react';
+import { useConnect } from '@starknet-react/core';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import BtnConnectWallet from './BtnConnectWallet';
+import wallets from '@/config/wallet';
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
-  children: React.ReactNode;
 }
-export default function ModalConnectWallet({
-  isOpen,
-  onClose,
-  children,
-}: IProps) {
+export default function ModalConnectWallet({ isOpen, onClose }: IProps) {
+  const { connect, connectors } = useConnect();
+
+  const dispatch = useDispatch();
+  const connectWallet = async (connectorIndex: number) => {
+    await connect({ connector: connectors[connectorIndex] });
+    await dispatch(setChainId(connectorIndex));
+    onClose();
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
@@ -58,7 +67,20 @@ export default function ModalConnectWallet({
           />
         </HStack>
 
-        <ModalBody padding={0}>{children}</ModalBody>
+        <ModalBody padding={0}>
+          <Box px={2} pb={4}>
+            {wallets.map(wallet => (
+              <BtnConnectWallet
+                key={`connect-${wallet.label}`}
+                onClick={async () => {
+                  await connectWallet(wallet.index);
+                }}
+                icon={wallet.icon}
+                label={wallet.label}
+              />
+            ))}
+          </Box>
+        </ModalBody>
       </ModalContent>
     </Modal>
   );
