@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   HStack,
   Icon,
@@ -11,7 +10,6 @@ import {
   Progress,
   useToast,
   Text,
-  ModalCloseButton,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import LotteriesRandomNumber from '../LotteriesBuy/LotteriesRandomNumber';
@@ -26,7 +24,8 @@ import { LOTTERY } from '@/config/value';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import { sortArrayAscending } from '@/utils';
 import * as Merkle from 'starknet-merkle-tree';
-// TODO  NOTE Model Claim Whitelist Ticket
+import airDropJson from '@/data/whitelist.json';
+
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
@@ -61,7 +60,6 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
       const randomNumber =
         Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
 
-      // Ensure the generated number is not already in the array
       if (!randomNumbers.includes(randomNumber)) {
         randomNumbers.push(randomNumber);
       }
@@ -85,47 +83,22 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
       }
       setIsLoading(true);
       // const newSortData = listNumber.sort((a, b) => a - b);
-      console.log('RUn');
+
       const newSortData = sortArrayAscending(listNumber);
-      const airdrop: Merkle.InputForMerkle[] = [
-        [
-          '0x69b49c2cc8b16e80e86bfc5b0614a59aa8c9b601569c7b80dde04d3f3151b79',
-          '256',
-          '0',
-        ],
-        [
-          '0x3cad9a072d3cf29729ab2fad2e08972b8cfde01d4979083fb6d15e8e66f8ab1',
-          '25',
-          '0',
-        ],
-        [
-          '0x27d32a3033df4277caa9e9396100b7ca8c66a4ef8ea5f6765b91a7c17f0109c',
-          '56',
-          '0',
-        ],
-        [
-          '0x7e00d496e324876bbc8531f2d9a82bf154d1a04a50218ee74cdd372f75a551a',
-          '26',
-          '0',
-        ],
-        [
-          '0x53c615080d35defd55569488bc48c1a91d82f2d2ce6199463e095b4a4ead551',
-          '56',
-          '0',
-        ],
-      ];
+      const whitelist: string[] = JSON.parse(JSON.stringify(airDropJson));
+      const listAirdrop = [];
+      for (const winner of whitelist) {
+        listAirdrop.push([winner, '1', '0']);
+      }
+
       const tree = Merkle.StarknetMerkleTree.create(
-        airdrop,
+        listAirdrop,
         Merkle.HashType.Poseidon
       );
-      const inp = [
-        '0x69b49c2cc8b16e80e86bfc5b0614a59aa8c9b601569c7b80dde04d3f3151b79',
-        '256',
-        '0',
-      ]; // leaf content
+
+      const inp = [address, '1', '0']; // leaf content
       const proof = tree.getProof(inp);
 
-      console.log('Proof', proof);
       await account.execute([
         {
           contractAddress: CONTRACT_ADDRESS.eth,
@@ -138,9 +111,8 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
         {
           contractAddress: CONTRACT_ADDRESS.lottery,
           entrypoint: 'buyWhitelistTicket',
-
           calldata: CallData.compile({
-            whitelistAddress: address,
+            whitelistAddress: CONTRACT_ADDRESS.whitelist,
             maxAmount: uint256.bnToUint256(1),
             proof: proof,
             pickedNumbers: newSortData,
@@ -163,79 +135,82 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
       } else {
         toast({
           status: 'error',
-          description: `You not Valid Eliggible`,
+          description: `You are not Valid Eliggible`,
         });
       }
     }
     setIsLoading(false);
   };
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
-      <ModalOverlay />
 
-      <ModalContent borderRadius="lg" overflow="hidden">
-        <ModalBody bg="card">
-          <HStack gap={4} justifyContent="flex-end">
-            <IconButton
-              onClick={async () => {
-                const value = getRandomNumbers();
-                await setListNumber(() => value);
-              }}
-              variant="icon_btn"
-              icon={<Icon as={RandomIcon} />}
-              aria-label=""
-              content="Random Number"
-            >
-              Random Number
-            </IconButton>
-            <IconButton
-              variant="icon_btn"
-              icon={<Icon as={ClearIcon} />}
-              aria-label=""
-              onClick={() => {
-                setListNumber([]);
-              }}
+  return (
+    <>
+      <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
+        <ModalOverlay />
+
+        <ModalContent borderRadius="lg" overflow="hidden">
+          <ModalBody bg="card">
+            <HStack gap={4} justifyContent="flex-end">
+              <IconButton
+                onClick={async () => {
+                  const value = getRandomNumbers();
+                  await setListNumber(() => value);
+                }}
+                variant="icon_btn"
+                icon={<Icon as={RandomIcon} />}
+                aria-label=""
+                content="Random Number"
+              >
+                Random Number
+              </IconButton>
+              <IconButton
+                variant="icon_btn"
+                icon={<Icon as={ClearIcon} />}
+                aria-label=""
+                onClick={() => {
+                  setListNumber([]);
+                }}
+              />
+            </HStack>
+            <Text color="note">Pick Your 6 number</Text>
+            <Progress
+              value={listNumber.length}
+              size="sm"
+              variant="pick_progress"
+              bg="#192678"
+              max={6}
+              borderRadius="2xl"
             />
-          </HStack>
-          <Text color="note">Pick Your 6 number</Text>
-          <Progress
-            value={listNumber.length}
-            size="sm"
-            variant="pick_progress"
-            bg="#192678"
-            max={6}
-            borderRadius="2xl"
-          />
-          <LotteriesRandomNumber
-            listNumber={listNumber}
-            handleSelectNumber={handleSelectNumber}
-          />
-          <HStack
-            width="full"
-            justifyContent="center"
-            textAlign="center"
-            gap={6}
-            my={8}
-          >
-            <Button
-              isDisabled={listNumber.length == 6 && address ? false : true}
-              width={{ md: 'auto', base: 'full' }}
-              variant="buy_ticket"
-              isLoading={isLoadingMinPrice || isLoading}
-              onClick={async () => {
-                await handleBuyWhitelistTicket();
-              }}
-              rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
+            <LotteriesRandomNumber
+              listNumber={listNumber}
+              handleSelectNumber={handleSelectNumber}
+            />
+            <HStack
+              width="full"
+              justifyContent="center"
+              textAlign="center"
+              gap={6}
+              my={8}
             >
-              Claim Ticket | {LOTTERY.price_ticket}
-            </Button>
-            <Button variant="primary" minH={12} onClick={onClose}>
-              Cancel
-            </Button>
-          </HStack>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+              <Button
+                isDisabled={listNumber.length == 6 && address ? false : true}
+                width={{ md: 'auto', base: 'full' }}
+                variant="buy_ticket"
+                isLoading={isLoadingMinPrice || isLoading}
+                onClick={async () => {
+                  await handleBuyWhitelistTicket();
+                }}
+                rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
+              >
+                Claim Ticket | {LOTTERY.price_ticket}
+              </Button>
+              <Button variant="primary" minH={12} onClick={onClose}>
+                Cancel
+              </Button>
+            </HStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
