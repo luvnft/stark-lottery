@@ -7,6 +7,7 @@ const nutino = Nunito_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'StarkPot| StarkArcade Hub',
+  metadataBase: new URL('https://starkpot.starkarcade.com/'),
   description:
     'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
   icons: {
@@ -15,7 +16,35 @@ export const metadata: Metadata = {
     apple: Favicon.src,
     other: { rel: 'apple-touch-icon-precomposed', url: Favicon.src },
   },
-  keywords: ['StarkPot', 'What is StarkPot'],
+
+  keywords: ['StarkPot', 'What is StarkPot', 'StarkArcade Hub'],
+  openGraph: {
+    title: 'StarkPot | StarkArcade Hub',
+    description:
+      'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
+    images: [
+      {
+        url: './public/assets/banner/banner.png',
+        width: 1200,
+        height: 600,
+        type: 'image/png',
+      },
+    ],
+    locale: 'en_US',
+    url: 'https://starkpot.starkarcade.com/',
+    type: 'website',
+    emails: 'karasbuilder@gmail.com',
+    siteName: 'StarkPot',
+  },
+  twitter: {
+    title: 'StarkPot | StarkArcade Hub',
+    description:
+      'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
+    images: './public/assets/banner/banner.png',
+    site: 'https://starkpot.starkarcade.com/',
+    creator: '@StarkArcade Hub',
+  },
+  category: 'technology',
 };
 
 export default function RootLayout({

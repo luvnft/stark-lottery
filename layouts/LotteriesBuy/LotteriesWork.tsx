@@ -27,7 +27,7 @@ const LotteriesWork = () => {
     },
   ];
   return (
-    <Box padding={6} bg="#0A1450" borderRadius="2xl">
+    <Box padding={6} bg="card" borderRadius="2xl">
       <Text mb={8} fontSize="2xl" fontWeight="extrabold">
         What you can win
       </Text>

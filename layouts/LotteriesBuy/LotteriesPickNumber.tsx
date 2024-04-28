@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   HStack,
   Icon,
   IconButton,
@@ -16,7 +15,6 @@ import RandomIcon from '@/public/assets/icons/general/random.svg';
 import CartAdd from '@/public/assets/icons/general/add_cart.svg';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import ABIGovernance from '@/abi/governance.json';
-import ABIEth from '@/abi/ETH.json';
 
 import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
@@ -26,6 +24,7 @@ import CartControl from '@/components/Cart';
 
 import { sortArrayAscending } from '@/utils';
 import { useCart } from '@/hooks/useCart';
+import LotteriesRandomNumber from './LotteriesRandomNumber';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -159,7 +158,7 @@ const LotteriesPickNumber = () => {
           <CartControl />
         </HStack>
       </HStack>
-      <Text color="#7A8CFF">Pick 6 number</Text>
+      <Text color="note">Pick Your 6 number</Text>
       <Progress
         value={listNumber.length}
         size="sm"
@@ -168,23 +167,11 @@ const LotteriesPickNumber = () => {
         max={6}
         borderRadius="2xl"
       />
-      <Flex gap={{ md: 8, base: 8 }} flexWrap="wrap" my={6}>
-        {Array.from({ length: 45 }).map((_, index) => {
-          const active = listNumber.includes(index + 1);
-          return (
-            <Button
-              variant="lotteryNumber"
-              isActive={active}
-              key={index + 1}
-              onClick={() => {
-                handleSelectNumber(index + 1);
-              }}
-            >
-              <Text>{index + 1}</Text>
-            </Button>
-          );
-        })}
-      </Flex>
+      <LotteriesRandomNumber
+        listNumber={listNumber}
+        handleSelectNumber={handleSelectNumber}
+      />
+
       <Center>
         {address ? (
           <>

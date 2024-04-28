@@ -48,13 +48,6 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
   useEffect(() => {
     if (!isLoadingLottery && dataLottery) {
       const temp = dataLottery;
-      // const temp = {
-      //   id: 1,
-      //   drawnNumbers: [23, 30, 22, 18, 28, 13],
-      //   drawTime: 1712793600,
-      //   state: 1,
-
-      // };
       if (temp) {
         convertBigIntsToNumbers(temp);
         setCurrentData(() => temp);

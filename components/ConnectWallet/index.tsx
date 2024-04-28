@@ -53,20 +53,7 @@ const ConnectWallet = ({ sx }: { sx?: ButtonProps }) => {
           </Text>
         </Button>
 
-        <ModalConnectWallet isOpen={isOpen} onClose={onClose}>
-          <Box px={2} pb={4}>
-            {wallets.map(wallet => (
-              <BtnConnectWallet
-                key={`connect-${wallet.label}`}
-                onClick={async () => {
-                  await connectWallet(wallet.index);
-                }}
-                icon={wallet.icon}
-                label={wallet.label}
-              />
-            ))}
-          </Box>
-        </ModalConnectWallet>
+        <ModalConnectWallet isOpen={isOpen} onClose={onClose} />
       </Box>
     </>
   );

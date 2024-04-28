@@ -58,6 +58,8 @@ export const colors = {
     },
   },
   body: '#0F1005',
+  card: '#0A1450',
+  note: '#7A8CFF',
   ...backgrounds,
 };
 
