@@ -27,7 +27,7 @@ const LotteriesBuyPage = () => {
     useContractRead({
       functionName: 'getCurrentLottery',
       abi: ABILottery,
-      address: CONTRACT_ADDRESS.lottery,
+      address: CONTRACT_ADDRESS.lottery_new,
       watch: true,
     });
   useEffect(() => {

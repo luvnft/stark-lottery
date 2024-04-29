@@ -76,7 +76,7 @@ const LotteriesPickNumber = () => {
     useContractRead({
       functionName: 'getMinimumPrice',
       abi: ABIGovernance,
-      args: [CONTRACT_ADDRESS.lottery],
+      args: [CONTRACT_ADDRESS.lottery_new],
       address: CONTRACT_ADDRESS.governance,
       watch: true,
     });
@@ -101,7 +101,7 @@ const LotteriesPickNumber = () => {
         },
 
         {
-          contractAddress: CONTRACT_ADDRESS.lottery,
+          contractAddress: CONTRACT_ADDRESS.lottery_new,
           entrypoint: 'buyTicket',
 
           calldata: CallData.compile({

@@ -41,7 +41,7 @@ const Lotteries = () => {
     useContractRead({
       functionName: 'getCurrentLottery',
       abi: ABILottery,
-      address: CONTRACT_ADDRESS.lottery,
+      address: CONTRACT_ADDRESS.lottery_new,
       watch: true,
     });
   useEffect(() => {
@@ -120,7 +120,7 @@ const Lotteries = () => {
             </Button>
           </Center>
           <Text fontSize="3xl" fontWeight="bold" mt={8}>
-            {` Lottery "6 out of 45 "`}
+            {` Lottery "6 out of 45"`}
           </Text>
 
           <HStack justifyContent="space-between" mt={4} mb={8}>

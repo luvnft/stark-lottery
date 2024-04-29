@@ -4,10 +4,7 @@ import StrkIcon from '@/public/assets/icons/general/stark_token.svg';
 import PrimaryCard from '@/components/Card/PrimaryCard';
 import GradientText from '@/components/Text/GradientText';
 import Link from 'next/link';
-import {
-  convertBigIntsToNumbers,
-  convertTimestampToFormattedDate,
-} from '@/utils';
+import { convertBigIntsToNumbers } from '@/utils';
 import { useContractRead } from '@starknet-react/core';
 import { LotteryProps } from '../Lotteries';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
@@ -20,7 +17,7 @@ const IntroSection = () => {
     useContractRead({
       functionName: 'getCurrentLottery',
       abi: ABILottery,
-      address: CONTRACT_ADDRESS.lottery,
+      address: CONTRACT_ADDRESS.lottery_new,
       watch: true,
     });
   useEffect(() => {

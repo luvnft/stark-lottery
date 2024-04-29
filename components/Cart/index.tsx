@@ -85,7 +85,7 @@ const CartControl = () => {
     useContractRead({
       functionName: 'getMinimumPrice',
       abi: ABIGovernance,
-      args: [CONTRACT_ADDRESS.lottery],
+      args: [CONTRACT_ADDRESS.lottery_new],
       address: CONTRACT_ADDRESS.governance,
       watch: true,
     });
@@ -98,7 +98,7 @@ const CartControl = () => {
       setIsLoading(true);
       let listExecute: Call[] = listSelect.map(item => {
         return {
-          contractAddress: CONTRACT_ADDRESS.lottery,
+          contractAddress: CONTRACT_ADDRESS.lottery_new,
           entrypoint: 'buyTicket',
           calldata: CallData.compile({
             pickedNumbers: [...item],
