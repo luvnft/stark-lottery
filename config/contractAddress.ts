@@ -1,7 +1,7 @@
 export const CONTRACT_ADDRESS = {
   lottery: '0x03b41b4957e3cf6c8925049c84616606acab70f816a08f541f687ba60c62ce5d',
   lottery_new:
-    '0x03c7a225102d70112c99b18e85153f7b74d49a4c18d44e42fc50e54708725b84', // New Contract Lottery #6
+    '0x65e4f355beb2e1c8bf015aa7bd0fa8c7af86cd2eb8ec48295f3660d33e8f577', // New Contract Lottery #6
 
   eth: '0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d',
   ticket: '0x0043d10af1c387c68e9d3a003d85bca14b9fc9bd64329228102c02cd888b7c2b',

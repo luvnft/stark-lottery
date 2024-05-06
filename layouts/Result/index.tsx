@@ -6,6 +6,7 @@ import {
 import { useContractRead } from '@starknet-react/core';
 import React, { useEffect, useState } from 'react';
 import ABILottery from '@/abi/lotteries645.json';
+import ABILotteryNew from '@/abi/new_lotteries645.json';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { LotteryProps } from '../Lotteries';
 import EmptyIcon from '@/public/assets/arts/empty.svg';
@@ -23,58 +24,91 @@ import {
 const ResultPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const [listResult, setListResult] = useState<any>();
-  const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
-    useContractRead({
-      functionName: 'getCurrentLottery',
-      abi: ABILottery,
-      address: CONTRACT_ADDRESS.lottery,
-      watch: true,
-    });
 
   const { data: resultData, isLoading: isLoadingResultData } = useContractRead({
     functionName: 'getLotteryByIds',
     abi: ABILottery,
     args: [
       [
-        ...Array.from(
-          { length: currentLottery ? currentLottery.id - 1 : 0 },
-          function (v, k) {
-            return k + 1;
-          }
-        ),
+        ...Array.from({ length: 5 }, function (v, k) {
+          return k + 1;
+        }),
       ],
     ],
     address: CONTRACT_ADDRESS.lottery,
     watch: true,
   });
-  useEffect(() => {
-    if (!isCurrentLotteryLoading && currentLotteryData) {
-      const temp: any = currentLotteryData;
 
-      if (temp) {
-        convertBigIntsToNumbers(temp);
-        setCurrentLottery(() => temp);
-      }
-    }
-  }, [isCurrentLotteryLoading]);
   useEffect(() => {
     if (!isLoadingResultData && resultData) {
       const temp: any = resultData;
 
       if (temp) {
         convertBigIntsToNumbers(temp);
-        setListResult(() => temp);
-        // setListResult(() => [
-        //   {
-        //     id: 1,
-        //     drawnNumbers: [23, 30, 22, 18, 28, 13],
-        //     drawTime: 1712793600,
-        //   },
-        // ]);
+        setListResult((prev: any) => {
+          if (prev) {
+            return [...prev, ...temp];
+          }
+          return temp;
+        });
       }
     }
   }, [isLoadingResultData]);
 
+  const { data: currentLotteryDataNew, isLoading: isCurrentLotteryLoadingNew } =
+    useContractRead({
+      functionName: 'getCurrentLottery',
+      abi: ABILotteryNew,
+      address: CONTRACT_ADDRESS.lottery_new,
+      watch: true,
+    });
+
+  const { data: resultDataNew, isLoading: isLoadingResultDataNew } =
+    useContractRead({
+      functionName: 'getLotteryByIds',
+      abi: ABILotteryNew,
+      args: [
+        [
+          ...Array.from(
+            {
+              length: currentLottery ? currentLottery.id - 6 : 0,
+            },
+            function (_, k) {
+              return k + 6;
+            }
+          ),
+        ],
+      ],
+      address: CONTRACT_ADDRESS.lottery_new,
+      watch: true,
+    });
+
+  useEffect(() => {
+    if (!isCurrentLotteryLoadingNew && currentLotteryDataNew) {
+      const temp: any = currentLotteryDataNew;
+
+      if (temp) {
+        convertBigIntsToNumbers(temp);
+        setCurrentLottery(() => temp);
+      }
+    }
+  }, [isCurrentLotteryLoadingNew]);
+  useEffect(() => {
+    if (!isLoadingResultDataNew && resultDataNew) {
+      const temp: any = resultDataNew;
+
+      if (temp) {
+        convertBigIntsToNumbers(temp);
+        setListResult((prev: any) => {
+          if (prev) {
+            return [...prev, ...temp];
+          }
+          return temp;
+        });
+      }
+    }
+  }, [isLoadingResultDataNew]);
+  console.log('Now Result', listResult);
   return (
     <>
       <Container maxWidth="container.xl" minH="90vh">
