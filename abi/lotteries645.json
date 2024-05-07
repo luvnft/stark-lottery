@@ -223,24 +223,28 @@
     ]
   },
   {
-    "name": "testGetRandomNumbers",
+    "name": "changeGovernance",
     "type": "function",
     "inputs": [
       {
-        "name": "randomWord",
-        "type": "core::felt252"
-      },
-      {
-        "name": "totalValue",
-        "type": "core::integer::u256"
+        "name": "newGovernance",
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ],
-    "outputs": [
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "changePointPool",
+    "type": "function",
+    "inputs": [
       {
-        "type": "core::array::Span::<core::integer::u32>"
+        "name": "newPointPool",
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ],
-    "state_mutability": "view"
+    "outputs": [],
+    "state_mutability": "external"
   },
   {
     "name": "changePrizeMultipliers",
@@ -303,6 +307,18 @@
       {
         "name": "endTime",
         "type": "core::integer::u64"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "changeCurrentLottery",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "lotteryId",
+        "type": "core::integer::u128"
       }
     ],
     "outputs": [],
@@ -395,6 +411,29 @@
     "state_mutability": "view"
   },
   {
+    "name": "setPointPerTicket",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "newPoint",
+        "type": "core::integer::u128"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "getPointPerTicket",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::integer::u128"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
     "name": "OwnableImpl",
     "type": "impl",
     "interface_name": "openzeppelin::access::ownable::interface::IOwnable"
@@ -446,6 +485,14 @@
       {
         "name": "governanceAddress",
         "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "pointPoolAddress",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "pointPerTicket",
+        "type": "core::integer::u128"
       },
       {
         "name": "startDay",

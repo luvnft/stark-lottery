@@ -6,7 +6,7 @@ import {
 import { useContractRead } from '@starknet-react/core';
 import React, { useEffect, useState } from 'react';
 import ABILottery from '@/abi/lotteries645.json';
-import ABILotteryNew from '@/abi/new_lotteries645.json';
+
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { LotteryProps } from '../Lotteries';
 import EmptyIcon from '@/public/assets/arts/empty.svg';
@@ -21,23 +21,37 @@ import {
   Spinner,
   Text,
 } from '@chakra-ui/react';
+import { resultDataFrom1To8 } from '@/config/dataResultContract';
 const ResultPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
-  const [listResult, setListResult] = useState<any>();
+  const [listResult, setListResult] = useState<any>(resultDataFrom1To8);
 
   const { data: resultData, isLoading: isLoadingResultData } = useContractRead({
     functionName: 'getLotteryByIds',
     abi: ABILottery,
     args: [
       [
-        ...Array.from({ length: 5 }, function (v, k) {
-          return k + 1;
-        }),
+        ...Array.from(
+          {
+            length: currentLottery ? currentLottery.id - 8 : 0,
+          },
+          function (_, k) {
+            return k + 8;
+          }
+        ),
       ],
     ],
     address: CONTRACT_ADDRESS.lottery,
     watch: true,
   });
+
+  const { data: currentLotteryDataNew, isLoading: isCurrentLotteryLoadingNew } =
+    useContractRead({
+      functionName: 'getCurrentLottery',
+      abi: ABILottery,
+      address: CONTRACT_ADDRESS.lottery,
+      watch: true,
+    });
 
   useEffect(() => {
     if (!isLoadingResultData && resultData) {
@@ -54,35 +68,6 @@ const ResultPage = () => {
       }
     }
   }, [isLoadingResultData]);
-
-  const { data: currentLotteryDataNew, isLoading: isCurrentLotteryLoadingNew } =
-    useContractRead({
-      functionName: 'getCurrentLottery',
-      abi: ABILotteryNew,
-      address: CONTRACT_ADDRESS.lottery_new,
-      watch: true,
-    });
-
-  const { data: resultDataNew, isLoading: isLoadingResultDataNew } =
-    useContractRead({
-      functionName: 'getLotteryByIds',
-      abi: ABILotteryNew,
-      args: [
-        [
-          ...Array.from(
-            {
-              length: currentLottery ? currentLottery.id - 6 : 0,
-            },
-            function (_, k) {
-              return k + 6;
-            }
-          ),
-        ],
-      ],
-      address: CONTRACT_ADDRESS.lottery_new,
-      watch: true,
-    });
-
   useEffect(() => {
     if (!isCurrentLotteryLoadingNew && currentLotteryDataNew) {
       const temp: any = currentLotteryDataNew;
@@ -93,22 +78,6 @@ const ResultPage = () => {
       }
     }
   }, [isCurrentLotteryLoadingNew]);
-  useEffect(() => {
-    if (!isLoadingResultDataNew && resultDataNew) {
-      const temp: any = resultDataNew;
-
-      if (temp) {
-        convertBigIntsToNumbers(temp);
-        setListResult((prev: any) => {
-          if (prev) {
-            return [...prev, ...temp];
-          }
-          return temp;
-        });
-      }
-    }
-  }, [isLoadingResultDataNew]);
-  console.log('Now Result', listResult);
   return (
     <>
       <Container maxWidth="container.xl" minH="90vh">
@@ -178,38 +147,6 @@ const ResultPage = () => {
                       </>
                     ))
                     .reverse()}
-                  <HStack
-                    minH="100px"
-                    gap={{ md: 8, base: 6 }}
-                    padding={6}
-                    bg="#0A1450"
-                    borderRadius="3xl"
-                    justifyContent="space-between"
-                    flexWrap={{ md: 'nowrap', base: 'wrap' }}
-                  >
-                    <HStack gap={2}>
-                      <Text variant="title" fontSize="lg">
-                        Lottery: #1
-                      </Text>
-                    </HStack>
-
-                    <Box>
-                      <Text color="#7A8CFF" fontWeight="medium">
-                        {convertTimestampToFormattedDate(1712793600)}
-                      </Text>
-                    </Box>
-                    <HStack gap={8} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
-                      {[23, 30, 22, 18, 28, 13].map((dataPicked: number) => (
-                        <Button
-                          key={`${dataPicked} `}
-                          variant="lotteryNumber"
-                          isActive={true}
-                        >
-                          <Text>{dataPicked}</Text>
-                        </Button>
-                      ))}
-                    </HStack>
-                  </HStack>
                 </Flex>
               </>
             ) : (
