@@ -38,13 +38,14 @@ const ProfileAccount = () => {
 
   const dispatch = useDispatch();
 
-  const { data } = useContractRead({
+  const { data: dataPoint, isLoading: isLoadingPoint } = useContractRead({
     functionName: 'getUserPoint',
     abi: ABIPoint,
     args: [user ? user : ''],
     address: CONTRACT_ADDRESS.userpoint,
     watch: true,
   });
+
   return (
     <>
       <HStack>
@@ -55,9 +56,16 @@ const ProfileAccount = () => {
           borderRadius="8px"
           display={{ xl: 'flex', md: 'none' }}
         >
-          <Box width="fit-content" borderRight="1px solid" pr={2}>
-            Your Point: {data?.toString()}
-          </Box>
+          <HStack width="fit-content">
+            <Text>Your Point:</Text>
+            <Box>
+              {!isLoadingPoint ? (
+                dataPoint?.toString()
+              ) : (
+                <Skeleton>00</Skeleton>
+              )}
+            </Box>
+          </HStack>
           <HStack width="fit-content">
             <Text>STRK:</Text>
             <Box>
@@ -86,9 +94,16 @@ const ProfileAccount = () => {
                 fontWeight="800"
                 borderRadius="8px"
               >
-                <Box width="fit-content" borderRight="1px solid" pr={2}>
-                  Your Point: {data?.toString()}
-                </Box>
+                <HStack width="fit-content">
+                  <Text>Your Point:</Text>
+                  <Box>
+                    {dataPoint && !isLoadingPoint ? (
+                      dataPoint.toString()
+                    ) : (
+                      <Skeleton>00</Skeleton>
+                    )}
+                  </Box>
+                </HStack>
                 <HStack width="fit-content">
                   <Text>STRK:</Text>
                   <Box>

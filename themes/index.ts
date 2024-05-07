@@ -202,10 +202,7 @@ export const Menu: ComponentStyleConfig = {
         display: 'flex',
         gap: 4,
         _hover: {
-          bg: 'teal.600',
-        },
-        _focus: {
-          bg: 'teal.600',
+          bg: 'primary.game.200',
         },
       },
       command: {
