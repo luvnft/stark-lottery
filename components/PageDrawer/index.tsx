@@ -1,5 +1,4 @@
 import {
-  Box,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -11,14 +10,13 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import MenuIcon from '@/public/assets/icons/general/menu.svg';
-import { useAuth } from '@/hooks/useAuth';
+
 import ListPageItem from '../Header/ListPageItem';
-import ProfileAccount from '../ConnectWallet/ProfileAccount';
-import ConnectWallet from '../ConnectWallet';
+
 // Hamburger Active Product
 const PageDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useAuth();
+
   return (
     <>
       <IconButton
@@ -43,21 +41,6 @@ const PageDrawer = () => {
                 onClick: () => onClose(),
               }}
             />
-            <Box mt={8}>
-              {user ? (
-                <ProfileAccount
-                  sx={{
-                    width: 'full',
-                  }}
-                />
-              ) : (
-                <ConnectWallet
-                  sx={{
-                    width: 'full',
-                  }}
-                />
-              )}
-            </Box>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

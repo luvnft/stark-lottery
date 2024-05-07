@@ -76,8 +76,8 @@ const ClaimAirdropPage = () => {
 
               <PrimaryCard
                 style={{
-                  width: '600px',
-                  padding: 12,
+                  width: { md: '600px', base: 'full' },
+                  padding: { md: 12, base: 6 },
                   _hover: {},
                 }}
               >

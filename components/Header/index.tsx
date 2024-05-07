@@ -11,6 +11,7 @@ import { setChainId, setUser } from '@/redux/user/user-slice';
 
 import LogoLong from '../Logo';
 import PageDrawer from '../PageDrawer';
+import ProfileDrawer from '../ConnectWallet/ProfileDrawer';
 
 const Header = () => {
   const { user, isLoading, chainId } = useAuth();
@@ -61,6 +62,7 @@ const Header = () => {
               fontSize: 'lg',
             }}
           />
+
           <Box
             sx={{
               display: { md: 'block', base: 'none' },
@@ -68,13 +70,16 @@ const Header = () => {
           >
             {user ? <ProfileAccount /> : <ConnectWallet />}
           </Box>
-          <Box
+
+          <HStack
             sx={{
-              display: { lg: 'none', base: 'block' },
+              display: { lg: 'none', base: 'flex' },
             }}
+            gap={6}
           >
+            <ProfileDrawer />
             <PageDrawer />
-          </Box>
+          </HStack>
         </HStack>
       </Container>
     </Box>

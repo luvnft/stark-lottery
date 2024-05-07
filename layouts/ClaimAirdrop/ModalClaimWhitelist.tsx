@@ -109,7 +109,7 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
           }),
         },
         {
-          contractAddress: CONTRACT_ADDRESS.lottery_new,
+          contractAddress: CONTRACT_ADDRESS.lottery,
           entrypoint: 'buyWhitelistTicket',
           calldata: CallData.compile({
             whitelistAddress: CONTRACT_ADDRESS.whitelist,
