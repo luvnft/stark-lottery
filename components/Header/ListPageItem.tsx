@@ -21,12 +21,12 @@ const ListPageItem = ({ sx }: IProps) => {
       title: 'Lotteries',
     },
     {
-      link: '/tickets',
-      title: 'My Tickets',
-    },
-    {
       link: '/results',
       title: 'Results',
+    },
+    {
+      link: '/claim-airdrop',
+      title: 'Claim Airdrop',
     },
   ];
   return (
