@@ -56,7 +56,7 @@ const ProfileAccount = () => {
           borderRadius="8px"
           display={{ xl: 'flex', md: 'none' }}
         >
-          <HStack width="fit-content">
+          <HStack width="fit-content" borderRight="2px solid" pr={2}>
             <Text>Your Point:</Text>
             <Box>
               {!isLoadingPoint ? (

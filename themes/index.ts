@@ -144,7 +144,6 @@ const Button: ComponentStyleConfig = {
         background: 'gradient.100',
         WebkitMask:
           ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-        // WebkitMaskComposite: 'xor',
         maskComposite: 'exclude',
       },
       p: {

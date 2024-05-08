@@ -125,12 +125,14 @@ const FAQ = () => {
       </Text>
       <Flex flexDir="column" gap={6}>
         {listFAQ.map((item, index) => (
-          <FAQItem
-            key={`${index}-faq-${item.title}`}
-            id={index + 1}
-            title={item.title}
-            content={item.content}
-          />
+          <>
+            <FAQItem
+              key={`${index}-${item.title}-${item.content}`}
+              id={index + 1}
+              title={item.title}
+              content={item.content}
+            />
+          </>
         ))}
       </Flex>
       <Text

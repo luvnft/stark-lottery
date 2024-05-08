@@ -77,7 +77,7 @@ const ProfileDrawer = () => {
               fontWeight="800"
               borderRadius="8px"
             >
-              <HStack width="fit-content">
+              <HStack width="fit-content" borderRight="2px solid" pr={2}>
                 <Text>Your Point:</Text>
                 <Box>
                   {!isLoadingPoint ? (
