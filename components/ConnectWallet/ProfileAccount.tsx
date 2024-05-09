@@ -120,10 +120,9 @@ const ProfileAccount = () => {
               <Text>{ellipseMiddle(user || '', 8, 8)}</Text>
               <CopyClipBoard aria-label="copy icon" context={user || ''} />
             </MenuItem>
-
-            <MenuItem>
-              <Link href="/tickets"> My Tickets</Link>
-            </MenuItem>
+            <Link href="/tickets">
+              <MenuItem>My Tickets</MenuItem>
+            </Link>
             <MenuItem isDisabled>History</MenuItem>
             <MenuItem isDisabled>LeaderBoard</MenuItem>
 
