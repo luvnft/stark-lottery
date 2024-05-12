@@ -58,7 +58,7 @@ const ListPageItem = ({ sx }: IProps) => {
           </Link>
         );
       })}
-      <Link href="https://decolgen.gitbook.io/stark-arcade-doc" target="_blank">
+      <Link href="https://www.starkarcade.com" target="_blank">
         <Text
           px={{ lg: 8, md: 4 }}
           py={2}
@@ -66,7 +66,7 @@ const ListPageItem = ({ sx }: IProps) => {
           color={'white'}
           borderBottomColor="#119EF9"
         >
-          GitBook
+          StarkArcade
         </Text>
       </Link>
     </HStack>
