@@ -19,13 +19,13 @@ import ABIGovernance from '@/abi/governance.json';
 
 import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
-import { CallData, uint256 } from 'starknet';
+import { CallData } from 'starknet';
 import { LOTTERY } from '@/config/value';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
-import { sortArrayAscending } from '@/utils';
+import { formattedContractAddress, sortArrayAscending } from '@/utils';
 import * as Merkle from 'starknet-merkle-tree';
 import airDropJson from '@/data/whitelist.json';
-
+import airDropJson2 from '@/data/whitelist_2.json';
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
@@ -67,6 +67,7 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
 
     return randomNumbers;
   }
+
   const { data: minPriceTicketData, isLoading: isLoadingMinPrice } =
     useContractRead({
       functionName: 'getMinimumPrice',
@@ -85,40 +86,61 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
       // const newSortData = listNumber.sort((a, b) => a - b);
 
       const newSortData = sortArrayAscending(listNumber);
-      const whitelist: string[] = JSON.parse(JSON.stringify(airDropJson));
-      const listAirdrop = [];
-      for (const winner of whitelist) {
-        listAirdrop.push([winner, '1', '0']);
-      }
 
-      const tree = Merkle.StarknetMerkleTree.create(
-        listAirdrop,
-        Merkle.HashType.Poseidon
-      );
+      const whiteList2: string[] = JSON.parse(JSON.stringify(airDropJson2));
+      let formatedAddress = formattedContractAddress(address);
+      if (whiteList2.includes(formatedAddress)) {
+        const whitelist: string[] = JSON.parse(JSON.stringify(airDropJson2));
+        const listAirdrop = [];
+        for (const winner of whitelist) {
+          listAirdrop.push([winner, '1', '0']);
+        }
 
-      const inp = [address, '1', '0']; // leaf content
-      const proof = tree.getProof(inp);
+        const tree = Merkle.StarknetMerkleTree.create(
+          listAirdrop,
+          Merkle.HashType.Poseidon
+        );
 
-      await account.execute([
-        {
-          contractAddress: CONTRACT_ADDRESS.eth,
-          entrypoint: 'approve',
+        const inp = [address, '1', '0']; // leaf content
+        const proof = tree.getProof(inp);
+
+        await account.execute({
+          contractAddress: CONTRACT_ADDRESS.lottery,
+          entrypoint: 'buyWhitelistTicket',
           calldata: CallData.compile({
-            spender: CONTRACT_ADDRESS.governance,
-            amount: uint256.bnToUint256(Number(minPriceTicketData)),
+            whitelistAddress:
+              '0x156d20c278aca1cfe9bdd88b57e2ed3f18926eede0e7e31bae1d866884c563f',
+            maxAmount: 1,
+            proof: proof,
+            pickedNumbers: newSortData,
           }),
-        },
-        {
+        });
+      } else {
+        const whitelist: string[] = JSON.parse(JSON.stringify(airDropJson));
+        const listAirdrop = [];
+        for (const winner of whitelist) {
+          listAirdrop.push([winner, '1', '0']);
+        }
+
+        const tree = Merkle.StarknetMerkleTree.create(
+          listAirdrop,
+          Merkle.HashType.Poseidon
+        );
+
+        const inp = [address, '1', '0']; // leaf content
+        const proof = tree.getProof(inp);
+
+        await account.execute({
           contractAddress: CONTRACT_ADDRESS.lottery,
           entrypoint: 'buyWhitelistTicket',
           calldata: CallData.compile({
             whitelistAddress: CONTRACT_ADDRESS.whitelist,
-            maxAmount: uint256.bnToUint256(1),
+            maxAmount: 1,
             proof: proof,
             pickedNumbers: newSortData,
           }),
-        },
-      ]);
+        });
+      }
 
       toast({
         status: 'success',
@@ -139,6 +161,7 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
         });
       }
     }
+    onClose();
     setIsLoading(false);
   };
 

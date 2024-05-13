@@ -18,7 +18,6 @@ const IntroSection = () => {
       functionName: 'getCurrentLottery',
       abi: ABILottery,
       address: CONTRACT_ADDRESS.lottery,
-      watch: true,
     });
   useEffect(() => {
     if (!isCurrentLotteryLoading && currentLotteryData) {

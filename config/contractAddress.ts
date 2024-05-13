@@ -6,7 +6,7 @@ export const CONTRACT_ADDRESS = {
   governance:
     '0x017e2317c1bbdcf00cc78e88e6d5744ed9c0a2372713da3ea99adb4f67c2af39',
   whitelist:
-    '0x039314e4fefb1e885b97856237e71cbce257dddb0dc4d0b235ac125908370c50', // use for whitelist only
+    '0x1919428d7a9e82da04502ce7695333ec7a6e6aa896ef2dd5d468541a3d199a2', // use for whitelist only
   userpoint:
     '0x7bd89ba87f34b47facaeb4d408dadd1915d16a6c828d7ba55692eb705f0a5cc',
 };

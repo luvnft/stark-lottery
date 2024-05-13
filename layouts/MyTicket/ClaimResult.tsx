@@ -35,7 +35,6 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
     abi: ABILottery,
     args: [lotteryId],
     address: CONTRACT_ADDRESS.lottery,
-    watch: true,
   });
   const { contract: contractLottery } = useContract({
     abi: ABILottery,

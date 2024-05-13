@@ -60,6 +60,7 @@ const Header = () => {
               display: { lg: 'flex', base: 'none' },
               fontWeight: 'bold',
               fontSize: 'lg',
+              gap: 3,
             }}
           />
 

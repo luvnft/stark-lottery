@@ -42,7 +42,6 @@ const ResultPage = () => {
       ],
     ],
     address: CONTRACT_ADDRESS.lottery,
-    watch: true,
   });
 
   const { data: currentLotteryDataNew, isLoading: isCurrentLotteryLoadingNew } =
@@ -50,7 +49,6 @@ const ResultPage = () => {
       functionName: 'getCurrentLottery',
       abi: ABILottery,
       address: CONTRACT_ADDRESS.lottery,
-      watch: true,
     });
 
   useEffect(() => {

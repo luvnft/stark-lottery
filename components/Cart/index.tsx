@@ -87,7 +87,6 @@ const CartControl = () => {
       abi: ABIGovernance,
       args: [CONTRACT_ADDRESS.lottery],
       address: CONTRACT_ADDRESS.governance,
-      watch: true,
     });
 
   const handleBuyTicket = async () => {

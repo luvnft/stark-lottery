@@ -33,7 +33,6 @@ const ProfileAccount = () => {
   const { isLoading: isLoadingBalance, data: dataBalance } = useBalance({
     token: CONTRACT_ADDRESS.strk,
     address: user ? user : '',
-    watch: true,
   });
 
   const dispatch = useDispatch();
@@ -43,7 +42,6 @@ const ProfileAccount = () => {
     abi: ABIPoint,
     args: [user ? user : ''],
     address: CONTRACT_ADDRESS.userpoint,
-    watch: true,
   });
 
   return (
@@ -69,8 +67,12 @@ const ProfileAccount = () => {
           <HStack width="fit-content">
             <Text>STRK:</Text>
             <Box>
-              {dataBalance && !isLoadingBalance ? (
-                parseFloat(dataBalance.formatted).toFixed(2)
+              {!isLoadingBalance ? (
+                dataBalance ? (
+                  parseFloat(dataBalance.formatted).toFixed(2)
+                ) : (
+                  '0.00'
+                )
               ) : (
                 <Skeleton>0.00</Skeleton>
               )}

@@ -3,6 +3,7 @@ import {
   InjectedConnector,
   StarknetConfig,
   jsonRpcProvider,
+  publicProvider,
 } from '@starknet-react/core';
 import React, { PropsWithChildren } from 'react';
 
@@ -16,11 +17,14 @@ const ProviderStarknet = ({ children }: PropsWithChildren) => {
   ];
   function rpc(chain: Chain) {
     return {
-      nodeUrl: `https://starknet-mainnet.g.alchemy.com/v2/d9queTbdIieL2dGfWalpnShIHLRtHczH`,
+      // nodeUrl: `https://starknet-mainnet.g.alchemy.com/v2/d9queTbdIieL2dGfWalpnShIHLRtHczH`,
+      nodeUrl:
+        'https://starknet-mainnet.infura.io/v3/7d290a76648a4bac93e5f98aa0d463ce',
     };
   }
 
   const provider = jsonRpcProvider({ rpc });
+
   return (
     <StarknetConfig
       chains={[mainnet]}
