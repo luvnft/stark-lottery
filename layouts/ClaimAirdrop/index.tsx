@@ -15,7 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 import ModalClaimWhitelist from './ModalClaimWhitelist';
 import airDropJson from '@/data/whitelist.json';
-import airDropJson2 from '@/data/whitelist_2.json';
+
 import { useAccount } from '@starknet-react/core';
 import PleaseConnectWallet from '../MyTicket/PleaseConnectWallet';
 import { formattedContractAddress } from '@/utils';
@@ -31,13 +31,10 @@ const ClaimAirdropPage = () => {
   } = useDisclosure();
   const handleCheckWhiteList = () => {
     const whitelist: string[] = JSON.parse(JSON.stringify(airDropJson));
-    const whiteList2: string[] = JSON.parse(JSON.stringify(airDropJson2));
+
     if (address) {
       let formatedAddress = formattedContractAddress(address);
-      if (
-        whitelist.includes(formatedAddress) ||
-        whiteList2.includes(formatedAddress)
-      ) {
+      if (whitelist.includes(formatedAddress)) {
         return true;
       }
       return false;
