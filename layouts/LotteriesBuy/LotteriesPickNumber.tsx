@@ -91,7 +91,7 @@ const LotteriesPickNumber = () => {
 
       await account.execute([
         {
-          contractAddress: CONTRACT_ADDRESS.eth,
+          contractAddress: CONTRACT_ADDRESS.strk,
           entrypoint: 'approve',
           calldata: CallData.compile({
             spender: CONTRACT_ADDRESS.governance,
