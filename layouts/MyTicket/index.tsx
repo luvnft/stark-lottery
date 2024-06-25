@@ -115,7 +115,7 @@ const MyTicketPage = () => {
                         _hover={{
                           opacity: 0.8,
                         }}
-                        bg="#1B266B"
+                        bg="card"
                         color="white"
                         onClick={async () => {
                           setLoadingLottery(true);
@@ -132,7 +132,7 @@ const MyTicketPage = () => {
                           key={`MyTicket-${data.ticketId}`}
                           gap={{ md: 8, base: 6 }}
                           padding={6}
-                          bg="#0A1450"
+                          bg="card"
                           borderRadius="3xl"
                           justifyContent="space-between"
                           flexWrap={{ md: 'nowrap', base: 'wrap' }}
