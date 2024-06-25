@@ -166,7 +166,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                       <Text
                         fontWeight="bold"
                         textAlign="center"
-                        color="#7A8CFF"
+                        color="#FAA632"
                       >
                         Better luck next time!
                       </Text>
@@ -176,7 +176,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
               ) : (
                 <HStack justifyContent="center">
                   <Text>Wating To DrawTime</Text>
-                  <Text color="#7A8CFF" fontWeight="medium">
+                  <Text color="#FAA632" fontWeight="medium">
                     {currentData &&
                       convertTimestampToFormattedDate(
                         currentData.drawTime as any

@@ -49,7 +49,7 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
               <>
                 {item.type === 'text' && (
                   <Text
-                    color="#7A8CFF"
+                    color="#FAA632"
                     key={`${item}-${index}-${item.content}`}
                     {...item.sx}
                   >
@@ -57,7 +57,7 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
                   </Text>
                 )}
                 {item.type === 'list' && (
-                  <li color="#7A8CFF" key={`${item}-${index}-${item.content}`}>
+                  <li color="#FAA632" key={`${item}-${index}-${item.content}`}>
                     {item.content}
                   </li>
                 )}
@@ -65,7 +65,7 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
                   <Link
                     href={item.content}
                     target="_blank"
-                    color="#7A8CFF"
+                    color="#FAA632"
                     key={`${item}-${index}-${item.content}`}
                   >
                     {item.content}

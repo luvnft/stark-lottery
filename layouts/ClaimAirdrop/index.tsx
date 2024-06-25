@@ -1,5 +1,6 @@
 'use client';
 import {
+  Box,
   Button,
   Center,
   Container,
@@ -41,7 +42,12 @@ const ClaimAirdropPage = () => {
     }
   };
   return (
-    <>
+    <Box
+      backgroundImage={`url('/assets/arts/other_art.svg')`}
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center"
+      backgroundSize="cover"
+    >
       {user ? (
         <>
           <Container maxWidth="container.xl">
@@ -121,7 +127,7 @@ const ClaimAirdropPage = () => {
           <PleaseConnectWallet />
         </>
       )}
-    </>
+    </Box>
   );
 };
 

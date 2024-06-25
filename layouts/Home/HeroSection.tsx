@@ -5,12 +5,12 @@ import JackPotIcon from '@/public/assets/arts/home/whale.svg';
 const HeroSection = () => {
   return (
     <>
-      <Center py={14} flexWrap={{ lg: 'nowrap', base: 'wrap' }}>
+      <Center py={14} flexWrap={{ lg: 'nowrap', base: 'wrap' }} gap={8}>
         <Box position="relative">
           <Box
             position="relative"
-            height={{ lg: '600px', base: 'full' }}
-            w={{ lg: '600px', base: 'full' }}
+            height={{ lg: '360px', base: 'full' }}
+            w={{ lg: '360px', base: 'full' }}
           >
             <Icon
               as={JackPotIcon}
@@ -32,8 +32,8 @@ const HeroSection = () => {
             alt="token left"
             src="/assets/arts/token_fly.svg"
             position="absolute"
-            top={{ md: 24, base: 10 }}
-            zIndex={-1}
+            bottom={{ md: -10, base: 10 }}
+            zIndex={1}
             transform="rotate(-25deg)"
             height={{ lg: '200px', md: '150px', base: '80px' }}
             width={{ lg: '200px', md: '150px', base: '80px' }}
@@ -45,11 +45,16 @@ const HeroSection = () => {
             height={{ lg: '200px', md: '150px', base: '80px' }}
             width={{ lg: '200px', md: '150px', base: '80px' }}
             transform="rotate(30deg)"
-            bottom={5}
+            top={{ md: -10, base: 5 }}
+            zIndex={-1}
             right={{ lg: 0, base: 10 }}
           />
         </Box>
-        <Flex flexDirection="column" gap={6}>
+        <Flex
+          flexDirection="column"
+          gap={6}
+          maxW={{ md: '600px', base: 'full' }}
+        >
           <Text>INTRODUCING STARKPOT V2</Text>
           <Text
             fontSize={{ lg: '64px', md: '48px', base: '32px' }}
@@ -62,7 +67,9 @@ const HeroSection = () => {
             next-generation on-chain randomness.
           </Text>
           <Link href="/lotteries">
-            <Button variant="primary">Predict to win!</Button>
+            <Button variant="primary" bg="#FFD761">
+              Predict to win!
+            </Button>
           </Link>
         </Flex>
       </Center>

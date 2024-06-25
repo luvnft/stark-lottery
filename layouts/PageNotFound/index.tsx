@@ -20,7 +20,7 @@ const PageNotFound = () => {
         justifyContent="center"
       >
         <Icon as={NotFoundIcon} h={215} w="auto" />
-        <Text color="#7A8CFF">
+        <Text color="#FAA632">
           We can’t seem to find a page you’re looking for.
         </Text>
 

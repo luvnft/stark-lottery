@@ -58,8 +58,8 @@ export const colors = {
     },
   },
   body: '#0F1005',
-  card: '#0A1450',
-  note: '#7A8CFF',
+  card: ' rgba(76, 31, 88, 0.5)',
+  note: '#FAA632',
   ...backgrounds,
 };
 
@@ -139,7 +139,7 @@ const Button: ComponentStyleConfig = {
       width: 12,
       position: 'relative',
       transform: 'rotate(-45deg)',
-      background: '#192678',
+      background: '#986243',
       _before: {
         content: '""',
         display: isActive ? 'block' : 'none',
@@ -156,9 +156,7 @@ const Button: ComponentStyleConfig = {
         fontSize: 'xl',
         fontWeight: 800,
         backgroundClip: isActive ? 'text' : undefined,
-        background: isActive
-          ? 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)'
-          : undefined,
+        background: isActive ? 'gradient.100' : undefined,
         WebkitBackgroundClip: isActive ? 'text' : undefined,
         WebkitTextFillColor: isActive ? 'transparent' : undefined,
         transform: 'rotate(45deg)',
@@ -167,7 +165,7 @@ const Button: ComponentStyleConfig = {
       _hover: {},
     }),
     icon_btn: {
-      bg: '#1B266B',
+      bg: '#461A4B',
       _hover: {
         opacity: 0.7,
       },
@@ -184,7 +182,7 @@ export const Progress: ComponentStyleConfig = {
   variants: {
     pick_progress: {
       filledTrack: {
-        bg: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
+        bg: 'gradient.100',
       },
     },
   },
@@ -198,7 +196,7 @@ export const Menu: ComponentStyleConfig = {
         py: '4',
         borderRadius: 'xl',
         border: 'none',
-        bg: '#1b266b',
+        bg: 'card',
       },
       item: {
         bg: 'inherit',

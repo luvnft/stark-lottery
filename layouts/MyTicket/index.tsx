@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Box,
   Button,
   Center,
   Container,
@@ -22,6 +23,7 @@ import ClaimResult from './ClaimResult';
 import EmptyIcon from '@/public/assets/arts/empty.svg';
 import { useAuth } from '@/hooks/useAuth';
 import RefreshIcon from '@/public/assets/icons/general/refresh.svg';
+import { convertHex } from '@/utils/convertHex';
 
 interface TicketUserProps {
   lotteryAddress: string;
@@ -89,7 +91,12 @@ const MyTicketPage = () => {
     getDataTicket();
   }, [contractTicket, listMyLotteries]);
   return (
-    <>
+    <Box
+      backgroundImage={`url('/assets/arts/layout_art.svg')`}
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center"
+      backgroundSize="cover"
+    >
       <Container maxWidth="container.xl" minH="80vh">
         {user ? (
           <>
@@ -167,7 +174,7 @@ const MyTicketPage = () => {
                     <Flex
                       flexDirection="column"
                       padding={8}
-                      bg="#0A1450"
+                      bg={convertHex('#4C1F5880', 0.5)}
                       alignItems="center"
                       borderRadius="3xl"
                     >
@@ -175,7 +182,7 @@ const MyTicketPage = () => {
                       <Text mt={6} fontSize="2xl" fontWeight="bold" mb={3}>
                         No tickets found
                       </Text>
-                      <Text color="#7A8CFF">
+                      <Text color="#FAA632">
                         Looks like you haven’t added anything to your cart yet!
                       </Text>
                     </Flex>
@@ -188,7 +195,7 @@ const MyTicketPage = () => {
           <PleaseConnectWallet />
         )}
       </Container>
-    </>
+    </Box>
   );
 };
 

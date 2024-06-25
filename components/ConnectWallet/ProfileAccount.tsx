@@ -48,7 +48,7 @@ const ProfileAccount = () => {
     <>
       <HStack>
         <HStack
-          bg="#1b266b"
+          bg="card"
           padding={4}
           fontWeight="800"
           borderRadius="8px"

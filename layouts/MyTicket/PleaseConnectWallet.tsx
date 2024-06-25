@@ -1,9 +1,8 @@
 'use client';
-import BtnConnectWallet from '@/components/ConnectWallet/BtnConnectWallet';
-import ModalConnectWallet from '@/components/ConnectWallet/ModalConnectWallet';
-import wallets from '@/config/wallet';
 
-import { setChainId } from '@/redux/user/user-slice';
+import ModalConnectWallet from '@/components/ConnectWallet/ModalConnectWallet';
+import { convertHex } from '@/utils/convertHex';
+
 import {
   Box,
   Button,
@@ -25,7 +24,7 @@ const PleaseConnectWallet = () => {
         flexDirection="column"
         gap={4}
         padding={8}
-        bg="#0A1450"
+        bg={convertHex('#4C1F5880', 0.5)}
         borderRadius="3xl"
         width="fit-content"
         alignItems="center"
@@ -39,8 +38,8 @@ const PleaseConnectWallet = () => {
           />
         </Box>
         <Text variant="title">Wallet not connected</Text>
-        <Text color="#7A8CFF">Connect to a wallet to see your tickets</Text>
-        <Button variant="primary" onClick={() => onOpen()}>
+        <Text color="#FAA632">Connect to a wallet to see your tickets</Text>
+        <Button variant="primary" bg="#FFD761" onClick={() => onOpen()}>
           Connect
         </Button>
         <ModalConnectWallet isOpen={isOpen} onClose={onClose} />

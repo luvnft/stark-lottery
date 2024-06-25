@@ -33,16 +33,6 @@ const IntroSection = () => {
 
   return (
     <Box position="relative">
-      {/* <Image
-        bottom={{ lg: -5, base: 20 }}
-        right={{ lg: 10, base: 0 }}
-        position="absolute"
-        zIndex={1}
-        height={{ lg: 'auto', md: '200px', base: '80px' }}
-        alt="Planet 1"
-        src="/assets/arts/planet_1.png"
-      /> */}
-
       <Flex
         flexDirection="column"
         width="full"
@@ -78,14 +68,24 @@ const IntroSection = () => {
           <Text fontSize="2xl" fontWeight="bold">
             In Prizes!
           </Text>
-          <Box position="relative" height="full" width="full">
+          <Box
+            position="relative"
+            height="full"
+            width="full"
+            display="flex"
+            justifyContent="center"
+          >
             <Box
+              backgroundImage={`radial-gradient(closest-side, ${convertHex(
+                '#E3FF74',
+                1
+              )} ,${convertHex('#E37C39', 1)})`}
+              height={400}
+              width={400}
+              borderRadius="100%"
               position="absolute"
-              top={0}
-              left={0}
-              height={{ md: '320px', base: 'full' }}
-              width={{ md: '320px', base: 'full' }}
-              background="radial-gradient(40.8% 32.43% at 50% 50%, rgba(17, 155, 245, 0.5) 20%, rgba(10, 90, 143, 0) 100%) "
+              zIndex={-2}
+              filter="blur(320px)"
             />
             <Image alt="ticket Jack" src="/assets/arts/ticket/ticket_win.svg" />
           </Box>
@@ -130,7 +130,7 @@ const IntroSection = () => {
                   </Button>
                 </Link>
               ) : (
-                <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
+                <Text textAlign="center" color="#FAA632" fontWeight="bold">
                   Sale End - Wait Draw
                 </Text>
               )}
@@ -138,12 +138,12 @@ const IntroSection = () => {
           )}
 
         {currentLottery?.state == 0 && (
-          <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
+          <Text textAlign="center" color="#FAA632" fontWeight="bold">
             Lottery Closed
           </Text>
         )}
         {currentLottery?.state == 2 && (
-          <Text textAlign="center" color="#7A8CFF" fontWeight="bold">
+          <Text textAlign="center" color="#FAA632" fontWeight="bold">
             Lottery Drawing
           </Text>
         )}
