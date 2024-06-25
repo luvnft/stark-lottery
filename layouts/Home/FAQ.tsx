@@ -135,13 +135,7 @@ const FAQ = () => {
           </>
         ))}
       </Flex>
-      <Text
-        textAlign="center"
-        fontSize="lg"
-        my={4}
-        fontWeight="bold"
-        color="#7A8CFF"
-      >
+      <Text textAlign="center" fontSize="lg" my={4} fontWeight="bold">
         Remember to play responsibly and good luck!
       </Text>
     </Box>

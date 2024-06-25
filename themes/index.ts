@@ -1,15 +1,15 @@
 import { ComponentStyleConfig, extendTheme } from '@chakra-ui/react';
 export const backgrounds = {
   gradient: {
-    100: 'linear-gradient(90deg, #0165FB 0%, #1DC9F8 100%)',
+    100: ' linear-gradient(180deg, #E3FF74 0%, #FD5E04 100%)',
   },
 };
 
 export const colors = {
   primary: {
     game: {
-      100: '#040A2F',
-      200: '#081041',
+      100: '#0E011A',
+      200: '#2C0A47',
       300: '#1b266b',
     },
     shader: {
@@ -80,6 +80,11 @@ const Text: ComponentStyleConfig = {
       color: 'white',
       textAlign: 'center',
     },
+    gradient_text: {
+      background: 'gradient.100',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+    },
   },
 };
 const Button: ComponentStyleConfig = {
@@ -99,10 +104,11 @@ const Button: ComponentStyleConfig = {
       px: { md: 8, base: 6 },
       py: { md: 4, base: 3 },
       borderRadius: '32px',
-      bg: 'primary.game.300',
+      bg: 'gradient.100',
       width: 'fit-content',
       overflow: 'hidden',
       position: 'relative',
+      color: '#0E011A',
       zIndex: 1,
       minW: '240px',
       minH: '60px',
@@ -122,7 +128,7 @@ const Button: ComponentStyleConfig = {
         right: 0,
         left: 0,
         bottom: 0,
-        bg: 'gradient.100',
+        bg: 'white',
         transition: 'opacity 0.3s linear',
         zIndex: -1,
         opacity: 0,
@@ -196,12 +202,11 @@ export const Menu: ComponentStyleConfig = {
       },
       item: {
         bg: 'inherit',
-        color: 'gray.200',
         pl: 5,
         display: 'flex',
         gap: 4,
         _hover: {
-          bg: 'primary.game.200',
+          opacity: 0.8,
         },
       },
       command: {

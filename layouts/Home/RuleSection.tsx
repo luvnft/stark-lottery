@@ -20,12 +20,12 @@ const RuleSection = () => {
   return (
     <Box py={{ md: '100px', base: '80px' }}>
       <Text mb={10} variant="title">
-        Three classic lottery games with simple rules
+        Three classic prediction games with simple rules
       </Text>
       <HStack gap="40px" flexWrap={{ md: 'nowrap', base: 'wrap' }}>
         <Image
           alt="Rule Image"
-          src="/assets/arts/rule-art.svg"
+          src="/assets/arts/home/faq.svg"
           height={{ lg: '600px', md: '400px', base: 'full' }}
           width={{ lg: '600px', md: '400px', base: 'full' }}
         />

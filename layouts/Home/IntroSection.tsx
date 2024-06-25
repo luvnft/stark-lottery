@@ -2,7 +2,7 @@ import { Box, Button, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import StrkIcon from '@/public/assets/icons/general/stark_token.svg';
 import PrimaryCard from '@/components/Card/PrimaryCard';
-import GradientText from '@/components/Text/GradientText';
+
 import Link from 'next/link';
 import { convertBigIntsToNumbers } from '@/utils';
 import { useContractRead } from '@starknet-react/core';
@@ -10,6 +10,7 @@ import { LotteryProps } from '../Lotteries';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import ABILottery from '@/abi/lotteries645.json';
 import TimeReminder from '@/components/TimeReminder';
+import { convertHex } from '@/utils/convertHex';
 
 const IntroSection = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
@@ -32,7 +33,7 @@ const IntroSection = () => {
 
   return (
     <Box position="relative">
-      <Image
+      {/* <Image
         bottom={{ lg: -5, base: 20 }}
         right={{ lg: 10, base: 0 }}
         position="absolute"
@@ -40,23 +41,8 @@ const IntroSection = () => {
         height={{ lg: 'auto', md: '200px', base: '80px' }}
         alt="Planet 1"
         src="/assets/arts/planet_1.png"
-      />
-      <Image
-        bottom={-16}
-        left={{ lg: 48, md: 12, base: 8 }}
-        alt="Planet 2"
-        position="absolute"
-        src="/assets/arts/planet_2.png"
-      />
-      <Image
-        alt="Planet 3"
-        top={{ md: 0, base: '-10' }}
-        left={{ lg: 24, md: 8, base: 3 }}
-        zIndex={{ md: 1, base: 0 }}
-        height={{ lg: 'auto', md: '200px', base: '80px' }}
-        position="absolute"
-        src="/assets/arts/planet_3.png"
-      />
+      /> */}
+
       <Flex
         flexDirection="column"
         width="full"
@@ -72,24 +58,17 @@ const IntroSection = () => {
             px: { lg: 24, md: 12, base: 4 },
             _hover: {},
           }}
-          styleBorder={{
-            padding: 2,
-          }}
         >
           <HStack justifyContent="center">
-            <GradientText
-              content={`
-                  ${
-                    !isCurrentLotteryLoading
-                      ? Math.trunc(Number(currentLottery?.jackpot) / 1e18)
-                      : 'Loading...'
-                  }`}
-              sx={{
-                fontSize: { md: '3rem', base: '2rem' },
-                fontWeight: 'bold',
-                bg: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
-              }}
-            />
+            <Text
+              fontSize={{ md: '3rem', base: '2rem' }}
+              fontWeight="bold"
+              variant="gradient_text"
+            >
+              {!isCurrentLotteryLoading
+                ? Math.trunc(Number(currentLottery?.jackpot) / 1e18)
+                : 'Loading...'}
+            </Text>
             <Icon
               as={StrkIcon}
               h={{ md: 10, base: 6 }}
@@ -115,7 +94,11 @@ const IntroSection = () => {
               {new Date(currentLottery.startTime * 1000) > new Date() ? (
                 <>
                   <Box zIndex={2} width="full">
-                    <Text fontSize="lg" fontWeight="bold">
+                    <Text
+                      variant="gradient_text"
+                      fontSize="xl"
+                      fontWeight="bold"
+                    >
                       Open Sale
                     </Text>
                     <TimeReminder
@@ -125,7 +108,9 @@ const IntroSection = () => {
                 </>
               ) : (
                 <>
-                  <Text>Sale End</Text>
+                  <Text variant="gradient_text" fontSize="xl" fontWeight="bold">
+                    Sale End
+                  </Text>
                   <Box zIndex={2} width="full">
                     <TimeReminder targetDate={currentLottery.drawTime * 1000} />
                   </Box>

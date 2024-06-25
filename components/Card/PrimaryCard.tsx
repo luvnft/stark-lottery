@@ -1,3 +1,4 @@
+import { convertHex } from '@/utils/convertHex';
 import { Box, BoxProps } from '@chakra-ui/react';
 import React from 'react';
 
@@ -15,7 +16,7 @@ const PrimaryCard = ({ style, children, styleBorder }: IProps) => {
         inset: 0,
         borderRadius: '32px',
         padding: '2px',
-        background: 'gradient.100',
+        bg: 'gradient.100',
         ' -webkit-mask':
           ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
         '  -webkit-mask-composite': 'xor',
@@ -26,10 +27,10 @@ const PrimaryCard = ({ style, children, styleBorder }: IProps) => {
       borderRadius="32px"
       padding={8}
       textAlign="center"
-      bg="#0A1450"
+      bg={convertHex('#FFD76133', 0.2)}
       transition="all .3s"
       _hover={{
-        background: '#1D2972',
+        backgroundColor: convertHex('#FFD76133', 0.4),
       }}
       {...style}
     >

@@ -1,27 +1,11 @@
 import { Box, Center, Text, Image, Button, Flex, Icon } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
-import JackPotIcon from '@/public/assets/arts/jackpot.svg';
+import JackPotIcon from '@/public/assets/arts/home/whale.svg';
 const HeroSection = () => {
   return (
     <>
-      <Center py={14} flexWrap={{ lg: 'nowrap', base: 'wrap-reverse' }}>
-        <Flex flexDirection="column" gap={6}>
-          <Text>INTRODUCING LOTTERY</Text>
-          <Text
-            fontSize={{ lg: '64px', md: '48px', base: '32px' }}
-            fontWeight="800"
-          >
-            Fully automated blockchain lottery.
-          </Text>
-          <Text fontWeight="600">
-            Lottery offers decentralised, open and fair lottery using
-            next-generation on-chain randomness.
-          </Text>
-          <Link href="/lotteries">
-            <Button variant="primary">Try Now</Button>
-          </Link>
-        </Flex>
+      <Center py={14} flexWrap={{ lg: 'nowrap', base: 'wrap' }}>
         <Box position="relative">
           <Box
             position="relative"
@@ -65,6 +49,22 @@ const HeroSection = () => {
             right={{ lg: 0, base: 10 }}
           />
         </Box>
+        <Flex flexDirection="column" gap={6}>
+          <Text>INTRODUCING STARKPOT V2</Text>
+          <Text
+            fontSize={{ lg: '64px', md: '48px', base: '32px' }}
+            fontWeight="800"
+          >
+            Fully On-chain Prediction Game.
+          </Text>
+          <Text fontWeight="600">
+            StarkPot offers decentralised, open and fair prediction game using
+            next-generation on-chain randomness.
+          </Text>
+          <Link href="/lotteries">
+            <Button variant="primary">Predict to win!</Button>
+          </Link>
+        </Flex>
       </Center>
     </>
   );
