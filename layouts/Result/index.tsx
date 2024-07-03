@@ -22,6 +22,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { resultDataFrom1To8 } from '@/config/dataResultContract';
+import { convertHex } from '@/utils/convertHex';
 const ResultPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const [listResult, setListResult] = useState<any>(resultDataFrom1To8);
@@ -77,7 +78,12 @@ const ResultPage = () => {
     }
   }, [isCurrentLotteryLoadingNew]);
   return (
-    <>
+    <Box
+      backgroundImage={`url('/assets/arts/other_art.svg')`}
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center"
+      backgroundSize="cover"
+    >
       <Container maxWidth="container.xl" minH="90vh">
         {isLoadingResultData ? (
           <Spinner size="lg" />
@@ -98,7 +104,7 @@ const ResultPage = () => {
                             minH="100px"
                             gap={{ md: 8, base: 6 }}
                             padding={6}
-                            bg="#0A1450"
+                            bg={convertHex('#4C1F5880', 0.5)}
                             borderRadius="3xl"
                             justifyContent="space-between"
                             flexWrap={{ md: 'nowrap', base: 'wrap' }}
@@ -110,7 +116,7 @@ const ResultPage = () => {
                             </HStack>
 
                             <Box>
-                              <Text color="#7A8CFF" fontWeight="medium">
+                              <Text color="#FAA632" fontWeight="medium">
                                 {convertTimestampToFormattedDate(
                                   data.drawTime as any
                                 )}
@@ -153,7 +159,7 @@ const ResultPage = () => {
                   flexDirection="column"
                   padding={8}
                   px={10}
-                  bg="#0A1450"
+                  bg={convertHex('#4C1F5880', 0.5)}
                   alignItems="center"
                   borderRadius="3xl"
                 >
@@ -161,7 +167,7 @@ const ResultPage = () => {
                   <Text mt={6} fontSize="2xl" fontWeight="bold" mb={3}>
                     Empty Data Result
                   </Text>
-                  <Text color="#7A8CFF">
+                  <Text color="#FAA632">
                     It appears that no results were found!
                   </Text>
                 </Flex>
@@ -170,7 +176,7 @@ const ResultPage = () => {
           </>
         )}
       </Container>
-    </>
+    </Box>
   );
 };
 

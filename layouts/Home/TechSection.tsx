@@ -9,13 +9,13 @@ interface TechProps {
 const TechSection = () => {
   const ListTech: TechProps[] = [
     {
-      image: '/assets/arts/contract.svg',
+      image: '/assets/arts/home/pen.svg',
       title: 'Smart contracts',
       content:
-        'Our smart contracts are verified and open source. They eliminate the risk of manipulation by third parties. Trust and transparency are core to Lott3ry',
+        'Our smart contracts are verified and open source. They eliminate the risk of manipulation by third parties. Trust and transparency are core to StarkPot',
     },
     {
-      image: '/assets/arts/game.svg',
+      image: '/assets/arts/home/cube.svg',
       title: 'VRF',
       content:
         'A provably fair and verifiable random number generator (RNG) that enables smart contracts to access random values without compromising or usability',
@@ -25,7 +25,7 @@ const TechSection = () => {
     <>
       <Box position="relative" py={12}>
         <Text variant="title" mb={8}>
-          Technologies we use
+          Technologies behind StarkPot
         </Text>
         <HStack
           flexWrap={{ md: 'nowrap', base: 'wrap' }}
@@ -41,7 +41,7 @@ const TechSection = () => {
               }}
             >
               <Center>
-                <Image src={item.image} />
+                <Image src={item.image} alt="" />
               </Center>
 
               <Flex flexDirection="column" gap={4} mt={8}>

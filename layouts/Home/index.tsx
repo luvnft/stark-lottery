@@ -1,25 +1,45 @@
 'use client';
 import { Box, Container, Icon } from '@chakra-ui/react';
 import React from 'react';
-import VectorIcon1 from '@/public/assets/arts/vector/vec-1.svg';
-import VectorIcon4 from '@/public/assets/arts/vector/vec-4.svg';
+
 import HeroSection from './HeroSection';
 import TechSection from './TechSection';
 import RuleSection from './RuleSection';
 import FAQ from './FAQ';
 import IntroSection from './IntroSection';
 import FadeInVisible from '@/components/animations/FadeInVisible';
+import { Image } from '@chakra-ui/react';
 const HomePage = () => {
   return (
     <>
       <FadeInVisible>
         <Box
-          bg="#081041"
-          bgImage={`url('/assets/arts/intro_bg.png')`}
+          bg="#2C0A47"
           py={{ md: '100px', base: '50px' }}
+          bgImage={`url('/assets/arts/home/hero_art.svg')`}
+          position="relative"
           bgRepeat="no-repeat"
           bgSize="cover"
         >
+          <Image
+            bottom={0}
+            left={0}
+            position="absolute"
+            zIndex={1}
+            height={{ lg: '500px', md: '200px', base: '80px' }}
+            alt="Planet 1"
+            src="/assets/arts/home/3d-rocket.svg"
+          />
+
+          <Image
+            bottom={-100}
+            right={0}
+            position="absolute"
+            zIndex={1}
+            // height={{ lg: '500px', md: '200px', base: '80px' }}
+            alt="Planet 1"
+            src="/assets/arts/home/astronaut.svg"
+          />
           <Container maxWidth="container.xl">
             <IntroSection />
           </Container>
@@ -28,40 +48,18 @@ const HomePage = () => {
 
       <FadeInVisible>
         <Box position="relative">
-          <Icon
-            as={VectorIcon1}
-            position="absolute"
-            left={0}
-            zIndex={-1}
-            height={{ md: '444px', base: 'auto' }}
-            width={{ md: '545px', base: '250px' }}
-            sx={{
-              path: {
-                fill: 'url(#gradient_1)',
-              },
-            }}
-          />
           <Container maxWidth="container.xl">
             <HeroSection />
           </Container>
-          <Icon
-            as={VectorIcon4}
-            position="absolute"
-            right={25}
-            bottom={0}
-            zIndex={-1}
-            height="432px"
-            width="437px"
-            sx={{
-              path: {
-                fill: 'url(#gradient_1)',
-              },
-            }}
-          />
         </Box>
       </FadeInVisible>
       <FadeInVisible>
-        <Box bg="#081041">
+        <Box
+          bg="#2C0A47"
+          bgImage={`url('/assets/arts/home/tech_art.svg')`}
+          bgRepeat="no-repeat"
+          bgSize="cover"
+        >
           <Container maxWidth="container.xl" overflow="hidden">
             <TechSection />
           </Container>
@@ -71,9 +69,6 @@ const HomePage = () => {
       <FadeInVisible>
         <Container maxWidth="container.xl" overflow="hidden">
           <RuleSection />
-        </Container>
-        <Container maxWidth="container.xl" overflow="hidden">
-          <FAQ />
         </Container>
       </FadeInVisible>
     </>

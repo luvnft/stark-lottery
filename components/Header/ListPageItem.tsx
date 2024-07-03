@@ -43,15 +43,24 @@ const ListPageItem = ({ sx }: IProps) => {
           }
           return false;
         };
+        //         border-width: 2px, 0px, 2px, 0px;
+
+        // border-style: solid;
+
+        // border-image-source: linear-gradient(180deg, #E3FF74 0%, #FD5E04 100%);
+
         return (
           <Link href={page.link} key={page.link}>
             <Text
               px={{ xl: 8, base: 4 }}
               py={2}
               borderRadius="32px"
-              color={pageActive() ? '#119EF9' : 'white'}
+              variant={pageActive() ? 'gradient_text' : ''}
+              color={'#E4E8FF'}
               borderBottom={pageActive() ? '2px solid' : undefined}
-              borderBottomColor="#119EF9"
+              borderBottomColor="#FD5E04"
+              borderTop={pageActive() ? '2px solid' : undefined}
+              borderTopColor=" #E3FF74"
             >
               {page.title}
             </Text>
@@ -63,7 +72,7 @@ const ListPageItem = ({ sx }: IProps) => {
           px={{ lg: 8, md: 4 }}
           py={2}
           borderRadius="32px"
-          color={'white'}
+          color={'#E4E8FF'}
           borderBottomColor="#119EF9"
         >
           StarkArcade

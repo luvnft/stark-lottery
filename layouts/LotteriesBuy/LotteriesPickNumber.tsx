@@ -25,6 +25,7 @@ import CartControl from '@/components/Cart';
 import { sortArrayAscending } from '@/utils';
 import { useCart } from '@/hooks/useCart';
 import LotteriesRandomNumber from './LotteriesRandomNumber';
+import { convertHex } from '@/utils/convertHex';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +92,7 @@ const LotteriesPickNumber = () => {
 
       await account.execute([
         {
-          contractAddress: CONTRACT_ADDRESS.eth,
+          contractAddress: CONTRACT_ADDRESS.strk,
           entrypoint: 'approve',
           calldata: CallData.compile({
             spender: CONTRACT_ADDRESS.governance,
@@ -128,7 +129,7 @@ const LotteriesPickNumber = () => {
   return (
     <Box
       padding={{ md: 8, base: 6 }}
-      background="#0A1450"
+      bg={convertHex('#4C1F5880', 0.5)}
       borderRadius="32px"
       display="flex"
       flexDirection="column"
@@ -162,7 +163,7 @@ const LotteriesPickNumber = () => {
         value={listNumber.length}
         size="sm"
         variant="pick_progress"
-        bg="#192678"
+        bg="#2C0A47"
         max={6}
         borderRadius="2xl"
       />

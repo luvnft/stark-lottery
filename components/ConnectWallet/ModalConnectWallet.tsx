@@ -14,6 +14,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import BtnConnectWallet from './BtnConnectWallet';
 import wallets from '@/config/wallet';
+import { convertHex } from '@/utils/convertHex';
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
@@ -31,7 +32,7 @@ export default function ModalConnectWallet({ isOpen, onClose }: IProps) {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent
-        bg="#0A1450"
+        bg={convertHex('#4C1F5880', 0.5)}
         borderRadius="32px"
         margin={{ md: 0, base: 4 }}
         _before={{
@@ -59,7 +60,7 @@ export default function ModalConnectWallet({ isOpen, onClose }: IProps) {
           </Text>
           <ModalCloseButton
             _hover={{
-              bg: '#1B266B',
+              bg: '#E4E8FF',
             }}
             position="relative"
             top={0}

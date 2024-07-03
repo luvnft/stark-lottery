@@ -67,9 +67,9 @@ const LotteriesWork = () => {
               key={`ticket-guess-${index}`}
               justifyContent="space-between"
             >
-              <Text>{item.guess}</Text>
+              <Text color="#FFD761">{item.guess}</Text>
               <HStack>
-                <Text color="#7A8CFF">{item.price} </Text>
+                <Text color="#FAA632">{item.price} </Text>
                 <Icon as={StrkIcon} h={6} w={6} />
               </HStack>
             </HStack>

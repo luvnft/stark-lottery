@@ -1,15 +1,15 @@
 import { ComponentStyleConfig, extendTheme } from '@chakra-ui/react';
 export const backgrounds = {
   gradient: {
-    100: 'linear-gradient(90deg, #0165FB 0%, #1DC9F8 100%)',
+    100: ' linear-gradient(180deg, #E3FF74 0%, #FD5E04 100%)',
   },
 };
 
 export const colors = {
   primary: {
     game: {
-      100: '#040A2F',
-      200: '#081041',
+      100: '#0E011A',
+      200: '#2C0A47',
       300: '#1b266b',
     },
     shader: {
@@ -58,8 +58,8 @@ export const colors = {
     },
   },
   body: '#0F1005',
-  card: '#0A1450',
-  note: '#7A8CFF',
+  card: ' rgba(76, 31, 88, 0.5)',
+  note: '#FAA632',
   ...backgrounds,
 };
 
@@ -80,14 +80,20 @@ const Text: ComponentStyleConfig = {
       color: 'white',
       textAlign: 'center',
     },
+    gradient_text: {
+      background: 'gradient.100',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+    },
   },
 };
 const Button: ComponentStyleConfig = {
   variants: {
     buy_ticket: {
       width: 'fit-content',
-      bg: '#151933',
+      bg: '#FFD761',
       borderRadius: '3xl',
+      color: '#0E011A',
       minW: '242px',
       py: 6,
       transition: 'all .3s',
@@ -99,10 +105,11 @@ const Button: ComponentStyleConfig = {
       px: { md: 8, base: 6 },
       py: { md: 4, base: 3 },
       borderRadius: '32px',
-      bg: 'primary.game.300',
+      bg: 'gradient.100',
       width: 'fit-content',
       overflow: 'hidden',
       position: 'relative',
+      color: '#0E011A',
       zIndex: 1,
       minW: '240px',
       minH: '60px',
@@ -122,7 +129,7 @@ const Button: ComponentStyleConfig = {
         right: 0,
         left: 0,
         bottom: 0,
-        bg: 'gradient.100',
+        bg: 'white',
         transition: 'opacity 0.3s linear',
         zIndex: -1,
         opacity: 0,
@@ -132,36 +139,39 @@ const Button: ComponentStyleConfig = {
       height: 12,
       width: 12,
       position: 'relative',
-      transform: 'rotate(-45deg)',
-      background: '#192678',
-      _before: {
-        content: '""',
-        display: isActive ? 'block' : 'none',
-        position: 'absolute',
-        inset: 0,
-        borderRadius: '8px',
-        padding: '4px',
-        background: 'gradient.100',
-        WebkitMask:
-          ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-        maskComposite: 'exclude',
-      },
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `${isActive ? "url('/assets/arts/number_active_art.svg')" : "url('/assets/arts/number_art.svg')"}`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'contain',
+      // _before: {
+      //   content: '""',
+      //   display: isActive ? 'block' : 'none',
+      //   position: 'absolute',
+      //   inset: 0,
+      //   borderRadius: '8px',
+      //   padding: '4px',
+      //   background: 'gradient.100',
+      //   WebkitMask:
+      //     ' linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+      //   maskComposite: 'exclude',
+      // },
       p: {
         fontSize: 'xl',
         fontWeight: 800,
         backgroundClip: isActive ? 'text' : undefined,
-        background: isActive
-          ? 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)'
-          : undefined,
+        background: isActive ? 'gradient.100' : undefined,
         WebkitBackgroundClip: isActive ? 'text' : undefined,
         WebkitTextFillColor: isActive ? 'transparent' : undefined,
-        transform: 'rotate(45deg)',
+
         WebkitTextStroke: '1px transparent',
       },
       _hover: {},
     }),
     icon_btn: {
-      bg: '#1B266B',
+      bg: '#461A4B',
       _hover: {
         opacity: 0.7,
       },
@@ -178,7 +188,7 @@ export const Progress: ComponentStyleConfig = {
   variants: {
     pick_progress: {
       filledTrack: {
-        bg: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
+        bg: 'gradient.100',
       },
     },
   },
@@ -192,16 +202,15 @@ export const Menu: ComponentStyleConfig = {
         py: '4',
         borderRadius: 'xl',
         border: 'none',
-        bg: '#1b266b',
+        bg: 'card',
       },
       item: {
         bg: 'inherit',
-        color: 'gray.200',
         pl: 5,
         display: 'flex',
         gap: 4,
         _hover: {
-          bg: 'primary.game.200',
+          opacity: 0.8,
         },
       },
       command: {

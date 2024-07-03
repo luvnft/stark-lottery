@@ -22,11 +22,9 @@ const ConnectWallet = ({ sx }: { sx?: ButtonProps }) => {
           onClick={() => {
             onOpen();
           }}
-          bg="#1B266B"
           borderRadius={{ md: '32px', base: '12px' }}
           gap={4}
           role="group"
-          color="#E4E8FF"
           width={{ md: '220px', base: '80px' }}
           {...sx}
         >

@@ -20,17 +20,21 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
   const { isOpen, onToggle } = useDisclosure();
   return (
     <>
-      <Box padding={{ lg: 8, md: 6, base: 4 }} bg="#0A1450" borderRadius="12px">
+      <Box
+        padding={{ lg: 8, md: 6, base: 4 }}
+        bg="primary.game.200"
+        borderRadius="12px"
+      >
         <HStack
           onClick={onToggle}
           cursor="pointer"
           width="full"
           justifyContent="space-between"
           transition="all .3s"
-          _hover={{
-            bg: '#0A1450',
-            opacity: 0.8,
-          }}
+          // _hover={{
+          //   bg: '#0A1450',
+          //   opacity: 0.8,
+          // }}
         >
           <Text fontSize="lg" fontWeight="bold">{`${id}.${title}`}</Text>
           <Icon
@@ -45,7 +49,7 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
               <>
                 {item.type === 'text' && (
                   <Text
-                    color="#7A8CFF"
+                    color="#FAA632"
                     key={`${item}-${index}-${item.content}`}
                     {...item.sx}
                   >
@@ -53,7 +57,7 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
                   </Text>
                 )}
                 {item.type === 'list' && (
-                  <li color="#7A8CFF" key={`${item}-${index}-${item.content}`}>
+                  <li color="#FAA632" key={`${item}-${index}-${item.content}`}>
                     {item.content}
                   </li>
                 )}
@@ -61,7 +65,7 @@ const FAQItem = ({ id, title, content }: FAQItemProps) => {
                   <Link
                     href={item.content}
                     target="_blank"
-                    color="#7A8CFF"
+                    color="#FAA632"
                     key={`${item}-${index}-${item.content}`}
                   >
                     {item.content}

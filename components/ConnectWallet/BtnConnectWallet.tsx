@@ -7,10 +7,10 @@ const BtnConnectWallet = ({ onClick, icon, label }: any) => (
     rounded="lg"
     gap={{ md: 4, base: 3 }}
     cursor="pointer"
-    color="#7A8CFF"
+    color="#E4E8FF"
     _hover={{
       bg: 'gradient.100',
-      color: 'white',
+      color: '#0E011A',
     }}
     onClick={onClick}
     px={8}
