@@ -70,9 +70,6 @@ const HomePage = () => {
         <Container maxWidth="container.xl" overflow="hidden">
           <RuleSection />
         </Container>
-        <Container maxWidth="container.xl" overflow="hidden">
-          <FAQ />
-        </Container>
       </FadeInVisible>
     </>
   );

@@ -33,13 +33,13 @@ export default function Scrollbar({
       overflowY="auto"
       // height="100%"
       _hover={scrollbarThumb({
-        bg: '#119DF7',
+        bg: '#FAA632',
         width: 2,
       })}
       sx={{
         ...(alway
           ? scrollbarThumb({
-              bg: '#119DF7',
+              bg: '#FAA632',
               width: 2,
             })
           : {}),
