@@ -6,7 +6,7 @@ import Favicon from '@/app/favicon.ico';
 const nutino = Nunito_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'StarkPot| StarkArcade Hub',
+  title: 'StarkPot | StarkArcade Hub',
   metadataBase: new URL('https://starkpot.starkarcade.com/'),
   description:
     'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
@@ -40,9 +40,19 @@ export const metadata: Metadata = {
     title: 'StarkPot | StarkArcade Hub',
     description:
       'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
-    images: './public/assets/banner/banner.png',
+    images: {
+      url: './public/assets/banner/banner.png',
+      alt: 'Starkpot Banner',
+    },
     site: 'https://starkpot.starkarcade.com/',
-    creator: '@StarkArcade Hub',
+    card: 'player',
+    creator: '@starkarcade',
+    players: {
+      playerUrl: 'https://starkpot.starkarcade.com/',
+      streamUrl: 'https://starkpot.starkarcade.com/',
+      width: 600,
+      height: 600,
+    },
   },
   category: 'technology',
 };
