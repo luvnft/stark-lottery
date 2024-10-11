@@ -32,7 +32,7 @@ export default function ModalConnectWallet({ isOpen, onClose }: IProps) {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent
-        bg={convertHex('#4C1F5880', 0.5)}
+        bg={convertHex('#4C1F5880', 0.8)}
         borderRadius="32px"
         margin={{ md: 0, base: 4 }}
         _before={{

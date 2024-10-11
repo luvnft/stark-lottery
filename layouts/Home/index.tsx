@@ -1,5 +1,5 @@
 'use client';
-import { Box, Container, Icon } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import React from 'react';
 
 import HeroSection from './HeroSection';
@@ -20,23 +20,24 @@ const HomePage = () => {
           position="relative"
           bgRepeat="no-repeat"
           bgSize="cover"
+          overflow={{ md: 'visible', base: 'hidden' }}
         >
           <Image
             bottom={0}
-            left={0}
+            left={{ lg: '-2%', md: -100, base: -50 }}
             position="absolute"
             zIndex={1}
-            height={{ lg: '500px', md: '200px', base: '80px' }}
+            height={{ xl: '700px', md: '400px', base: '180px' }}
             alt="Planet 1"
             src="/assets/arts/home/3d-rocket.svg"
           />
 
           <Image
-            bottom={-100}
+            bottom={{ md: -100, base: 0 }}
             right={0}
             position="absolute"
             zIndex={1}
-            // height={{ lg: '500px', md: '200px', base: '80px' }}
+            height={{ xl: '500px', md: '400px', base: '200px' }}
             alt="Planet 1"
             src="/assets/arts/home/astronaut.svg"
           />

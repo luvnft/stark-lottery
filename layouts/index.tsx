@@ -11,7 +11,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       <Scrollbar height="100vh">
         <Header />
 
-        <Box pb={4}>{children}</Box>
+        <Box flexGrow={1}>{children}</Box>
         <Footer />
       </Scrollbar>
     </>

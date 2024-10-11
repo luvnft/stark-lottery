@@ -32,7 +32,7 @@ const PageDrawer = () => {
         <DrawerContent bg="primary.game.100">
           <DrawerCloseButton />
 
-          <DrawerBody py={10}>
+          <DrawerBody py={16}>
             <ListPageItem
               sx={{
                 width: 'full',

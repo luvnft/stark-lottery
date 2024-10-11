@@ -37,8 +37,8 @@ const ProfileDrawer = () => {
   const { disconnect } = useDisconnect();
   const { isLoading: isLoadingBalance, data: dataBalance } = useBalance({
     token: CONTRACT_ADDRESS.strk,
-    address: user ? user : '',
-    watch: true,
+    address: user?.toLowerCase(),
+    enabled: !!user,
   });
 
   const dispatch = useDispatch();

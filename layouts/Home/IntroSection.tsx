@@ -46,6 +46,7 @@ const IntroSection = () => {
           style={{
             pt: 8,
             px: { lg: 24, md: 12, base: 4 },
+            width: { lg: '50%', md: '400px', base: '350px' },
             _hover: {},
           }}
         >
@@ -87,7 +88,11 @@ const IntroSection = () => {
               zIndex={-2}
               filter="blur(320px)"
             />
-            <Image alt="ticket Jack" src="/assets/arts/ticket/ticket_win.svg" />
+            <Image
+              alt="ticket Jack"
+              src="/assets/arts/ticket/ticket_win.svg"
+              w={{ lg: 280, md: 200, base: 180 }}
+            />
           </Box>
           {(currentLottery?.drawTime as any) && currentLottery?.state == 1 && (
             <>
@@ -119,34 +124,35 @@ const IntroSection = () => {
             </>
           )}
         </PrimaryCard>
+        <Box my={5}>
+          {currentLottery?.state == 1 &&
+            new Date(currentLottery.startTime * 1000) < new Date() && (
+              <>
+                {new Date(currentLottery.drawTime * 1000) > new Date() ? (
+                  <Link href={`/lotteries/buy`}>
+                    <Button variant="primary" width="full">
+                      Get Your Ticket Now
+                    </Button>
+                  </Link>
+                ) : (
+                  <Text textAlign="center" color="#FAA632" fontWeight="bold">
+                    Sale End - Wait Draw
+                  </Text>
+                )}
+              </>
+            )}
 
-        {currentLottery?.state == 1 &&
-          new Date(currentLottery.startTime * 1000) < new Date() && (
-            <>
-              {new Date(currentLottery.drawTime * 1000) > new Date() ? (
-                <Link href={`/lotteries/buy`}>
-                  <Button variant="primary" width="full" my={5}>
-                    Get Your Ticket Now
-                  </Button>
-                </Link>
-              ) : (
-                <Text textAlign="center" color="#FAA632" fontWeight="bold">
-                  Sale End - Wait Draw
-                </Text>
-              )}
-            </>
+          {currentLottery?.state == 0 && (
+            <Text textAlign="center" color="#FAA632" fontWeight="bold">
+              Lottery Closed
+            </Text>
           )}
-
-        {currentLottery?.state == 0 && (
-          <Text textAlign="center" color="#FAA632" fontWeight="bold">
-            Lottery Closed
-          </Text>
-        )}
-        {currentLottery?.state == 2 && (
-          <Text textAlign="center" color="#FAA632" fontWeight="bold">
-            Lottery Drawing
-          </Text>
-        )}
+          {currentLottery?.state == 2 && (
+            <Text textAlign="center" color="#FAA632" fontWeight="bold">
+              Lottery Drawing
+            </Text>
+          )}
+        </Box>
       </Flex>
     </Box>
   );
