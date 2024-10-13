@@ -7,7 +7,7 @@ const nutino = Nunito_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'StarkPot | StarkArcade Hub',
-  metadataBase: new URL('https://lottery-test.starkarcade.com'),
+  metadataBase: new URL('https://beta.metalslug.fun'),
   description:
     'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
   icons: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: 'en_US',
-    url: 'https://lottery-test.starkarcade.com',
+    url: 'https://beta.metalslug.fun',
     type: 'website',
     emails: 'karasbuilder@gmail.com',
     siteName: 'StarkPot',
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     card: 'player',
     creator: '@starkarcade',
     players: {
-      playerUrl: 'https://lottery-test.starkarcade.com',
-      streamUrl: 'https://lottery-test.starkarcade.com',
+      playerUrl: 'https://beta.metalslug.fun',
+      streamUrl: 'https://beta.metalslug.fun',
       width: 600,
       height: 600,
     },
