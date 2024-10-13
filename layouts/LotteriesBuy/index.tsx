@@ -18,6 +18,7 @@ import {
   convertTimestampToFormattedDate,
 } from '@/utils';
 import { useAuth } from '@/hooks/useAuth';
+import LotteryUITest from './LotteryUITest';
 
 const LotteriesBuyPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
@@ -47,6 +48,7 @@ const LotteriesBuyPage = () => {
       backgroundRepeat="no-repeat"
       backgroundPosition="center"
       backgroundSize="cover"
+      py={8}
     >
       <Container maxWidth="container.xl">
         {user ? (
@@ -97,6 +99,8 @@ const LotteriesBuyPage = () => {
                 )}
               </Flex>
             </HStack>
+
+            <LotteryUITest />
             {currentLottery &&
             currentLottery?.state == 1 &&
             new Date(currentLottery.drawTime * 1000) > new Date() ? (

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     description:
       'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
     images: {
-      url: './public/assets/banner/banner.png',
+      url: 'https://beta.metalslug.fun/assets/banner/banner.png',
       alt: 'Starkpot Banner',
     },
 

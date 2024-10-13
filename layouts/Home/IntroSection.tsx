@@ -94,7 +94,13 @@ const IntroSection = () => {
               w={{ lg: 280, md: 200, base: 180 }}
             />
           </Box>
-          {(currentLottery?.drawTime as any) && currentLottery?.state == 1 && (
+          {/** TODO REMOVE */}
+          <Link href={`/lotteries/buy`}>
+            <Button variant="primary" width="fit-content">
+              Test Draw UI
+            </Button>
+          </Link>
+          {/* {(currentLottery?.drawTime as any) && currentLottery?.state == 1 && (
             <>
               {new Date(currentLottery.startTime * 1000) > new Date() ? (
                 <>
@@ -122,7 +128,7 @@ const IntroSection = () => {
                 </>
               )}
             </>
-          )}
+          )} */}
         </PrimaryCard>
         <Box my={5}>
           {currentLottery?.state == 1 &&
