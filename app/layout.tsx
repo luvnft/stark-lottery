@@ -44,9 +44,10 @@ export const metadata: Metadata = {
       url: './public/assets/banner/banner.png',
       alt: 'Starkpot Banner',
     },
-    site: 'lottery-test.starkarcade.com',
+
     card: 'player',
     creator: '@starkarcade',
+    site: '@starkarcade',
     players: {
       playerUrl: 'https://beta.metalslug.fun',
       streamUrl: 'https://beta.metalslug.fun',
