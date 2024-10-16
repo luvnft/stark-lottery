@@ -15,7 +15,7 @@ import RandomIcon from '@/public/assets/icons/general/random.svg';
 import CartAdd from '@/public/assets/icons/general/add_cart.svg';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 
-import { useAccount, useContractRead } from '@starknet-react/core';
+import { useAccount, useReadContract } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { CallData, uint256 } from 'starknet';
 import { LOTTERY } from '@/config/value';
@@ -74,7 +74,7 @@ const LotteriesPickNumber = () => {
    *  Call Buy Ticket from contract lottery
    * */
   const { data: minPriceTicketData, isLoading: isLoadingMinPrice } =
-    useContractRead({
+    useReadContract({
       functionName: 'getMinimumPrice',
       abi: ABIS.GovernanceABI,
       args: [CONTRACT_ADDRESS.lottery],

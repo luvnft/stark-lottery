@@ -25,7 +25,7 @@ import CartItem from './CartItem';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import EmptyCart from '@/public/assets/icons/general/empty_cart.svg';
 
-import { useAccount, useContractRead } from '@starknet-react/core';
+import { useAccount, useReadContract } from '@starknet-react/core';
 
 import { Call, CallData, uint256 } from 'starknet';
 
@@ -83,7 +83,7 @@ const CartControl = () => {
     }
   };
   const { data: minPriceTicketData, isLoading: isLoadingMinPrice } =
-    useContractRead({
+    useReadContract({
       functionName: 'getMinimumPrice',
       abi: ABIS.GovernanceABI,
       args: [CONTRACT_ADDRESS.lottery],

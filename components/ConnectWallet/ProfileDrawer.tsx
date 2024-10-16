@@ -19,11 +19,7 @@ import React from 'react';
 import ConnectWallet from '.';
 
 import LogoutIcon from '@/public/assets/icons/general/logout.svg';
-import {
-  useBalance,
-  useContractRead,
-  useDisconnect,
-} from '@starknet-react/core';
+import { useReadContract, useDisconnect } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { useDispatch } from 'react-redux';
 import { ellipseMiddle } from '@/utils';
@@ -31,20 +27,19 @@ import CopyClipBoard from '../CopyClipBoard/CopyClipBoard';
 import Link from 'next/link';
 import { logout, setUserLoading } from '@/redux/user/user-slice';
 import { ABIS } from '@/abis';
+import { useBalanceCustom } from '@/hooks/useBalanceCustom';
 
 const ProfileDrawer = () => {
   const { user } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { disconnect } = useDisconnect();
-  const { isLoading: isLoadingBalance, data: dataBalance } = useBalance({
-    token: CONTRACT_ADDRESS.strk,
-    address: user?.toLowerCase(),
-    enabled: !!user,
+  const { isLoading: isLoadingBalance, balance } = useBalanceCustom({
+    address: user,
   });
 
   const dispatch = useDispatch();
 
-  const { data: dataPoint, isLoading: isLoadingPoint } = useContractRead({
+  const { data: dataPoint, isLoading: isLoadingPoint } = useReadContract({
     functionName: 'getUserPoint',
     abi: ABIS.PointABI,
     args: [user ? user : ''],
@@ -91,8 +86,8 @@ const ProfileDrawer = () => {
               <HStack width="fit-content">
                 <Text>STRK:</Text>
                 <Box>
-                  {dataBalance && !isLoadingBalance ? (
-                    parseFloat(dataBalance.formatted).toFixed(2)
+                  {balance && !isLoadingBalance ? (
+                    parseFloat(balance.toString()).toFixed(2)
                   ) : (
                     <Skeleton>0.00</Skeleton>
                   )}

@@ -13,9 +13,10 @@ import {
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
+  Abi,
   useContract,
-  useContractRead,
-  useContractWrite,
+  useReadContract,
+  useSendTransaction,
 } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import {
@@ -31,14 +32,14 @@ interface IProps {
 }
 const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
   const [currentData, setCurrentData] = useState<any>();
-  const { data: dataLottery, isLoading: isLoadingLottery } = useContractRead({
+  const { data: dataLottery, isLoading: isLoadingLottery } = useReadContract({
     functionName: 'getLotteryById',
-    abi: ABIS.LotteryABI,
+    abi: ABIS.LotteryABI as Abi,
     args: [lotteryId],
     address: CONTRACT_ADDRESS.lottery,
   });
   const { contract: contractLottery } = useContract({
-    abi: ABIS.LotteryABI,
+    abi: ABIS.LotteryABI as Abi,
     address: CONTRACT_ADDRESS.lottery,
   });
   const callClaim = useMemo(() => {
@@ -54,11 +55,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
       }
     }
   }, [isLoadingLottery]);
-  const {
-    writeAsync: writeClaim,
-    data: dataClaim,
-    isPending: isPendingClaim,
-  } = useContractWrite({
+  const { send, error } = useSendTransaction({
     calls: callClaim,
   });
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -145,7 +142,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
                         variant="primary"
                         onClick={async () => {
                           try {
-                            await writeClaim();
+                            await send();
                             toast({
                               title: 'Claim Success',
                               status: 'success',

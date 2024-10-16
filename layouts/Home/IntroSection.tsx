@@ -5,23 +5,24 @@ import PrimaryCard from '@/components/Card/PrimaryCard';
 
 import Link from 'next/link';
 import { convertBigIntsToNumbers } from '@/utils';
-import { useContractRead } from '@starknet-react/core';
+import { useReadContract } from '@starknet-react/core';
 import { LotteryProps } from '../Lotteries';
-import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 
 import TimeReminder from '@/components/TimeReminder';
 import { convertHex } from '@/utils/convertHex';
 import Image from 'next/image';
 import { ABIS } from '@/abis';
+import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 const IntroSection = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
-    useContractRead({
+    useReadContract({
       functionName: 'getCurrentLottery',
       abi: ABIS.LotteryABI,
+      args: [],
       address: CONTRACT_ADDRESS.lottery,
-      refetchInterval: 1000,
     });
+
   useEffect(() => {
     if (!isCurrentLotteryLoading && currentLotteryData) {
       const temp: any = currentLotteryData;
