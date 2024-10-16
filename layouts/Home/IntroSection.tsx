@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Icon, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import StrkIcon from '@/public/assets/icons/general/stark_token.svg';
 import PrimaryCard from '@/components/Card/PrimaryCard';
@@ -11,7 +11,7 @@ import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import ABILottery from '@/abi/lotteries645.json';
 import TimeReminder from '@/components/TimeReminder';
 import { convertHex } from '@/utils/convertHex';
-
+import Image from 'next/image';
 const IntroSection = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
@@ -91,16 +91,12 @@ const IntroSection = () => {
             <Image
               alt="ticket Jack"
               src="/assets/arts/ticket/ticket_win.svg"
-              w={{ lg: 280, md: 200, base: 180 }}
+              width={200}
+              height={200}
             />
           </Box>
-          {/** TODO REMOVE */}
-          <Link href={`/lotteries/buy`}>
-            <Button variant="primary" width="fit-content">
-              Test Draw UI
-            </Button>
-          </Link>
-          {/* {(currentLottery?.drawTime as any) && currentLottery?.state == 1 && (
+
+          {(currentLottery?.drawTime as any) && currentLottery?.state == 1 && (
             <>
               {new Date(currentLottery.startTime * 1000) > new Date() ? (
                 <>
@@ -128,7 +124,7 @@ const IntroSection = () => {
                 </>
               )}
             </>
-          )} */}
+          )}
         </PrimaryCard>
         <Box my={5}>
           {currentLottery?.state == 1 &&
