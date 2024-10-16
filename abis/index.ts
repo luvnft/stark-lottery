@@ -1,3 +1,4 @@
+import { type Abi } from 'starknet';
 import ercSierraAbi from './json/erc20OZ070.sierra.json';
 import ethAbi from './json/ETH.json';
 import governanceAbi from './json/governance.json';

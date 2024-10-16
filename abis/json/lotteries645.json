@@ -236,18 +236,6 @@
   },
   {
     "type": "function",
-    "name": "changePointPool",
-    "inputs": [
-      {
-        "name": "newPointPool",
-        "type": "core::starknet::contract_address::ContractAddress"
-      }
-    ],
-    "outputs": [],
-    "state_mutability": "external"
-  },
-  {
-    "type": "function",
     "name": "changePrizeMultipliers",
     "inputs": [
       {
@@ -411,36 +399,13 @@
     "state_mutability": "view"
   },
   {
-    "type": "function",
-    "name": "setPointPerTicket",
-    "inputs": [
-      {
-        "name": "newPoint",
-        "type": "core::integer::u128"
-      }
-    ],
-    "outputs": [],
-    "state_mutability": "external"
-  },
-  {
-    "type": "function",
-    "name": "getPointPerTicket",
-    "inputs": [],
-    "outputs": [
-      {
-        "type": "core::integer::u128"
-      }
-    ],
-    "state_mutability": "view"
-  },
-  {
     "type": "impl",
     "name": "OwnableImpl",
-    "interface_name": "openzeppelin::access::ownable::interface::IOwnable"
+    "interface_name": "openzeppelin_access::ownable::interface::IOwnable"
   },
   {
     "type": "interface",
-    "name": "openzeppelin::access::ownable::interface::IOwnable",
+    "name": "openzeppelin_access::ownable::interface::IOwnable",
     "items": [
       {
         "type": "function",
@@ -485,14 +450,6 @@
       {
         "name": "governanceAddress",
         "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "pointPoolAddress",
-        "type": "core::starknet::contract_address::ContractAddress"
-      },
-      {
-        "name": "pointPerTicket",
-        "type": "core::integer::u128"
       },
       {
         "name": "startDay",
@@ -578,36 +535,58 @@
   },
   {
     "type": "event",
-    "name": "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+    "name": "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
     "kind": "struct",
     "members": [
       {
         "name": "previous_owner",
         "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "kind": "key"
       },
       {
         "name": "new_owner",
         "type": "core::starknet::contract_address::ContractAddress",
-        "kind": "data"
+        "kind": "key"
       }
     ]
   },
   {
     "type": "event",
-    "name": "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+    "name": "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "previous_owner",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "key"
+      },
+      {
+        "name": "new_owner",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "key"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
     "kind": "enum",
     "variants": [
       {
         "name": "OwnershipTransferred",
-        "type": "openzeppelin::access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+        "type": "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+        "kind": "nested"
+      },
+      {
+        "name": "OwnershipTransferStarted",
+        "type": "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
         "kind": "nested"
       }
     ]
   },
   {
     "type": "event",
-    "name": "openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::Event",
+    "name": "openzeppelin_security::reentrancyguard::ReentrancyGuardComponent::Event",
     "kind": "enum",
     "variants": []
   },
@@ -633,12 +612,12 @@
       },
       {
         "name": "OwnableEvent",
-        "type": "openzeppelin::access::ownable::ownable::OwnableComponent::Event",
+        "type": "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
         "kind": "flat"
       },
       {
         "name": "ReentrancyEvent",
-        "type": "openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::Event",
+        "type": "openzeppelin_security::reentrancyguard::ReentrancyGuardComponent::Event",
         "kind": "flat"
       }
     ]
