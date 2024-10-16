@@ -10,7 +10,7 @@ const LotteriesRandomNumber = ({
   handleSelectNumber,
 }: LotteriesRandomNumberProps) => {
   return (
-    <Flex gap={{ md: 8, base: 8 }} flexWrap="wrap" my={6}>
+    <Flex gap={{ xl: 8, base: 4 }} flexWrap="wrap" my={{ xl: 6, base: 2 }}>
       {Array.from({ length: 45 }).map((_, index) => {
         const active = listNumber.includes(index + 1);
         return (

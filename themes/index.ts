@@ -75,7 +75,7 @@ const styles = {
 const Text: ComponentStyleConfig = {
   variants: {
     title: {
-      fontSize: '32px',
+      fontSize: { xl: '32px', base: '24px' },
       fontWeight: 800,
       color: 'white',
       textAlign: 'center',

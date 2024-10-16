@@ -24,10 +24,6 @@ const ListPageItem = ({ sx }: IProps) => {
       link: '/results',
       title: 'Results',
     },
-    {
-      link: '/claim-airdrop',
-      title: 'Claim Airdrop',
-    },
   ];
   return (
     <HStack gap={{ lg: 6, base: 4 }} {...sx}>

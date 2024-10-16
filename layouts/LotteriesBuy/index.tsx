@@ -48,7 +48,7 @@ const LotteriesBuyPage = () => {
       backgroundRepeat="no-repeat"
       backgroundPosition="center"
       backgroundSize="cover"
-      py={8}
+      py={{ xl: 8, base: 4 }}
     >
       <Container maxWidth="container.xl">
         {user ? (
@@ -56,13 +56,15 @@ const LotteriesBuyPage = () => {
             <HStack
               width="full"
               justifyContent={{ md: 'space-between', base: 'flex-start' }}
-              flexWrap={{ md: 'nowrap', base: 'wrap' }}
+              // flexWrap={{ xl: 'nowrap', base: 'wrap' }}
             >
               <Link href="/lotteries">
                 <HStack fontWeight="800">
                   <Icon as={ArrowIcon} height={8} w={8} />
 
-                  <Text fontSize="xl">{`Lottery "6 out of 45"`}</Text>
+                  <Text
+                    fontSize={{ xl: 'xl', base: 'md' }}
+                  >{`Lottery "6 out of 45"`}</Text>
                 </HStack>
               </Link>
               <Flex
@@ -72,7 +74,7 @@ const LotteriesBuyPage = () => {
                 width={{ md: 'auto', base: 'full' }}
               >
                 <HStack>
-                  <Text fontWeight="bold" fontSize="xl">
+                  <Text fontWeight="bold" fontSize={{ xl: 'xl', base: 'md' }}>
                     {` Jackpot
                   ${
                     !isCurrentLotteryLoading
@@ -83,14 +85,19 @@ const LotteriesBuyPage = () => {
                   <Icon as={StarkNetToken} h={6} w={6} />
                 </HStack>
 
-                <Text as="span" variant="gradient_text">
-                  Draw #{currentLottery?.id} ·{' '}
-                  <>
-                    {currentLottery &&
+                <Text
+                  as="span"
+                  variant="gradient_text"
+                  fontSize={{ xl: 'md', base: 'sm' }}
+                >
+                  {`Draw #${currentLottery?.id} · 
+                    ${
+                      currentLottery &&
                       convertTimestampToFormattedDate(
                         currentLottery.drawTime as any
-                      )}
-                  </>
+                      )
+                    }
+                  `}
                 </Text>
                 {currentLottery?.amountOfTickets && (
                   <Text fontWeight="bold">

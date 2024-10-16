@@ -128,12 +128,12 @@ const LotteriesPickNumber = () => {
   };
   return (
     <Box
-      padding={{ md: 8, base: 6 }}
+      padding={{ xl: 8, lg: 6, base: 5 }}
       bg={convertHex('#4C1F5880', 0.5)}
       borderRadius="32px"
       display="flex"
       flexDirection="column"
-      gap={5}
+      gap={{ xl: 5, base: 4 }}
     >
       <HStack justifyContent="space-between">
         <Text variant="title">Ticket</Text>
@@ -158,7 +158,23 @@ const LotteriesPickNumber = () => {
           <CartControl />
         </HStack>
       </HStack>
-      <Text color="note">Pick Your 6 number</Text>
+      <HStack justifyContent="space-between">
+        <Text color="note">Pick Your 6 number</Text>
+        <HStack>
+          {listNumber.map(item => (
+            <Text
+              key={item}
+              variant="gradient_text"
+              fontWeight="extrabold"
+              border="1px solid"
+              borderColor="note"
+              padding={2}
+            >
+              {item}
+            </Text>
+          ))}
+        </HStack>
+      </HStack>
       <Progress
         value={listNumber.length}
         size="sm"
@@ -180,6 +196,7 @@ const LotteriesPickNumber = () => {
                 <Button
                   width={{ md: 'auto', base: 'full' }}
                   variant="buy_ticket"
+                  borderRadius="8px"
                   isLoading={isLoadingMinPrice || isLoading}
                   onClick={async () => {
                     await handleBuyTicket();
