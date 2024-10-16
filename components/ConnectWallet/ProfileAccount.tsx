@@ -14,35 +14,37 @@ import {
   Skeleton,
   Text,
 } from '@chakra-ui/react';
-import {
-  useBalance,
-  useContractRead,
-  useDisconnect,
-} from '@starknet-react/core';
+import { useContractRead, useDisconnect } from '@starknet-react/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import LogoutIcon from '@/public/assets/icons/general/logout.svg';
-import ABIPoint from '@/abi/point.json';
+
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import CopyClipBoard from '../CopyClipBoard/CopyClipBoard';
 import Link from 'next/link';
+import { ABIS } from '@/abis';
+import { useBalanceCustom } from '@/hooks/useBalanceCustom';
 const ProfileAccount = () => {
   const { user } = useAuth();
 
   const { disconnect } = useDisconnect();
-  const { isLoading: isLoadingBalance, data: dataBalance } = useBalance({
+  // const { isLoading: isLoadingBalance, data: dataBalance } = useBalance({
+  //   token: CONTRACT_ADDRESS.strk,
+  //   address: user ? user : '',
+  // });
+  const { isLoading: isLoadingBalance, balance } = useBalanceCustom({
     token: CONTRACT_ADDRESS.strk,
-    address: user ? user : '',
+    address: user,
   });
-
   const dispatch = useDispatch();
 
-  const { data: dataPoint, isLoading: isLoadingPoint } = useContractRead({
-    functionName: 'getUserPoint',
-    abi: ABIPoint,
-    args: [user ? user : ''],
-    address: CONTRACT_ADDRESS.userpoint,
-  });
+  // const { data: dataPoint, isLoading: isLoadingPoint } = useContractRead({
+  //   functionName: 'getUserPoint',
+  //   abi: ABIS.PointABI,
+  //   args: [user ? user : ''],
+  //   address: CONTRACT_ADDRESS.userpoint,
+  //   refetchInterval: 10000,
+  // });
 
   return (
     <>
@@ -57,19 +59,19 @@ const ProfileAccount = () => {
           <HStack width="fit-content" borderRight="2px solid" pr={2}>
             <Text>Your Point:</Text>
             <Box>
-              {!isLoadingPoint ? (
+              {/* {!isLoadingPoint ? (
                 dataPoint?.toString()
               ) : (
                 <Skeleton>00</Skeleton>
-              )}
+              )} */}
             </Box>
           </HStack>
           <HStack width="fit-content">
             <Text>STRK:</Text>
             <Box>
               {!isLoadingBalance ? (
-                dataBalance ? (
-                  parseFloat(dataBalance.formatted).toFixed(2)
+                balance ? (
+                  parseFloat(balance.toString()).toFixed(2)
                 ) : (
                   '0.00'
                 )
@@ -99,18 +101,22 @@ const ProfileAccount = () => {
                 <HStack width="fit-content">
                   <Text>Your Point:</Text>
                   <Box>
-                    {dataPoint && !isLoadingPoint ? (
+                    {/* {dataPoint && !isLoadingPoint ? (
                       dataPoint.toString()
                     ) : (
                       <Skeleton>00</Skeleton>
-                    )}
+                    )} */}
                   </Box>
                 </HStack>
                 <HStack width="fit-content">
                   <Text>STRK:</Text>
                   <Box>
-                    {dataBalance && !isLoadingBalance ? (
-                      parseFloat(dataBalance.formatted).toFixed(2)
+                    {!isLoadingBalance ? (
+                      balance ? (
+                        parseFloat(balance.toString()).toFixed(2)
+                      ) : (
+                        '0.00'
+                      )
                     ) : (
                       <Skeleton>0.00</Skeleton>
                     )}

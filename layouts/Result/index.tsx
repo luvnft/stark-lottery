@@ -5,7 +5,6 @@ import {
 } from '@/utils';
 import { useContractRead } from '@starknet-react/core';
 import React, { useEffect, useState } from 'react';
-import ABILottery from '@/abi/lotteries645.json';
 
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { LotteryProps } from '../Lotteries';
@@ -23,13 +22,14 @@ import {
 } from '@chakra-ui/react';
 import { resultDataFrom1To8 } from '@/config/dataResultContract';
 import { convertHex } from '@/utils/convertHex';
+import { ABIS } from '@/abis';
 const ResultPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const [listResult, setListResult] = useState<any>(resultDataFrom1To8);
 
   const { data: resultData, isLoading: isLoadingResultData } = useContractRead({
     functionName: 'getLotteryByIds',
-    abi: ABILottery,
+    abi: ABIS.LotteryABI,
     args: [
       [
         ...Array.from(
@@ -48,7 +48,7 @@ const ResultPage = () => {
   const { data: currentLotteryDataNew, isLoading: isCurrentLotteryLoadingNew } =
     useContractRead({
       functionName: 'getCurrentLottery',
-      abi: ABILottery,
+      abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,
     });
 

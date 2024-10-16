@@ -15,7 +15,7 @@ import {
 import React, { useEffect, useMemo, useState } from 'react';
 
 import PleaseConnectWallet from './PleaseConnectWallet';
-import ABITicket from '@/abi/ticket.json';
+
 import { useContract } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { convertBigIntsToNumbers } from '@/utils';
@@ -24,6 +24,7 @@ import EmptyIcon from '@/public/assets/arts/empty.svg';
 import { useAuth } from '@/hooks/useAuth';
 import RefreshIcon from '@/public/assets/icons/general/refresh.svg';
 import { convertHex } from '@/utils/convertHex';
+import { ABIS } from '@/abis';
 
 interface TicketUserProps {
   lotteryAddress: string;
@@ -55,7 +56,7 @@ const MyTicketPage = () => {
   };
 
   const { contract: contractTicket } = useContract({
-    abi: ABITicket,
+    abi: ABIS.TicketABI,
     address: CONTRACT_ADDRESS.ticket,
   });
   const getDataLottery = async () => {

@@ -17,7 +17,7 @@ import {
 
 import React from 'react';
 import ConnectWallet from '.';
-import ABIPoint from '@/abi/point.json';
+
 import LogoutIcon from '@/public/assets/icons/general/logout.svg';
 import {
   useBalance,
@@ -30,6 +30,7 @@ import { ellipseMiddle } from '@/utils';
 import CopyClipBoard from '../CopyClipBoard/CopyClipBoard';
 import Link from 'next/link';
 import { logout, setUserLoading } from '@/redux/user/user-slice';
+import { ABIS } from '@/abis';
 
 const ProfileDrawer = () => {
   const { user } = useAuth();
@@ -45,7 +46,7 @@ const ProfileDrawer = () => {
 
   const { data: dataPoint, isLoading: isLoadingPoint } = useContractRead({
     functionName: 'getUserPoint',
-    abi: ABIPoint,
+    abi: ABIS.PointABI,
     args: [user ? user : ''],
     address: CONTRACT_ADDRESS.userpoint,
     watch: true,

@@ -7,7 +7,7 @@ import LotteriesPickNumber from './LotteriesPickNumber';
 import StarkNetToken from '@/public/assets/icons/general/stark_token.svg';
 import ArrowIcon from '@/public/assets/icons/general/arrow.svg';
 import Link from 'next/link';
-import ABILottery from '@/abi/lotteries645.json';
+
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 
 import PleaseConnectWallet from '../MyTicket/PleaseConnectWallet';
@@ -18,6 +18,7 @@ import {
   convertTimestampToFormattedDate,
 } from '@/utils';
 import { useAuth } from '@/hooks/useAuth';
+import { ABIS } from '@/abis';
 
 const LotteriesBuyPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
@@ -26,7 +27,7 @@ const LotteriesBuyPage = () => {
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
     useContractRead({
       functionName: 'getCurrentLottery',
-      abi: ABILottery,
+      abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,
       watch: true,
     });

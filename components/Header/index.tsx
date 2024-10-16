@@ -69,7 +69,7 @@ const Header = () => {
               display: { md: 'block', base: 'none' },
             }}
           >
-            {user ? <ProfileAccount /> : <ConnectWallet />}
+            {address ? <ProfileAccount /> : <ConnectWallet />}
           </Box>
 
           <HStack

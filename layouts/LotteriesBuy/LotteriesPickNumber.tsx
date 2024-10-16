@@ -14,7 +14,6 @@ import ClearIcon from '@/public/assets/icons/general/clear.svg';
 import RandomIcon from '@/public/assets/icons/general/random.svg';
 import CartAdd from '@/public/assets/icons/general/add_cart.svg';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
-import ABIGovernance from '@/abi/governance.json';
 
 import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
@@ -26,6 +25,7 @@ import { sortArrayAscending } from '@/utils';
 import { useCart } from '@/hooks/useCart';
 import LotteriesRandomNumber from './LotteriesRandomNumber';
 import { convertHex } from '@/utils/convertHex';
+import { ABIS } from '@/abis';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +76,7 @@ const LotteriesPickNumber = () => {
   const { data: minPriceTicketData, isLoading: isLoadingMinPrice } =
     useContractRead({
       functionName: 'getMinimumPrice',
-      abi: ABIGovernance,
+      abi: ABIS.GovernanceABI,
       args: [CONTRACT_ADDRESS.lottery],
       address: CONTRACT_ADDRESS.governance,
     });

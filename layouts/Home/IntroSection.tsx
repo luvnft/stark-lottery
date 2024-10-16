@@ -8,17 +8,19 @@ import { convertBigIntsToNumbers } from '@/utils';
 import { useContractRead } from '@starknet-react/core';
 import { LotteryProps } from '../Lotteries';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
-import ABILottery from '@/abi/lotteries645.json';
+
 import TimeReminder from '@/components/TimeReminder';
 import { convertHex } from '@/utils/convertHex';
 import Image from 'next/image';
+import { ABIS } from '@/abis';
 const IntroSection = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
     useContractRead({
       functionName: 'getCurrentLottery',
-      abi: ABILottery,
+      abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,
+      refetchInterval: 1000,
     });
   useEffect(() => {
     if (!isCurrentLotteryLoading && currentLotteryData) {

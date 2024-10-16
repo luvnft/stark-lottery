@@ -11,7 +11,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
-import ABILottery from '@/abi/lotteries645.json';
+
 import {
   useContract,
   useContractRead,
@@ -22,6 +22,7 @@ import {
   convertBigIntsToNumbers,
   convertTimestampToFormattedDate,
 } from '@/utils';
+import { ABIS } from '@/abis';
 
 interface IProps {
   lotteryId: number;
@@ -32,12 +33,12 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
   const [currentData, setCurrentData] = useState<any>();
   const { data: dataLottery, isLoading: isLoadingLottery } = useContractRead({
     functionName: 'getLotteryById',
-    abi: ABILottery,
+    abi: ABIS.LotteryABI,
     args: [lotteryId],
     address: CONTRACT_ADDRESS.lottery,
   });
   const { contract: contractLottery } = useContract({
-    abi: ABILottery,
+    abi: ABIS.LotteryABI,
     address: CONTRACT_ADDRESS.lottery,
   });
   const callClaim = useMemo(() => {

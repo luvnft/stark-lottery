@@ -16,7 +16,7 @@ import Image from 'next/image';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import LineIcon from '@/public/assets/icons/general/line.svg';
 import { useContractRead } from '@starknet-react/core';
-import ABILottery from '@/abi/lotteries645.json';
+
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import {
   convertBigIntsToNumbers,
@@ -24,6 +24,7 @@ import {
 } from '@/utils';
 import { LOTTERY } from '@/config/value';
 import { convertHex } from '@/utils/convertHex';
+import { ABIS } from '@/abis';
 export interface LotteryProps {
   amountOfTickets: number;
   drawTime: number;
@@ -41,7 +42,7 @@ const Lotteries = () => {
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
     useContractRead({
       functionName: 'getCurrentLottery',
-      abi: ABILottery,
+      abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,
       watch: true,
     });

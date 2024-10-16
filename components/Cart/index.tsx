@@ -26,11 +26,12 @@ import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import EmptyCart from '@/public/assets/icons/general/empty_cart.svg';
 
 import { useAccount, useContractRead } from '@starknet-react/core';
-import ABIGovernance from '@/abi/governance.json';
+
 import { Call, CallData, uint256 } from 'starknet';
 
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { LOTTERY } from '@/config/value';
+import { ABIS } from '@/abis';
 const CartControl = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { cart, clearTicketCart, updateTicketsCart } = useCart();
@@ -84,7 +85,7 @@ const CartControl = () => {
   const { data: minPriceTicketData, isLoading: isLoadingMinPrice } =
     useContractRead({
       functionName: 'getMinimumPrice',
-      abi: ABIGovernance,
+      abi: ABIS.GovernanceABI,
       args: [CONTRACT_ADDRESS.lottery],
       address: CONTRACT_ADDRESS.governance,
     });
