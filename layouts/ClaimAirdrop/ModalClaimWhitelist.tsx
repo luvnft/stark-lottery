@@ -15,7 +15,6 @@ import React, { useState } from 'react';
 import LotteriesRandomNumber from '../LotteriesBuy/LotteriesRandomNumber';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
 import RandomIcon from '@/public/assets/icons/general/random.svg';
-import ABIGovernance from '@/abi/governance.json';
 
 import { useAccount, useContractRead } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
@@ -25,6 +24,7 @@ import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import { formattedContractAddress, sortArrayAscending } from '@/utils';
 import * as Merkle from 'starknet-merkle-tree';
 import airDropJson from '@/data/whitelist.json';
+import { ABIS } from '@/abis';
 
 interface IProps {
   isOpen: boolean;
@@ -71,7 +71,7 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
   const { data: minPriceTicketData, isLoading: isLoadingMinPrice } =
     useContractRead({
       functionName: 'getMinimumPrice',
-      abi: ABIGovernance,
+      abi: ABIS.GovernanceABI,
       args: [CONTRACT_ADDRESS.lottery],
       address: CONTRACT_ADDRESS.governance,
       watch: true,
