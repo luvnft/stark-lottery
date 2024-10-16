@@ -93,6 +93,7 @@ const IntroSection = () => {
               src="/assets/arts/ticket/ticket_win.svg"
               width={200}
               height={200}
+              priority
             />
           </Box>
 
