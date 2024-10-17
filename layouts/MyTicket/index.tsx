@@ -25,6 +25,7 @@ import { useAuth } from '@/hooks/useAuth';
 import RefreshIcon from '@/public/assets/icons/general/refresh.svg';
 import { convertHex } from '@/utils/convertHex';
 import { ABIS } from '@/abis';
+import { Abi } from 'starknet';
 
 interface TicketUserProps {
   lotteryAddress: string;
@@ -56,7 +57,7 @@ const MyTicketPage = () => {
   };
 
   const { contract: contractTicket } = useContract({
-    abi: ABIS.TicketABI,
+    abi: ABIS.TicketABI as Abi,
     address: CONTRACT_ADDRESS.ticket,
   });
   const getDataLottery = async () => {

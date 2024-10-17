@@ -12,7 +12,7 @@ import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 
 import PleaseConnectWallet from '../MyTicket/PleaseConnectWallet';
 import { LotteryProps } from '../Lotteries';
-import { useContractRead } from '@starknet-react/core';
+import { useReadContract } from '@starknet-react/core';
 import {
   convertBigIntsToNumbers,
   convertTimestampToFormattedDate,
@@ -25,7 +25,7 @@ const LotteriesBuyPage = () => {
 
   const { user } = useAuth();
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
-    useContractRead({
+    useReadContract({
       functionName: 'getCurrentLottery',
       abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,

@@ -16,7 +16,7 @@ import LotteriesRandomNumber from '../LotteriesBuy/LotteriesRandomNumber';
 import ClearIcon from '@/public/assets/icons/general/clear.svg';
 import RandomIcon from '@/public/assets/icons/general/random.svg';
 
-import { useAccount, useContractRead } from '@starknet-react/core';
+import { useAccount, useReadContract } from '@starknet-react/core';
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import { CallData } from 'starknet';
 import { LOTTERY } from '@/config/value';
@@ -69,7 +69,7 @@ const ModalClaimWhitelist = ({ isOpen, onClose }: IProps) => {
   }
 
   const { data: minPriceTicketData, isLoading: isLoadingMinPrice } =
-    useContractRead({
+    useReadContract({
       functionName: 'getMinimumPrice',
       abi: ABIS.GovernanceABI,
       args: [CONTRACT_ADDRESS.lottery],

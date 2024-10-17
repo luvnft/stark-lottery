@@ -78,8 +78,8 @@ const Header = () => {
             }}
             gap={6}
           >
-            <ProfileDrawer />
-            <PageDrawer />
+            {/* <ProfileDrawer />
+            <PageDrawer /> */}
           </HStack>
         </HStack>
       </Container>

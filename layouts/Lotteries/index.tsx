@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import StarknetIcon from '@/public/assets/icons/general/stark_token.svg';
 import LineIcon from '@/public/assets/icons/general/line.svg';
-import { useContractRead } from '@starknet-react/core';
+import { useReadContract } from '@starknet-react/core';
 
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
 import {
@@ -40,7 +40,7 @@ export interface LotteryProps {
 const Lotteries = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const { data: currentLotteryData, isLoading: isCurrentLotteryLoading } =
-    useContractRead({
+    useReadContract({
       functionName: 'getCurrentLottery',
       abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,

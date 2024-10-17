@@ -3,7 +3,7 @@ import {
   convertBigIntsToNumbers,
   convertTimestampToFormattedDate,
 } from '@/utils';
-import { useContractRead } from '@starknet-react/core';
+import { useReadContract } from '@starknet-react/core';
 import React, { useEffect, useState } from 'react';
 
 import { CONTRACT_ADDRESS } from '@/config/contractAddress';
@@ -27,7 +27,7 @@ const ResultPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
   const [listResult, setListResult] = useState<any>(resultDataFrom1To8);
 
-  const { data: resultData, isLoading: isLoadingResultData } = useContractRead({
+  const { data: resultData, isLoading: isLoadingResultData } = useReadContract({
     functionName: 'getLotteryByIds',
     abi: ABIS.LotteryABI,
     args: [
@@ -46,9 +46,10 @@ const ResultPage = () => {
   });
 
   const { data: currentLotteryDataNew, isLoading: isCurrentLotteryLoadingNew } =
-    useContractRead({
+    useReadContract({
       functionName: 'getCurrentLottery',
       abi: ABIS.LotteryABI,
+      args: [],
       address: CONTRACT_ADDRESS.lottery,
     });
 

@@ -14,7 +14,7 @@ import {
   Skeleton,
   Text,
 } from '@chakra-ui/react';
-import { useContractRead, useDisconnect } from '@starknet-react/core';
+import { useReadContract, useDisconnect } from '@starknet-react/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import LogoutIcon from '@/public/assets/icons/general/logout.svg';
@@ -38,13 +38,13 @@ const ProfileAccount = () => {
   });
   const dispatch = useDispatch();
 
-  // const { data: dataPoint, isLoading: isLoadingPoint } = useContractRead({
-  //   functionName: 'getUserPoint',
-  //   abi: ABIS.PointABI,
-  //   args: [user ? user : ''],
-  //   address: CONTRACT_ADDRESS.userpoint,
-  //   refetchInterval: 10000,
-  // });
+  const { data: dataPoint, isLoading: isLoadingPoint } = useReadContract({
+    functionName: 'getUserPoint',
+    abi: ABIS.PointABI,
+    args: [user ? user : ''],
+    address: CONTRACT_ADDRESS.userpoint,
+    refetchInterval: 10000,
+  });
 
   return (
     <>
