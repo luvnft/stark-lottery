@@ -45,6 +45,7 @@ const Lotteries = () => {
       abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,
       watch: true,
+      args: [],
     });
   useEffect(() => {
     if (!isCurrentLotteryLoading && currentLotteryData) {

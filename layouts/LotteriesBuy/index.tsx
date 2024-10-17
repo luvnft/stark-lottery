@@ -29,6 +29,7 @@ const LotteriesBuyPage = () => {
       functionName: 'getCurrentLottery',
       abi: ABIS.LotteryABI,
       address: CONTRACT_ADDRESS.lottery,
+      args: [],
       watch: true,
     });
   useEffect(() => {
