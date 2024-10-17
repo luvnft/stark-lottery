@@ -2,10 +2,12 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   HStack,
   Icon,
   IconButton,
   Progress,
+  Skeleton,
   Text,
   useToast,
 } from '@chakra-ui/react';
@@ -29,7 +31,7 @@ import { ABIS } from '@/abis';
 const LotteriesPickNumber = () => {
   const [listNumber, setListNumber] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { address, account } = useAccount();
+  const { address, account, isConnecting, isReconnecting } = useAccount();
   const { addTicketToCart } = useCart();
 
   const toast = useToast({
@@ -129,101 +131,103 @@ const LotteriesPickNumber = () => {
   return (
     <Box
       padding={{ xl: 8, lg: 6, base: 5 }}
-      bg={convertHex('#4C1F5880', 0.5)}
+      // bg={convertHex('#4C1F5880', 0.5)}
+      bg={{ lg: convertHex('#4C1F5880', 0.5), base: '#2C0A47' }}
       borderRadius="32px"
-      display="flex"
-      flexDirection="column"
-      gap={{ xl: 5, base: 4 }}
     >
-      <HStack justifyContent="space-between">
-        <Text variant="title">Ticket</Text>
-        <HStack gap={4}>
-          <IconButton
-            onClick={async () => {
-              const value = getRandomNumbers();
-              await setListNumber(() => value);
-            }}
-            variant="icon_btn"
-            icon={<Icon as={RandomIcon} />}
-            aria-label=""
-          />
-          <IconButton
-            variant="icon_btn"
-            icon={<Icon as={ClearIcon} />}
-            aria-label=""
-            onClick={() => {
-              setListNumber([]);
-            }}
-          />
-          <CartControl />
+      <Flex
+        flexDirection="column"
+        gap={{ xl: 5, base: 4 }}
+        mb={6}
+        position={{ lg: 'relative', base: 'sticky' }}
+        top={{ lg: 0, base: '100px' }}
+        zIndex={1}
+        bg={{ lg: 'none', base: '#2C0A47' }}
+      >
+        <HStack justifyContent="space-between">
+          <Text variant="title">Ticket</Text>
+          <HStack gap={4}>
+            <IconButton
+              onClick={async () => {
+                const value = getRandomNumbers();
+                await setListNumber(() => value);
+              }}
+              variant="icon_btn"
+              icon={<Icon as={RandomIcon} />}
+              aria-label=""
+            />
+            <IconButton
+              variant="icon_btn"
+              icon={<Icon as={ClearIcon} />}
+              aria-label=""
+              onClick={() => {
+                setListNumber([]);
+              }}
+            />
+            <CartControl />
+          </HStack>
         </HStack>
-      </HStack>
-      <HStack justifyContent="space-between">
-        <Text color="note">Pick Your 6 number</Text>
-        <HStack>
-          {listNumber.map(item => (
-            <Text
-              key={item}
-              variant="gradient_text"
-              fontWeight="extrabold"
-              border="1px solid"
-              borderColor="note"
-              padding={2}
-            >
-              {item}
-            </Text>
-          ))}
+        <HStack justifyContent="space-between">
+          <Text color="note">Pick Your 6 number</Text>
+          <HStack>
+            {listNumber.map(item => (
+              <Text
+                key={item}
+                variant="gradient_text"
+                fontWeight="extrabold"
+                border="1px solid"
+                borderColor="note"
+                padding={2}
+              >
+                {item}
+              </Text>
+            ))}
+          </HStack>
         </HStack>
-      </HStack>
-      <Progress
-        value={listNumber.length}
-        size="sm"
-        variant="pick_progress"
-        bg="#2C0A47"
-        max={6}
-        borderRadius="2xl"
-      />
+        <Progress
+          value={listNumber.length}
+          size="sm"
+          variant="pick_progress"
+          bg="white"
+          max={6}
+          borderRadius="2xl"
+        />
+      </Flex>
       <LotteriesRandomNumber
         listNumber={listNumber}
         handleSelectNumber={handleSelectNumber}
       />
 
       <Center>
-        {address ? (
-          <>
-            {listNumber.length == 6 && address && (
-              <HStack gap={2} flexWrap="wrap">
-                <Button
-                  width={{ md: 'auto', base: 'full' }}
-                  variant="buy_ticket"
-                  borderRadius="8px"
-                  isLoading={isLoadingMinPrice || isLoading}
-                  onClick={async () => {
-                    await handleBuyTicket();
-                  }}
-                  rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
-                >
-                  Buy Ticket | {LOTTERY.price_ticket}
-                </Button>
-                <Button
-                  variant="primary"
-                  minH={12}
-                  width={{ md: 'auto', base: 'full' }}
-                  borderRadius="8px"
-                  leftIcon={<Icon as={CartAdd} h={5} w={5} color="white" />}
-                  onClick={async () => {
-                    const newSortData = sortArrayAscending(listNumber);
-                    await addTicketToCart(newSortData);
-                    setListNumber([]);
-                  }}
-                >
-                  Add To Cart
-                </Button>
-              </HStack>
-            )}
-          </>
-        ) : (
-          <Box fontWeight="bold">Plese Connect To Buy Ticket</Box>
+        {listNumber.length == 6 && address && (
+          <HStack gap={2} flexWrap="wrap">
+            <Button
+              width={{ md: 'auto', base: 'full' }}
+              variant="buy_ticket"
+              borderRadius="8px"
+              isLoading={isLoadingMinPrice || isLoading}
+              onClick={async () => {
+                await handleBuyTicket();
+              }}
+              rightIcon={<Icon as={StarknetIcon} h={5} w={5} />}
+            >
+              Buy Ticket | {LOTTERY.price_ticket}
+            </Button>
+            <Button
+              variant="primary"
+              minH={12}
+              width={{ md: 'auto', base: 'full' }}
+              borderRadius="8px"
+              leftIcon={<Icon as={CartAdd} h={5} w={5} color="white" />}
+              onClick={async () => {
+                const newSortData = sortArrayAscending(listNumber);
+                await addTicketToCart(newSortData);
+                setListNumber([]);
+              }}
+            >
+              Add To Cart
+            </Button>
+          </HStack>
         )}
       </Center>
     </Box>

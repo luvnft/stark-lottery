@@ -48,6 +48,7 @@ const Header = () => {
       borderBottom="0.064rem solid"
       borderBottomColor="primary.game.300"
       zIndex={9}
+      height="100px"
     >
       <Container maxWidth="container.xl">
         <HStack justifyContent="space-between" py={{ md: 6, base: 4 }}>
@@ -66,7 +67,7 @@ const Header = () => {
 
           <Box
             sx={{
-              display: { md: 'block', base: 'none' },
+              display: { lg: 'block', base: 'none' },
             }}
           >
             {address ? <ProfileAccount /> : <ConnectWallet />}

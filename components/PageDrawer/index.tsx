@@ -1,8 +1,10 @@
 import {
+  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
+  DrawerFooter,
   DrawerOverlay,
   Icon,
   IconButton,
@@ -42,6 +44,16 @@ const PageDrawer = () => {
               }}
             />
           </DrawerBody>
+          <DrawerFooter>
+            <Button
+              width="full"
+              variant="outline"
+              color="white"
+              onClick={onClose}
+            >
+              Close
+            </Button>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

@@ -49,7 +49,7 @@ const IntroSection = () => {
           style={{
             pt: 8,
             px: { lg: 24, md: 12, base: 4 },
-            width: { lg: '50%', md: '400px', base: '350px' },
+            width: { lg: '50%', md: '400px', base: '95%' },
             _hover: {},
           }}
         >

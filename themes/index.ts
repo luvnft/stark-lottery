@@ -202,7 +202,7 @@ export const Menu: ComponentStyleConfig = {
         py: '4',
         borderRadius: 'xl',
         border: 'none',
-        bg: 'card',
+        bg: '#2C0A47',
       },
       item: {
         bg: 'inherit',
