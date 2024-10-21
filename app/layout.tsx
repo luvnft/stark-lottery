@@ -7,7 +7,7 @@ const nutino = Nunito_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'StarkPot | StarkArcade Hub',
-  metadataBase: new URL('https://lottery-demo.starkarcade.com'),
+  metadataBase: new URL('https://starkpot.starkarcade.com'),
   description:
     'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
   icons: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: 'en_US',
-    url: 'https://lottery-demo.starkarcade.com',
+    url: 'https://starkpot.starkarcade.com',
     type: 'website',
     emails: 'karasbuilder@gmail.com',
     siteName: 'StarkPot',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     description:
       'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
     images: {
-      url: 'https://lottery-demo.starkarcade.com/assets/banner/banner.png',
+      url: 'https://starkpot.starkarcade.com/assets/banner/banner.png',
       alt: 'Starkpot Banner',
     },
 
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
     creator: '@starkarcade',
     site: '@starkarcade',
     players: {
-      playerUrl: 'https://lottery-demo.starkarcade.com',
-      streamUrl: 'https://lottery-demo.starkarcade.com',
+      playerUrl: 'https://starkpot.starkarcade.com',
+      streamUrl: 'https://starkpot.starkarcade.com',
       width: 600,
       height: 600,
     },
