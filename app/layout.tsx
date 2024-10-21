@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'StarkPot | StarkArcade Hub',
   metadataBase: new URL('https://starkpot.starkarcade.com'),
   description:
-    'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
+    'Pioneer on-chain prediction game on Starknet. Powered by STARK Arcade.',
   icons: {
     icon: Favicon.src,
     shortcut: Favicon.src,
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'StarkPot | StarkArcade Hub',
     description:
-      'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
+      'Pioneer on-chain prediction game on Starknet. Powered by STARK Arcade.',
     images: [
       {
         url: './public/assets/banner/banner.png',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'StarkPot | StarkArcade Hub',
     description:
-      'Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet',
+      'Pioneer on-chain prediction game on Starknet. Powered by STARK Arcade.',
     images: {
       url: 'https://starkpot.starkarcade.com/assets/banner/banner.png',
       alt: 'Starkpot Banner',
