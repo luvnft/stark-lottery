@@ -56,7 +56,7 @@ const ClaimResult = ({ lotteryId, pickedNumber, ticketId }: IProps) => {
     }
   }, [isLoadingLottery]);
   const { send, error } = useSendTransaction({
-    calls: callClaim,
+    calls: [callClaim],
   });
   const { isOpen, onClose, onOpen } = useDisclosure();
   const toast = useToast({

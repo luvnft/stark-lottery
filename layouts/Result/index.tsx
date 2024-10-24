@@ -20,24 +20,35 @@ import {
   Spinner,
   Text,
 } from '@chakra-ui/react';
-import { resultDataFrom1To8 } from '@/config/dataResultContract';
+// import { resultDataFrom1To8 } from '@/config/dataResultContract';
 import { convertHex } from '@/utils/convertHex';
 import { ABIS } from '@/abis';
 const ResultPage = () => {
   const [currentLottery, setCurrentLottery] = useState<LotteryProps>();
-  const [listResult, setListResult] = useState<any>(resultDataFrom1To8);
+  const [listResult, setListResult] = useState<any>();
 
   const { data: resultData, isLoading: isLoadingResultData } = useReadContract({
     functionName: 'getLotteryByIds',
     abi: ABIS.LotteryABI,
     args: [
+      // [
+      //   ...Array.from(
+      //     {
+      //       length: currentLottery ? currentLottery.id - 8 : 0,
+      //     },
+      //     function (_, k) {
+      //       return k + 8;
+      //     }
+      //   ),
+      // ],
+
       [
         ...Array.from(
           {
-            length: currentLottery ? currentLottery.id - 8 : 0,
+            length: currentLottery ? currentLottery.id : 0,
           },
           function (_, k) {
-            return k + 8;
+            return k;
           }
         ),
       ],
@@ -99,7 +110,7 @@ const ResultPage = () => {
                   {listResult
                     .map((data: any) => (
                       <>
-                        {data.id != 1 && (
+                        {data.id != 0 && (
                           <HStack
                             key={data.id}
                             minH="100px"

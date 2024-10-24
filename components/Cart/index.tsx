@@ -41,7 +41,6 @@ const CartControl = () => {
 
   const [listSelect, setListSelect] = useState<number[][]>([]);
   const toast = useToast({
-    position: 'top-right',
     duration: 6000,
   });
   function isSelected(arrayCheck: number[][], numbers: number[]) {
@@ -123,6 +122,8 @@ const CartControl = () => {
       toast({
         status: 'success',
         description: `You  Buy success Ticket !`,
+        duration: 6000,
+        isClosable: true,
       });
 
       handleClearCart();
@@ -163,7 +164,7 @@ const CartControl = () => {
       />
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent background="primary.game.300">
+        <DrawerContent background="primary.game.300" py={8}>
           <DrawerCloseButton />
           <DrawerHeader>
             <Text>
@@ -172,6 +173,9 @@ const CartControl = () => {
 
             {cart.length > 0 && (
               <Button
+                variant="outline"
+                color="black"
+                bg="gradient.100"
                 onClick={handleSelectAll}
               >{`${listSelect.length == cart.length ? 'Deselect All' : 'Select All'}`}</Button>
             )}
@@ -211,7 +215,6 @@ const CartControl = () => {
           <DrawerFooter as={Flex} flexDirection="column" gap={4}>
             <Button
               mr={3}
-              color="white"
               width="full"
               variant="buy_ticket"
               onClick={handleBuyTicket}
@@ -225,7 +228,7 @@ const CartControl = () => {
               width="full"
               variant="primary"
               minH={12}
-              bg="primary.game.100"
+              bg="primary.gray.100"
               onClick={handleClearCart}
               isDisabled={listSelect.length == 0}
             >

@@ -12,7 +12,7 @@ const CartItem = ({ listNum }: IProps) => {
           fontWeight="800"
           sx={{
             backgroundClip: 'text',
-            background: 'linear-gradient(180deg, #0575FA 0%, #11E6F9 100%)',
+            background: 'gradient.100',
             WebkitBackgroundClip: 'text',
           }}
         >
